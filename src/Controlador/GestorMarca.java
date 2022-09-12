@@ -37,7 +37,6 @@ public class GestorMarca implements ActionListener {
         this.vista.btnModificar.addActionListener(this);
         this.vista.btnActualizar.addActionListener(this);
         this.vista.btnEliminar.addActionListener(this);
-        buscarMarcas(vista.tablaMarca);
     }
 
     @Override
@@ -76,7 +75,7 @@ public class GestorMarca implements ActionListener {
                 vista.txtname.setText(name);
                 vista.txtpais.setText(pais);
                 vista.txtobs.setText(obs);
-                
+
             }
         }
         if (e.getSource() == vista.btnActualizar) {

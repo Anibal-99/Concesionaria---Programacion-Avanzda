@@ -8,11 +8,11 @@ import javax.swing.JOptionPane;
 
 public class Conexion {
     private final String host="127.0.0.1";
-    private final String port="5432";
+    private final String port="5454";
     private final String db="postgres";
-    private final String password = "carajomierda";
-    private final String user = "anita";
-    
+    private final String password = "postgres";
+    private final String user = "postgres";
+
     Connection con;
     public Connection getConection(){
         try{
