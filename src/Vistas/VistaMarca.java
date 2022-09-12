@@ -24,14 +24,14 @@ public class VistaMarca extends javax.swing.JFrame {
     }
 
     public void inicializar() throws SQLException{
-        //SE CREA UNA INSTANCIA DE LA VISTA
-        VistaMarca v = new VistaMarca();
-        //SE CREA UNA INSTANCIA DEL CONTROLADOR
-        GestorMarca con = new GestorMarca(v);
-        //SE HACE VISIBLE LA VISTA
-        v.setVisible(true);
-        //SE DEFINE LA UBICACION DE LA VISTA
-        v.setLocationRelativeTo(null);
+         VistaMarca v=new VistaMarca();
+                try {
+                    GestorMarca con = new GestorMarca(v);
+                } catch (SQLException ex) {
+                    Logger.getLogger(VistaMarca.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                    v.setVisible(true);
+        
     }
     /** 
      * This method is called from within the constructor to initialize the form.
@@ -72,7 +72,7 @@ public class VistaMarca extends javax.swing.JFrame {
             .addGap(0, 300, Short.MAX_VALUE)
         );
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos marca"));
@@ -111,6 +111,7 @@ public class VistaMarca extends javax.swing.JFrame {
         jLabel1.setText("Id");
 
         txtId.setEditable(false);
+        txtId.setEnabled(false);
         txtId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtIdActionPerformed(evt);

@@ -4,6 +4,10 @@
  */
 package Vistas;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Anibal-99
@@ -110,7 +114,12 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
 
     private void menuMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuMarcaActionPerformed
-
+        VistaMarca vm =new VistaMarca();
+        try {
+            vm.inicializar();
+        } catch (SQLException ex) {
+            Logger.getLogger(VistaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_menuMarcaActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -148,6 +157,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new VistaPrincipal().setVisible(true);
+                
             }
         });
     }

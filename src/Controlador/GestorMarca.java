@@ -63,6 +63,7 @@ public class GestorMarca implements ActionListener {
             nuevo();
         }
         if (e.getSource() == vista.btnModificar) {
+            vista.txtId.setEnabled(false);
             int fila = vista.tablaMarca.getSelectedRow();
             if (fila == -1) {
                 JOptionPane.showMessageDialog(vista, "Debe seleccionar una fila");
@@ -75,6 +76,7 @@ public class GestorMarca implements ActionListener {
                 vista.txtname.setText(name);
                 vista.txtpais.setText(pais);
                 vista.txtobs.setText(obs);
+                
             }
         }
         if (e.getSource() == vista.btnActualizar) {
