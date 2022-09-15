@@ -37,7 +37,7 @@ public class GestorMarca implements ActionListener {
         this.vista.btnModificar.addActionListener(this);
         this.vista.btnActualizar.addActionListener(this);
         this.vista.btnEliminar.addActionListener(this);
-        buscarMarcas(vista.tablaMarca);
+        this.vista.btnFiltrar.addActionListener(this);
     }
 
     @Override
@@ -76,7 +76,7 @@ public class GestorMarca implements ActionListener {
                 vista.txtname.setText(name);
                 vista.txtpais.setText(pais);
                 vista.txtobs.setText(obs);
-                
+
             }
         }
         if (e.getSource() == vista.btnActualizar) {
@@ -98,6 +98,14 @@ public class GestorMarca implements ActionListener {
                 Logger.getLogger(GestorMarca.class.getName()).log(Level.SEVERE, null, ex);
             }
             nuevo();
+        }
+        if (e.getSource() == vista.btnFiltrar) {
+            limpiarTabla();
+            try {
+                this.filtrarMarca(vista.tablaMarca);
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorMarca.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
@@ -183,13 +191,34 @@ public class GestorMarca implements ActionListener {
             object[3] = lista.get(i).getObs();
             modelo.addRow(object);
         }
-        vista.tablaMarca.setModel(modelo);
+        //vista.tablaMarca.setModel(modelo);
     }
 
     void limpiarTabla() {
         for (int i = 0; i < vista.tablaMarca.getRowCount(); i++) {
             modelo.removeRow(i);
             i = i - 1;
+        }
+    }
+
+    public void filtrarMarca(JTable tablaMarca) throws SQLException {
+        // Esto es para que se ejecute la tabla al momento de iniciar el programa
+        modelo = (DefaultTableModel) tablaMarca.getModel();
+        String name = this.vista.txtFiltrar.getText();
+       // TextPrompt placeholder = new TextPrompt("Apellido Paterno", this.vista.txtBuscar);
+        //placeholder.changeAlpha(0.75f);
+        //placeholder.changeStyle(Font.ITALIC);
+
+        List<Marca> lista = mDao.filtrarMarcas(name);
+        Object[] object = new Object[4];
+
+        for (int i = 0; i < lista.size(); i++) {
+            //System.out.println(lista.get(i).getId());
+            object[0] = lista.get(i).getId();
+            object[1] = lista.get(i).getName();
+            object[2] = lista.get(i).getPais();
+            object[3] = lista.get(i).getObs();
+            modelo.addRow(object);
         }
     }
 }

@@ -10,7 +10,7 @@ public class Conexion {
     private final String host="127.0.0.1";
     private final String port="5432";
     private final String db="postgres";
-    private final String password = "carajomierda";
+    private final String password = "postgres";
     private final String user = "anita";
     
     Connection con;
