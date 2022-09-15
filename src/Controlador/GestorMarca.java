@@ -10,6 +10,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -74,7 +75,7 @@ public class GestorMarca implements ActionListener {
                 String obs = (String) vista.tablaMarca.getValueAt(fila, 3);
                 vista.txtId.setText("" + id);
                 vista.txtname.setText(name);
-                vista.txtpais.setText(pais);
+                //vista.txtpais.setText(pais);
                 vista.txtobs.setText(obs);
 
             }
@@ -127,7 +128,7 @@ public class GestorMarca implements ActionListener {
     void nuevo() {
         vista.txtId.setText("");
         vista.txtname.setText("");
-        vista.txtpais.setText("");
+        //vista.txtpais.setText("");
         vista.txtobs.setText("");
     }
 
@@ -137,11 +138,11 @@ public class GestorMarca implements ActionListener {
         } else {
             int id = Integer.parseInt(vista.txtId.getText());
             String name = this.vista.txtname.getText();
-            String pais = this.vista.txtpais.getText();
+            //String pais = this.vista.txtpais.getText();
             String obs = this.vista.txtobs.getText();
             m.setId(id);
             m.setName(name);
-            m.setPais(pais);
+           // m.setPais(pais);
             m.setObs(obs);
             int modded = mDao.modificar(m);
             if (modded == 1) {
@@ -158,10 +159,10 @@ public class GestorMarca implements ActionListener {
     public void agregar() {
         //Conexion conectar = new Conexion();
         String name = this.vista.txtname.getText();
-        String pais = this.vista.txtpais.getText();
+        //String pais = this.vista.txtpais.getText();
         String obs = this.vista.txtobs.getText();
         m.setName(name);
-        m.setPais(pais);
+        //m.setPais(pais);
         m.setObs(obs);
 
         if (this.vista.txtname.getText().isEmpty()) {
@@ -220,5 +221,15 @@ public class GestorMarca implements ActionListener {
             object[3] = lista.get(i).getObs();
             modelo.addRow(object);
         }
+    }
+    public void llenarCombo() throws SQLException{
+        PaisDao paises = new PaisDao();
+        ArrayList<Pais> listarPaises = paises.getPais();
+       // System.out.println(listarPaises);
+        vista.cbxCombo.removeAllItems();
+        
+        for (int i=0; i<listarPaises.size(); i++){
+            vista.cbxCombo.addItem(listarPaises.get(i).getName());
+        }  
     }
 }

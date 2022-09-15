@@ -38,6 +38,7 @@ public class VistaMarca extends javax.swing.JFrame {
         VistaMarca v = new VistaMarca();
         try {
             GestorMarca con = new GestorMarca(v);
+            con.llenarCombo();
         } catch (SQLException ex) {
             Logger.getLogger(VistaMarca.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -46,7 +47,6 @@ public class VistaMarca extends javax.swing.JFrame {
     }
     public void placeHolder(){
         TextPrompt placeholder = new TextPrompt("Nombre de la marca", txtFiltrar);
-        
     }
 
     /**
@@ -65,7 +65,6 @@ public class VistaMarca extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         btnModificar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
-        txtpais = new javax.swing.JTextField();
         btnpais = new javax.swing.JLabel();
         btnAgregar = new javax.swing.JButton();
         txtname = new javax.swing.JTextField();
@@ -73,6 +72,7 @@ public class VistaMarca extends javax.swing.JFrame {
         btnActualizar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         txtId = new javax.swing.JTextField();
+        cbxCombo = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaMarca = new javax.swing.JTable();
@@ -150,9 +150,9 @@ public class VistaMarca extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtname, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
-                    .addComponent(txtpais, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
-                    .addComponent(txtobs, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
-                    .addComponent(txtId))
+                    .addComponent(txtobs)
+                    .addComponent(txtId)
+                    .addComponent(cbxCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(29, 29, 29)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnActualizar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -190,16 +190,17 @@ public class VistaMarca extends javax.swing.JFrame {
                         .addComponent(jLabel3)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnModificar)
-                            .addComponent(txtpais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnEliminar)
+                                .addComponent(btnModificar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnListar))
-                            .addComponent(txtobs))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(btnEliminar)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btnListar))
+                                    .addComponent(txtobs)))
+                            .addComponent(cbxCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
 
@@ -364,6 +365,7 @@ public class VistaMarca extends javax.swing.JFrame {
     public javax.swing.JButton btnListar;
     public javax.swing.JButton btnModificar;
     private javax.swing.JLabel btnpais;
+    public javax.swing.JComboBox<String> cbxCombo;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -376,7 +378,6 @@ public class VistaMarca extends javax.swing.JFrame {
     public javax.swing.JTextField txtId;
     public javax.swing.JTextField txtname;
     public javax.swing.JTextField txtobs;
-    public javax.swing.JTextField txtpais;
     // End of variables declaration//GEN-END:variables
 
 }
