@@ -37,17 +37,28 @@ CREATE TABLE cliente (
 CREATE TABLE modelo (
 	id serial PRIMARY KEY,
 	nombre VARCHAR(60),
-	version VARCHAR(60),
+	anio INT,
 	marca_id INT,
 	CONSTRAINT FK_modelo_marca FOREIGN KEY(marca_id)
 		REFERENCES marca(id)
 );
 
 CREATE TABLE auto(
-	modelo_id INT,
-	ano INT,
+	id serial PRIMARY KEY,
 	observacion TEXT,
 	precio NUMERIC(12, 2),
+	modelo_id INT,
 	CONSTRAINT FK_auto_modelo FOREIGN KEY(modelo_id)
 		REFERENCES modelo(id)
 );
+
+CREATE TABLE venta(
+	id serial PRIMARY KEY,
+	fecha_venta DATE,
+	auto_id INT,
+	cliente_id INT,
+	CONSTRAINT FK_venta_auto FOREIGN KEY(auto_id)
+		REFERENCES auto(id),
+	CONSTRAINT FK_venta_cliente FOREIGN KEY(cliente_id)
+		REFERENCES cliente(id)
+)
