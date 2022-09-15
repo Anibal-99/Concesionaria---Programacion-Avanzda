@@ -47,7 +47,7 @@ public class MarcaDao {
 
     public ArrayList<Marca> listarMarcas() throws SQLException {
         ArrayList<Marca> data = new ArrayList<>();
-        String sql = "SELECT*FROM marca";
+        String sql = "SELECT marca.id as \"ID\", marca.nombre as \"Nombre\", pais.nombre as \"Pais\", marca.observacion as \"Observacion\" FROM marca INNER JOIN pais ON marca.pais_id = pais.id";
         try {
             con = conectar.getConection();
             insert = con.prepareStatement(sql);
@@ -68,12 +68,25 @@ public class MarcaDao {
 
     public int modificar(Marca mar) {
         int act = 0;
-        String sqlU = ("UPDATE marca SET nombre=?,pais=?,observacion=? WHERE id=?");
+        String sqlU = ("UPDATE marca SET nombre=?,pais_id=?,observacion=? WHERE id=?");
         try {
+            PaisDao paises = new PaisDao();
+            ArrayList<Pais> listarPaises = paises.getPais();
+            int pais_id = 0;
+            System.out.println(mar.getName());
+            for (Pais p : listarPaises) {
+                if (mar.getPais().equals(p.getName())) {
+                    pais_id = p.getId();
+                }
+            }
+            System.out.println(pais_id);
             con = conectar.getConection();
             insert = con.prepareStatement(sqlU);
             insert.setString(1, mar.getName());
-            insert.setString(2, mar.getPais());
+            insert.setInt(
+                2,
+                pais_id
+            );
             insert.setString(3, mar.getObs());
             insert.setInt(4, mar.getId());
             act = insert.executeUpdate();

@@ -75,7 +75,7 @@ public class GestorMarca implements ActionListener {
                 String obs = (String) vista.tablaMarca.getValueAt(fila, 3);
                 vista.txtId.setText("" + id);
                 vista.txtname.setText(name);
-                //vista.txtpais.setText(pais);
+                vista.cbxCombo.setSelectedItem(pais);
                 vista.txtobs.setText(obs);
 
             }
@@ -138,11 +138,11 @@ public class GestorMarca implements ActionListener {
         } else {
             int id = Integer.parseInt(vista.txtId.getText());
             String name = this.vista.txtname.getText();
-            //String pais = this.vista.txtpais.getText();
+            String pais = this.vista.cbxCombo.getSelectedItem().toString();
             String obs = this.vista.txtobs.getText();
             m.setId(id);
             m.setName(name);
-           // m.setPais(pais);
+            m.setPais(pais);
             m.setObs(obs);
             int modded = mDao.modificar(m);
             if (modded == 1) {
@@ -160,9 +160,11 @@ public class GestorMarca implements ActionListener {
         //Conexion conectar = new Conexion();
         String name = this.vista.txtname.getText();
         //String pais = this.vista.txtpais.getText();
+        String pais = this.vista.cbxCombo.getSelectedItem().toString();
         String obs = this.vista.txtobs.getText();
+        System.out.println(pais);
         m.setName(name);
-        //m.setPais(pais);
+        m.setPais(pais);
         m.setObs(obs);
 
         if (this.vista.txtname.getText().isEmpty()) {
@@ -206,15 +208,11 @@ public class GestorMarca implements ActionListener {
         // Esto es para que se ejecute la tabla al momento de iniciar el programa
         modelo = (DefaultTableModel) tablaMarca.getModel();
         String name = this.vista.txtFiltrar.getText();
-       // TextPrompt placeholder = new TextPrompt("Apellido Paterno", this.vista.txtBuscar);
-        //placeholder.changeAlpha(0.75f);
-        //placeholder.changeStyle(Font.ITALIC);
 
         List<Marca> lista = mDao.filtrarMarcas(name);
         Object[] object = new Object[4];
 
         for (int i = 0; i < lista.size(); i++) {
-            //System.out.println(lista.get(i).getId());
             object[0] = lista.get(i).getId();
             object[1] = lista.get(i).getName();
             object[2] = lista.get(i).getPais();
@@ -225,11 +223,10 @@ public class GestorMarca implements ActionListener {
     public void llenarCombo() throws SQLException{
         PaisDao paises = new PaisDao();
         ArrayList<Pais> listarPaises = paises.getPais();
-       // System.out.println(listarPaises);
         vista.cbxCombo.removeAllItems();
-        
+
         for (int i=0; i<listarPaises.size(); i++){
             vista.cbxCombo.addItem(listarPaises.get(i).getName());
-        }  
+        }
     }
 }

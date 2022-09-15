@@ -13,9 +13,9 @@ public class Marca {
     String name;
     String pais;
     String obs;
-    
+
     public Marca(){
-        
+
     }
     public Marca(int id, String name, String pais, String obs) {
         this.id = id;
@@ -48,6 +48,7 @@ public class Marca {
         this.pais = pais;
     }
 
+
     public String getObs() {
         return obs;
     }
@@ -55,6 +56,6 @@ public class Marca {
     public void setObs(String obs) {
         this.obs = obs;
     }
-    
-    
+
+
 }
