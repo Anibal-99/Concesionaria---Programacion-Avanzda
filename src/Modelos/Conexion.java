@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
 public class Conexion {
     private final String host="127.0.0.1";
     private final String port="5454";
-    private final String db="postgres";
+    private final String db="consdb";
     private final String password = "postgres";
     private final String user = "postgres";
     
