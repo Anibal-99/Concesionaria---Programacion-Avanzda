@@ -128,11 +128,11 @@ public class GestorMarca implements ActionListener {
     void nuevo() {
         vista.txtId.setText("");
         vista.txtname.setText("");
-        //vista.txtpais.setText("");
         vista.txtobs.setText("");
     }
 
     public void actualizar() {
+
         if (vista.txtId.getText().equals("")) {
             JOptionPane.showMessageDialog(vista, "No se Identifica el Id debe selecionar la opcion Editar");
         } else {
