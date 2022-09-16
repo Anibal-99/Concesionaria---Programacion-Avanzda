@@ -136,6 +136,8 @@ public class VistaMarca extends javax.swing.JFrame {
             }
         });
 
+        cbxCombo.setMaximumSize(new java.awt.Dimension(72, 22));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
