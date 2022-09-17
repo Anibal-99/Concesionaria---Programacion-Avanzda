@@ -10,19 +10,20 @@ package Modelos;
  */
 public class Cliente {
     int id;
+    String tel;
     String nombre;
     String apellido;
     String razonSocial;
     String localidad;
     String direccion;
     String cuit;
-    int tel;
+    String pais;
     
     public Cliente(){
         
     }
 
-    public Cliente(int id, String nombre, String apellido, String razonSocial, String localidad, String direccion, String cuit, int tel) {
+    public Cliente(int id, String nombre, String apellido, String razonSocial, String localidad, String direccion, String cuit, String tel, String pais) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -31,6 +32,15 @@ public class Cliente {
         this.direccion = direccion;
         this.cuit = cuit;
         this.tel = tel;
+        this.pais = pais;
+    }
+
+    public String getPais() {
+        return pais;
+    }
+
+    public void setPais(String pais) {
+        this.pais = pais;
     }
 
     public int getId() {
@@ -89,11 +99,11 @@ public class Cliente {
         this.cuit = cuit;
     }
 
-    public int getTel() {
+    public String getTel() {
         return tel;
     }
 
-    public void setTel(int tel) {
+    public void setTel(String tel) {
         this.tel = tel;
     }
 }
