@@ -36,7 +36,7 @@ public class VistaMarca extends javax.swing.JFrame {
         //this.inicializar();
         placeHolder();
     }
-    
+
 
     public void inicializar() throws SQLException {
         VistaMarca v = new VistaMarca();
@@ -52,18 +52,18 @@ public class VistaMarca extends javax.swing.JFrame {
     /*
     public void llenarComboBox() throws SQLException{
         PaisDao paises = new PaisDao();
-        
+
         ArrayList<Pais> listaPaises = paises.getPais();
-        
+
         cbxpais.removeAllItems();
-        
+
         for (int i=0; i<listaPaises.size(); i++){
             cbxpais.addItem(listaPaises.get(i).getName());
         }
-   
+
     }
-    */ 
-            
+    */
+
     public void placeHolder(){
         TextPrompt placeholder = new TextPrompt("Nombre de la marca", txtFiltrar);
     }
@@ -91,11 +91,7 @@ public class VistaMarca extends javax.swing.JFrame {
         btnActualizar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         txtId = new javax.swing.JTextField();
-<<<<<<< HEAD
         cbxCombo = new javax.swing.JComboBox<>();
-=======
-        txtpais = new javax.swing.JTextField();
->>>>>>> 9005e7900af497384ba52e1d00c88a2aa2090756
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaMarca = new javax.swing.JTable();
@@ -175,15 +171,9 @@ public class VistaMarca extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtname, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
-<<<<<<< HEAD
                     .addComponent(txtobs)
                     .addComponent(txtId)
                     .addComponent(cbxCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-=======
-                    .addComponent(txtobs, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
-                    .addComponent(txtId)
-                    .addComponent(txtpais))
->>>>>>> 9005e7900af497384ba52e1d00c88a2aa2090756
                 .addGap(29, 29, 29)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnActualizar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -231,11 +221,7 @@ public class VistaMarca extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(btnListar))
                                     .addComponent(txtobs)))
-<<<<<<< HEAD
                             .addComponent(cbxCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-=======
-                            .addComponent(txtpais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
->>>>>>> 9005e7900af497384ba52e1d00c88a2aa2090756
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
 

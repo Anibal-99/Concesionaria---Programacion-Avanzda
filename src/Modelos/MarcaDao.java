@@ -47,12 +47,7 @@ public class MarcaDao {
 
     public ArrayList<Marca> listarMarcas() throws SQLException {
         ArrayList<Marca> data = new ArrayList<>();
-<<<<<<< HEAD
         String sql = "SELECT marca.id as \"ID\", marca.nombre as \"Nombre\", pais.nombre as \"Pais\", marca.observacion as \"Observacion\" FROM marca INNER JOIN pais ON marca.pais_id = pais.id ORDER BY marca.id DESC";
-=======
-        String sql = "select marca.id as \"ID\", marca.nombre as \"Marca\", marca.observacion as \"Observacion\", pais.nombre as \"Pais\"\n" +
-"from marca inner join pais ON marca.pais_id = pais.id;";
->>>>>>> 9005e7900af497384ba52e1d00c88a2aa2090756
         try {
             con = conectar.getConection();
             insert = con.prepareStatement(sql);

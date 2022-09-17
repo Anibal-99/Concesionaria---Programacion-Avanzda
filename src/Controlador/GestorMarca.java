@@ -138,11 +138,7 @@ public class GestorMarca implements ActionListener {
         } else {
             int id = Integer.parseInt(vista.txtId.getText());
             String name = this.vista.txtname.getText();
-<<<<<<< HEAD
             String pais = this.vista.cbxCombo.getSelectedItem().toString();
-=======
-            //String pais = this.vista.txtpais.getText();
->>>>>>> 9005e7900af497384ba52e1d00c88a2aa2090756
             String obs = this.vista.txtobs.getText();
             m.setId(id);
             m.setName(name);
@@ -212,12 +208,6 @@ public class GestorMarca implements ActionListener {
         // Esto es para que se ejecute la tabla al momento de iniciar el programa
         modelo = (DefaultTableModel) tablaMarca.getModel();
         String name = this.vista.txtFiltrar.getText();
-<<<<<<< HEAD
-=======
-        // TextPrompt placeholder = new TextPrompt("Apellido Paterno", this.vista.txtBuscar);
-        //placeholder.changeAlpha(0.75f);
-        //placeholder.changeStyle(Font.ITALIC);
->>>>>>> 9005e7900af497384ba52e1d00c88a2aa2090756
 
         List<Marca> lista = mDao.filtrarMarcas(name);
         Object[] object = new Object[4];
