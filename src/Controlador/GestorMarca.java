@@ -138,11 +138,15 @@ public class GestorMarca implements ActionListener {
         } else {
             int id = Integer.parseInt(vista.txtId.getText());
             String name = this.vista.txtname.getText();
+<<<<<<< HEAD
             String pais = this.vista.cbxCombo.getSelectedItem().toString();
+=======
+            //String pais = this.vista.txtpais.getText();
+>>>>>>> 9005e7900af497384ba52e1d00c88a2aa2090756
             String obs = this.vista.txtobs.getText();
             m.setId(id);
             m.setName(name);
-            m.setPais(pais);
+            //m.setPais(pais);
             m.setObs(obs);
             int modded = mDao.modificar(m);
             if (modded == 1) {
@@ -190,8 +194,8 @@ public class GestorMarca implements ActionListener {
         for (int i = 0; i < lista.size(); i++) {
             object[0] = lista.get(i).getId();
             object[1] = lista.get(i).getName();
-            object[2] = lista.get(i).getPais();
-            object[3] = lista.get(i).getObs();
+            object[2] = lista.get(i).getObs();
+            object[3] = lista.get(i).getPais();
             modelo.addRow(object);
         }
         //vista.tablaMarca.setModel(modelo);
@@ -208,6 +212,12 @@ public class GestorMarca implements ActionListener {
         // Esto es para que se ejecute la tabla al momento de iniciar el programa
         modelo = (DefaultTableModel) tablaMarca.getModel();
         String name = this.vista.txtFiltrar.getText();
+<<<<<<< HEAD
+=======
+        // TextPrompt placeholder = new TextPrompt("Apellido Paterno", this.vista.txtBuscar);
+        //placeholder.changeAlpha(0.75f);
+        //placeholder.changeStyle(Font.ITALIC);
+>>>>>>> 9005e7900af497384ba52e1d00c88a2aa2090756
 
         List<Marca> lista = mDao.filtrarMarcas(name);
         Object[] object = new Object[4];
@@ -215,8 +225,8 @@ public class GestorMarca implements ActionListener {
         for (int i = 0; i < lista.size(); i++) {
             object[0] = lista.get(i).getId();
             object[1] = lista.get(i).getName();
-            object[2] = lista.get(i).getPais();
-            object[3] = lista.get(i).getObs();
+            object[2] = lista.get(i).getObs();
+            object[3] = lista.get(i).getPais();
             modelo.addRow(object);
         }
     }

@@ -11,7 +11,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9005e7900af497384ba52e1d00c88a2aa2090756
 /**
  *
  * @author Anibal-99
@@ -26,7 +29,11 @@ public class PaisDao {
 
     public ArrayList<Pais> getPais() throws SQLException{
         ArrayList<Pais> paises = new ArrayList<>();
+<<<<<<< HEAD
         String sql = "select*from pais order by nombre asc";
+=======
+        String sql = "select nombre from pais";
+>>>>>>> 9005e7900af497384ba52e1d00c88a2aa2090756
         try {
             con = conectar.getConection();
             insert = con.prepareStatement(sql);
