@@ -90,15 +90,9 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="txtname" pref="247" max="32767" attributes="0"/>
-<<<<<<< HEAD
                       <Component id="txtobs" max="32767" attributes="0"/>
                       <Component id="txtId" alignment="0" max="32767" attributes="0"/>
                       <Component id="cbxCombo" alignment="0" max="32767" attributes="0"/>
-=======
-                      <Component id="txtobs" pref="247" max="32767" attributes="0"/>
-                      <Component id="txtId" alignment="0" max="32767" attributes="0"/>
-                      <Component id="txtpais" max="32767" attributes="0"/>
->>>>>>> 9005e7900af497384ba52e1d00c88a2aa2090756
                   </Group>
                   <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -159,11 +153,7 @@
                                       <Component id="txtobs" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
-<<<<<<< HEAD
                               <Component id="cbxCombo" alignment="0" min="-2" max="-2" attributes="0"/>
-=======
-                              <Component id="txtpais" min="-2" max="-2" attributes="0"/>
->>>>>>> 9005e7900af497384ba52e1d00c88a2aa2090756
                           </Group>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
@@ -264,7 +254,6 @@
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
           </AuxValues>
         </Component>
-<<<<<<< HEAD
         <Component class="javax.swing.JComboBox" name="cbxCombo">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
@@ -276,10 +265,6 @@
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-=======
-        <Component class="javax.swing.JTextField" name="txtpais">
-          <AuxValues>
->>>>>>> 9005e7900af497384ba52e1d00c88a2aa2090756
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
           </AuxValues>
         </Component>

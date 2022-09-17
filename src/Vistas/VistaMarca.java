@@ -49,20 +49,6 @@ public class VistaMarca extends javax.swing.JFrame {
         v.setVisible(true);
 
     }
-    /*
-    public void llenarComboBox() throws SQLException{
-        PaisDao paises = new PaisDao();
-
-        ArrayList<Pais> listaPaises = paises.getPais();
-
-        cbxpais.removeAllItems();
-
-        for (int i=0; i<listaPaises.size(); i++){
-            cbxpais.addItem(listaPaises.get(i).getName());
-        }
-
-    }
-    */
 
     public void placeHolder(){
         TextPrompt placeholder = new TextPrompt("Nombre de la marca", txtFiltrar);
