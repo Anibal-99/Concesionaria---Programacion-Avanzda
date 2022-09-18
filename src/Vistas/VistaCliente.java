@@ -251,7 +251,7 @@ public class VistaCliente extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Nombre", "Apellido", "Cuit", "Razon social", "Telefono", "Direccion", "Localidad"
+                "ID", "Nombre", "Apellido", "Cuit", "Razon social", "Telefono", "Pais", "Direccion", "Localidad"
             }
         ));
         jScrollPane1.setViewportView(tablaCliente);
