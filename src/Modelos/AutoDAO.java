@@ -42,4 +42,18 @@ public class AutoDAO {
         }
         return autos;
     }
+
+    public int agregar(Auto auto, int modelo_id) {
+        String sql = ("INSERT INTO auto(observacion,precio,modelo_id)values(?,?,?)");
+        try {
+            ps = sqlcon.prepareStatement(sql);
+            ps.setString(0, auto.getObservacion());
+            ps.setFloat(1, auto.getPrecio());
+            ps.setInt(2, modelo_id);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            return 0;
+        }
+        return 1;
+    }
 }

@@ -6,6 +6,7 @@ package Vistas;
 
 import javax.swing.UIManager;
 import java.awt.Color;
+import java.sql.SQLException;
 
 import Controlador.GestorAuto;
 
@@ -62,6 +63,7 @@ public class VistaAuto extends javax.swing.JFrame {
 
         jLabel4.setText("Observación");
 
+        IDjTextField.setEnabled(false);
         IDjTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 IDjTextFieldActionPerformed(evt);
@@ -80,6 +82,11 @@ public class VistaAuto extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTextArea1);
 
         AgregarjButton.setText("Agregar");
+        AgregarjButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AgregarjButtonActionPerformed(evt);
+            }
+        });
 
         ActualizarjButton.setText("Actualizar");
 
@@ -226,56 +233,26 @@ public class VistaAuto extends javax.swing.JFrame {
 
     /**
      * @param args the command line arguments
+     * @throws SQLException
      */
-    public static void main(String args[]) {
-        UIManager.put( "control", new Color( 128, 128, 128) );
-        UIManager.put( "info", new Color(128,128,128) );
-        UIManager.put( "nimbusBase", new Color( 18, 30, 49) );
-        UIManager.put( "nimbusAlertYellow", new Color( 248, 187, 0) );
-        UIManager.put( "nimbusDisabledText", new Color( 128, 128, 128) );
-        UIManager.put( "nimbusFocus", new Color(115,164,209) );
-        UIManager.put( "nimbusGreen", new Color(176,179,50) );
-        UIManager.put( "nimbusInfoBlue", new Color( 66, 139, 221) );
-        UIManager.put( "nimbusLightBackground", new Color( 18, 30, 49) );
-        UIManager.put( "nimbusOrange", new Color(191,98,4) );
-        UIManager.put( "nimbusRed", new Color(169,46,34) );
-        UIManager.put( "nimbusSelectedText", new Color( 255, 255, 255) );
-        UIManager.put( "nimbusSelectionBackground", new Color( 104, 93, 156) );
-        UIManager.put( "text", new Color( 230, 230, 230) );
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-            if ("Nimbus".equals(info.getName())) {
-                javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                break;
-            }
-            }
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (javax.swing.UnsupportedLookAndFeelException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public static void main(String args[]) throws SQLException {
         VistaAuto vistaAuto = new VistaAuto();
         GestorAuto gestorAuto = new GestorAuto(vistaAuto);
         vistaAuto.setVisible(true);
         vistaAuto.setLocationRelativeTo(vistaAuto);
+        gestorAuto.llenarCombo();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton ActualizarjButton;
-    private javax.swing.JButton AgregarjButton;
+    public javax.swing.JButton ActualizarjButton;
+    public javax.swing.JButton AgregarjButton;
     public javax.swing.JTable AutosjTable;
-    private javax.swing.JButton EliminarjButton;
-    private javax.swing.JTextField IDjTextField;
+    public javax.swing.JButton EliminarjButton;
+    public javax.swing.JTextField IDjTextField;
     public javax.swing.JButton ListarjButton;
-    private javax.swing.JComboBox<String> ModelojComboBox;
-    private javax.swing.JButton ModificarjButton;
-    private javax.swing.JTextField PreciojTextField;
+    public javax.swing.JComboBox<String> ModelojComboBox;
+    public javax.swing.JButton ModificarjButton;
+    public javax.swing.JTextField PreciojTextField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -284,6 +261,6 @@ public class VistaAuto extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextArea1;
+    public javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
 }

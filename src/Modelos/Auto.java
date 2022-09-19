@@ -45,5 +45,4 @@ public class Auto {
         this.observacion = observacion;
     }
 
-
 }
