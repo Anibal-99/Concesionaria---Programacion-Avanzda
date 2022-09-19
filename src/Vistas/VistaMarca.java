@@ -37,7 +37,6 @@ public class VistaMarca extends javax.swing.JFrame {
         placeHolder();
     }
 
-
     public void inicializar() throws SQLException {
         VistaMarca v = new VistaMarca();
         try {
@@ -50,7 +49,7 @@ public class VistaMarca extends javax.swing.JFrame {
 
     }
 
-    public void placeHolder(){
+    public void placeHolder() {
         TextPrompt placeholder = new TextPrompt("Nombre de la marca", txtFiltrar);
     }
 

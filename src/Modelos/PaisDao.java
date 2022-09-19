@@ -23,7 +23,7 @@ public class PaisDao {
     Conexion conectar = new Conexion();
     Pais p = new Pais();
 
-    public ArrayList<Pais> getPais() throws SQLException{
+    public ArrayList<Pais> getPais() throws SQLException {
         ArrayList<Pais> paises = new ArrayList<>();
         String sql = "select*from pais order by nombre asc";
         try {

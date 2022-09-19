@@ -9,13 +9,14 @@ package Modelos;
  * @author Anibal-99
  */
 public class Auto {
+
     int id;
     String observacion;
     double precio;
     int modelo_id;
-    
-    public Auto(){
-        
+
+    public Auto() {
+
     }
 
     public Auto(int id, String observacion, double precio, int modelo_id) {

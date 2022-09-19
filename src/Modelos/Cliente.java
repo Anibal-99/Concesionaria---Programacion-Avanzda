@@ -9,6 +9,7 @@ package Modelos;
  * @author Anibal-99
  */
 public class Cliente {
+
     int id;
     String tel;
     String nombre;
@@ -18,9 +19,9 @@ public class Cliente {
     String direccion;
     String cuit;
     String pais;
-    
-    public Cliente(){
-        
+
+    public Cliente() {
+
     }
 
     public Cliente(int id, String nombre, String apellido, String razonSocial, String localidad, String direccion, String cuit, String tel, String pais) {

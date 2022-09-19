@@ -9,14 +9,16 @@ package Modelos;
  * @author Anibal-99
  */
 public class Marca {
+
     int id;
     String name;
     String pais;
     String obs;
 
-    public Marca(){
+    public Marca() {
 
     }
+
     public Marca(int id, String name, String pais, String obs) {
         this.id = id;
         this.name = name;
@@ -47,7 +49,6 @@ public class Marca {
     public void setPais(String pais) {
         this.pais = pais;
     }
-
 
     public String getObs() {
         return obs;
