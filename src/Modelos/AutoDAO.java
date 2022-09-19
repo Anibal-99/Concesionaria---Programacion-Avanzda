@@ -7,12 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AutoDAO {
-    Conexion con = new Conexion();
-    Connection sqlcon;
-    PreparedStatement ps;
-    ResultSet rs;
+    static Conexion con = new Conexion();
+    static Connection sqlcon;
+    static PreparedStatement ps;
+    static ResultSet rs;
 
-    public List<Auto> listar() {
+    public static List<Auto> listar() {
         List<Auto>autos = new ArrayList<Auto>();
         String tablaAuto = "auto";
         String tablaModelo = "modelo";
@@ -40,6 +40,6 @@ public class AutoDAO {
         } catch (Exception e){
 
         }
-        return autos
+        return autos;
     }
 }
