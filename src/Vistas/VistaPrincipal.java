@@ -34,9 +34,9 @@ public class VistaPrincipal extends javax.swing.JFrame {
         PanelPrincipal = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        menuMarca = new javax.swing.JMenuItem();
+        abmcMarca = new javax.swing.JMenuItem();
+        abmcCliente = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -57,22 +57,32 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/menu (1).png"))); // NOI18N
         jMenu1.setText("Menu");
 
-        menuMarca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Marca.png"))); // NOI18N
-        menuMarca.setText("Marcas");
-        menuMarca.addActionListener(new java.awt.event.ActionListener() {
+        abmcMarca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Marca.png"))); // NOI18N
+        abmcMarca.setText("Marcas");
+        abmcMarca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuMarcaActionPerformed(evt);
+                abmcMarcaActionPerformed(evt);
             }
         });
-        jMenu1.add(menuMarca);
+        jMenu1.add(abmcMarca);
+
+        abmcCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Cliente.png"))); // NOI18N
+        abmcCliente.setText("Clientes");
+        abmcCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                abmcClienteActionPerformed(evt);
+            }
+        });
+        jMenu1.add(abmcCliente);
 
         jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Auto.png"))); // NOI18N
         jMenuItem3.setText("Autos");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem3);
-
-        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Cliente.png"))); // NOI18N
-        jMenuItem4.setText("Clientes");
-        jMenu1.add(jMenuItem4);
 
         jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/No cliente.png"))); // NOI18N
         jMenuItem5.setText("No Clientes");
@@ -113,18 +123,32 @@ public class VistaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
 
-    private void menuMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuMarcaActionPerformed
-        VistaMarca vm =new VistaMarca();
+    private void abmcMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abmcMarcaActionPerformed
+        VistaMarca vm = new VistaMarca();
         try {
             vm.inicializar();
         } catch (SQLException ex) {
             Logger.getLogger(VistaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_menuMarcaActionPerformed
+    }//GEN-LAST:event_abmcMarcaActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         System.exit(0);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void abmcClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abmcClienteActionPerformed
+        // TODO add your handling code here:
+        VistaCliente v = new VistaCliente();
+        try {
+            v.inicializar();
+        } catch (SQLException ex) {
+            Logger.getLogger(VistaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_abmcClienteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -157,20 +181,20 @@ public class VistaPrincipal extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new VistaPrincipal().setVisible(true);
-                
+
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JDesktopPane PanelPrincipal;
+    public javax.swing.JDesktopPane PanelPrincipal;
+    private javax.swing.JMenuItem abmcCliente;
+    private javax.swing.JMenuItem abmcMarca;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem menuMarca;
     // End of variables declaration//GEN-END:variables
 }

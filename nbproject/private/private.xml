@@ -2,14 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/D:/Users/Usuario/Documents/NetBeansProjects/programacionA/src/Controlador/GestorMarca.java</file>
-            <file>file:/D:/Users/Usuario/Documents/NetBeansProjects/programacionA/src/Modelos/Cliente.java</file>
-            <file>file:/D:/Users/Usuario/Documents/NetBeansProjects/programacionA/src/Modelos/MarcaDao.java</file>
-            <file>file:/D:/Users/Usuario/Documents/NetBeansProjects/programacionA/src/Modelos/ClienteDao.java</file>
-            <file>file:/D:/Users/Usuario/Documents/NetBeansProjects/programacionA/src/Vistas/VistaMarca.java</file>
-            <file>file:/D:/Users/Usuario/Documents/NetBeansProjects/programacionA/src/Vistas/VistaCliente.java</file>
-            <file>file:/D:/Users/Usuario/Documents/NetBeansProjects/programacionA/src/Controlador/GestorCliente.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

@@ -39,16 +39,79 @@ public class GestorCliente implements ActionListener {
         this.vista = v;
         this.vista.btnAgregar.addActionListener(this);
         this.vista.btnListar.addActionListener(this);
+        this.vista.btnModificar.addActionListener(this);
+        this.vista.btnActualizar.addActionListener(this);
+        this.vista.btnEliminar.addActionListener(this);
+        this.vista.btnBuscar.addActionListener(this);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == vista.btnAgregar) {
             agregar();
-        }
-        if (e.getSource() == vista.btnListar) {
+            limpiarTabla();
             try {
                 listarClientes(vista.tablaCliente);
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        if (e.getSource() == vista.btnListar) {
+            limpiarTabla();
+            try {
+                listarClientes(vista.tablaCliente);
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        if (e.getSource() == vista.btnActualizar) {
+            actualizar();
+            limpiarTabla();
+            try {
+                listarClientes(vista.tablaCliente);
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        if (e.getSource() == vista.btnModificar) {
+            vista.txtId.setEnabled(false);
+            int fila = vista.tablaCliente.getSelectedRow();
+            if (fila == -1) {
+                JOptionPane.showMessageDialog(vista, "Debe seleccionar una fila");
+            } else {
+                int id = Integer.parseInt((String) vista.tablaCliente.getValueAt(fila, 0).toString());
+                String nombre = (String) vista.tablaCliente.getValueAt(fila, 1);
+                String apellido = (String) vista.tablaCliente.getValueAt(fila, 2);
+                String cuit = (String) vista.tablaCliente.getValueAt(fila, 3);
+                String razonSocial = (String) vista.tablaCliente.getValueAt(fila, 4);
+                String telefono = (String) vista.tablaCliente.getValueAt(fila, 5);
+                String pais = (String) vista.tablaCliente.getValueAt(fila, 6);
+                String direccion = (String) vista.tablaCliente.getValueAt(fila, 7);
+                String localidad = (String) vista.tablaCliente.getValueAt(fila, 8);
+                vista.txtId.setText("" + id);
+                vista.txtNombre.setText(nombre);
+                vista.txtApellido.setText(apellido);
+                vista.txtCuit.setText(cuit);
+                vista.txtRazonSocial.setText(razonSocial);
+                vista.txtTelefono.setText(telefono);
+                vista.cbxPais.setSelectedItem(pais);
+                vista.txtDireccion.setText(direccion);
+                vista.txtLocalidad.setText(localidad);
+            }
+        }
+        if (e.getSource() == this.vista.btnEliminar) {
+            delete();
+            limpiarTabla();
+            try {
+                listarClientes(vista.tablaCliente);
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        if (e.getSource() == this.vista.btnBuscar) {
+            limpiarTabla();
+            try {
+                this.buscarClientes(vista.tablaCliente);
             } catch (SQLException ex) {
                 Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -56,7 +119,6 @@ public class GestorCliente implements ActionListener {
     }
 
     public void agregar() {
-        // Conexion conectar = new Conexion();
         String name = this.vista.txtNombre.getText();
         String apellido = this.vista.txtApellido.getText();
         String cuit = this.vista.txtCuit.getText();
@@ -99,23 +161,25 @@ public class GestorCliente implements ActionListener {
             String razonSocial = this.vista.txtRazonSocial.getText();
             String cuit = this.vista.txtCuit.getText();
             String telefono = this.vista.txtTelefono.getText();
+            String pais = this.vista.cbxPais.getSelectedItem().toString();
             String direccion = this.vista.txtDireccion.getText();
             String localidad = this.vista.txtLocalidad.getText();
-            String pais = this.vista.cbxPais.getSelectedItem().toString();
+
             c.setId(id);
             c.setNombre(name);
             c.setApellido(apellido);
             c.setRazonSocial(razonSocial);
             c.setCuit(cuit);
             c.setTel(telefono);
+            c.setPais(pais);
             c.setDireccion(direccion);
             c.setLocalidad(localidad);
 
             int modded = cDao.modificar(c);
             if (modded == 1) {
-                JOptionPane.showMessageDialog(vista, "Marca actualizada con exito");
+                JOptionPane.showMessageDialog(vista, "Cliente actualizada con exito");
             } else {
-                JOptionPane.showMessageDialog(vista, "Error, no se actualizo la marca");
+                JOptionPane.showMessageDialog(vista, "Error, no se puede actualizar el cliente");
             }
         }
     }
@@ -125,7 +189,6 @@ public class GestorCliente implements ActionListener {
         modelo = (DefaultTableModel) tabla.getModel();
 
         List<Cliente> lista = cDao.listarClientes();
-        //System.out.println(lista);
         Object[] object = new Object[9];
 
         for (int i = 0; i < lista.size(); i++) {
@@ -140,7 +203,21 @@ public class GestorCliente implements ActionListener {
             object[8] = lista.get(i).getLocalidad();
             modelo.addRow(object);
         }
-        // vista.tablaMarca.setModel(modelo);
+    }
+
+    public void delete() {
+        int fila = vista.tablaCliente.getSelectedRow();
+        if (fila == -1) {// de esta manera el usuario solo podra eliminar si selecciona una marca sino no
+            JOptionPane.showMessageDialog(vista, "Debe seleccionar una marca");
+        } else {
+            try {
+                int id = Integer.parseInt((String) vista.tablaCliente.getValueAt(fila, 0).toString());
+                cDao.delete(id);
+                JOptionPane.showMessageDialog(vista, "Marca eliminada");
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorMarca.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     public void llenarCombo() throws SQLException {
@@ -150,6 +227,35 @@ public class GestorCliente implements ActionListener {
 
         for (int i = 0; i < listarPaises.size(); i++) {
             vista.cbxPais.addItem(listarPaises.get(i).getName());
+        }
+    }
+
+    void limpiarTabla() {
+        for (int i = 0; i < vista.tablaCliente.getRowCount(); i++) {
+            modelo.removeRow(i);
+            i = i - 1;
+        }
+    }
+
+    public void buscarClientes(JTable tablaMarca) throws SQLException {
+        // Esto es para que se ejecute la tabla al momento de iniciar el programa
+        modelo = (DefaultTableModel) vista.tablaCliente.getModel();
+        String name = this.vista.txtBuscar.getText();
+
+        List<Cliente> listaClientes = cDao.buscarClientes(name);
+        Object[] object = new Object[9];
+
+        for (int i = 0; i < listaClientes.size(); i++) {
+            object[0] = listaClientes.get(i).getId();
+            object[1] = listaClientes.get(i).getNombre();
+            object[2] = listaClientes.get(i).getApellido();
+            object[3] = listaClientes.get(i).getCuit();
+            object[4] = listaClientes.get(i).getRazonSocial();
+            object[5] = listaClientes.get(i).getTel();
+            object[6] = listaClientes.get(i).getPais();
+            object[7] = listaClientes.get(i).getDireccion();
+            object[8] = listaClientes.get(i).getLocalidad();
+            modelo.addRow(object);
         }
     }
 }
