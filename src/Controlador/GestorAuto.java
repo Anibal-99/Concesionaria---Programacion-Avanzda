@@ -60,12 +60,17 @@ public class GestorAuto implements ActionListener{
     }
 
     public void agregar() {
-        int id = Integer.parseInt(this.vistaAuto.IDjTextField.getText());
+        // int id = Integer.parseInt(this.vistaAuto.IDjTextField.getText());
+        // System.out.println(id);
         String modelo = this.vistaAuto.ModelojComboBox.getSelectedItem().toString();
-        int modelo_id = this.vistaAuto.ModelojComboBox.getSelectedIndex();
+        // System.out.println(modelo);
+        int modelo_id = this.vistaAuto.ModelojComboBox.getSelectedIndex() + 1;
+        // System.out.println(modelo_id);
         float precio = Float.parseFloat(this.vistaAuto.PreciojTextField.getText());
+        // System.out.println(precio);
         String observacion = this.vistaAuto.jTextArea1.getText();
-        auto.setId(id);
+        // System.out.println(observacion);
+        // auto.setId(id);
         auto.setModelo(modelo);
         auto.setPrecio(precio);
         auto.setObservacion(observacion);
@@ -90,7 +95,7 @@ public class GestorAuto implements ActionListener{
 
         for (int i=0; i<listarModelos.size(); i++){
             vistaAuto.ModelojComboBox.addItem(
-                listarModelos.get(i).getMarca() + listarModelos.get(i).getNombre() + " " + listarModelos.get(i).getAnio()
+                listarModelos.get(i).getMarca() + " " + listarModelos.get(i).getNombre() + " " + listarModelos.get(i).getAnio()
             );
         }
     }

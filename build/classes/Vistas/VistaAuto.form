@@ -76,8 +76,8 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="ModificarjButton" max="32767" attributes="0"/>
-                              <Component id="AgregarjButton" max="32767" attributes="0"/>
                               <Component id="ActualizarjButton" pref="215" max="32767" attributes="0"/>
+                              <Component id="AgregarjButton" alignment="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" attributes="0">
@@ -214,17 +214,6 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JButton" name="AgregarjButton">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Agregar"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AgregarjButtonActionPerformed"/>
-          </Events>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
-          </AuxValues>
-        </Component>
         <Component class="javax.swing.JButton" name="ActualizarjButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Actualizar"/>
@@ -252,6 +241,14 @@
         <Component class="javax.swing.JButton" name="ListarjButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Listar"/>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JButton" name="AgregarjButton">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Agregar"/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>

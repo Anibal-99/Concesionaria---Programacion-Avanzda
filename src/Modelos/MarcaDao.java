@@ -45,7 +45,7 @@ public class MarcaDao {
             insert.setString(1, m.getName());
             insert.setInt(2, pais_id);
             insert.setString(3, m.getObs());
-            System.out.println(insert);
+            // System.out.println(insert);
             insert.executeUpdate();
         } catch (Exception e) {
 
@@ -110,7 +110,7 @@ public class MarcaDao {
     public int delete(int id) throws SQLException {
         int del = 0;
         String sqlD = ("DELETE FROM marca WHERE id=" + id);
-        System.out.println(sqlD);
+        // System.out.println(sqlD);
         try {
             con = conectar.getConection();
             insert = con.prepareStatement(sqlD);
@@ -124,12 +124,12 @@ public class MarcaDao {
     public ArrayList<Marca> filtrarMarcas(String name) throws SQLException {
         ArrayList<Marca> marcas = new ArrayList<>();
         String sql = "select * from marca where marca.nombre="+"'"+name+"'";
-        System.out.println(sql);
+        // System.out.println(sql);
         try {
             con = conectar.getConection();
             insert = con.prepareStatement(sql);
             rs=insert.executeQuery();
-            System.out.println(rs);
+            // System.out.println(rs);
             while(rs.next()){
                 Marca m = new Marca();
                 m.setId(rs.getInt(1));
@@ -140,7 +140,7 @@ public class MarcaDao {
             }
         } catch (Exception e) {
         }
-        System.out.println("");
+        // System.out.println("");
         return marcas;
     }
 }

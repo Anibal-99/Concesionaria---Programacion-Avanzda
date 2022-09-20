@@ -161,7 +161,7 @@ public class GestorMarca implements ActionListener {
         //String pais = this.vista.txtpais.getText();
         String pais = this.vista.cbxCombo.getSelectedItem().toString();
         String obs = this.vista.txtobs.getText();
-        System.out.println(pais);
+        // System.out.println(pais);
         m.setName(name);
         m.setPais(pais);
         m.setObs(obs);

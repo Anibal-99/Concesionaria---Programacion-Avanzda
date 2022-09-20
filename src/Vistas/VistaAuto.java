@@ -7,6 +7,7 @@ package Vistas;
 import javax.swing.UIManager;
 import java.awt.Color;
 import java.sql.SQLException;
+import java.awt.event.ActionListener;
 
 import Controlador.GestorAuto;
 
@@ -42,11 +43,11 @@ public class VistaAuto extends javax.swing.JFrame {
         ModelojComboBox = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
-        AgregarjButton = new javax.swing.JButton();
         ActualizarjButton = new javax.swing.JButton();
         ModificarjButton = new javax.swing.JButton();
         EliminarjButton = new javax.swing.JButton();
         ListarjButton = new javax.swing.JButton();
+        AgregarjButton = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         AutosjTable = new javax.swing.JTable();
@@ -81,13 +82,6 @@ public class VistaAuto extends javax.swing.JFrame {
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
 
-        AgregarjButton.setText("Agregar");
-        AgregarjButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AgregarjButtonActionPerformed(evt);
-            }
-        });
-
         ActualizarjButton.setText("Actualizar");
 
         ModificarjButton.setText("Modificar");
@@ -95,6 +89,8 @@ public class VistaAuto extends javax.swing.JFrame {
         EliminarjButton.setText("Eliminar");
 
         ListarjButton.setText("Listar");
+
+        AgregarjButton.setText("Agregar");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -116,8 +112,8 @@ public class VistaAuto extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(ModificarjButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(AgregarjButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(ActualizarjButton, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)))
+                            .addComponent(ActualizarjButton, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
+                            .addComponent(AgregarjButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)

@@ -16,12 +16,12 @@ public class ModeloDAO {
 
     public ArrayList<Modelo> getModelo() throws SQLException{
         ArrayList<Modelo> modelos = new ArrayList<>();
-        String sql = "select modelo.id as \"ID\", marca.nombre as \"Marca\", modelo.nombre as \"Modelo\", modelo.anio as \"Año\" FROM modelo INNER JOIN marca ON modelo.marca_id = marca.id ORDER BY marca.nombre ASC";
+        String sql = "select modelo.id as \"ID\", marca.nombre as \"Marca\", modelo.nombre as \"Modelo\", modelo.anio as \"Año\" FROM modelo INNER JOIN marca ON modelo.marca_id = marca.id order by marca.nombre asc, modelo.id desc";
         try {
             sqlcon = con.getConection();
             ps = sqlcon.prepareStatement(sql);
             rs = ps.executeQuery();
-            System.out.println(ps);
+            // System.out.println(ps);
             while (rs.next()) {
                 Modelo modelo = new Modelo();
                 modelo.setId(rs.getInt(1));
