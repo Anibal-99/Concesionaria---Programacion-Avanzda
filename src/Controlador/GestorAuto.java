@@ -53,6 +53,7 @@ public class GestorAuto implements ActionListener{
         //         //
         // }
         if (e.getSource() == vistaAuto.ListarjButton){
+            this.limpiarTabla();
             this.listar(vistaAuto.AutosjTable);
         } else if (e.getSource() == vistaAuto.AgregarjButton) {
             this.agregar();
@@ -60,17 +61,10 @@ public class GestorAuto implements ActionListener{
     }
 
     public void agregar() {
-        // int id = Integer.parseInt(this.vistaAuto.IDjTextField.getText());
-        // System.out.println(id);
         String modelo = this.vistaAuto.ModelojComboBox.getSelectedItem().toString();
-        // System.out.println(modelo);
         int modelo_id = this.vistaAuto.ModelojComboBox.getSelectedIndex() + 1;
-        // System.out.println(modelo_id);
         float precio = Float.parseFloat(this.vistaAuto.PreciojTextField.getText());
-        // System.out.println(precio);
         String observacion = this.vistaAuto.jTextArea1.getText();
-        // System.out.println(observacion);
-        // auto.setId(id);
         auto.setModelo(modelo);
         auto.setPrecio(precio);
         auto.setObservacion(observacion);
@@ -80,6 +74,8 @@ public class GestorAuto implements ActionListener{
         } else {
             try {
                 autoDAO.agregar(auto, modelo_id);
+                this.limpiarTabla();
+                this.listar(vistaAuto.AutosjTable);
                 JOptionPane.showMessageDialog(null, "Marca se agrego con exito");
 
             } catch (Exception e) {
@@ -122,5 +118,12 @@ public class GestorAuto implements ActionListener{
         tcm.getColumn(3).setPreferredWidth(450);
         tcm.getColumn(2).setCellRenderer(NumberRenderer.getCurrencyRenderer());
 
+    }
+
+    void limpiarTabla() {
+        for (int i = 0; i < vistaAuto.AutosjTable.getRowCount(); i++) {
+            defaultTableModel.removeRow(i);
+            i = i - 1;
+        }
     }
 }

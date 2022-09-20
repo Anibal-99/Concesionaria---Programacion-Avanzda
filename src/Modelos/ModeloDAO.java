@@ -21,7 +21,6 @@ public class ModeloDAO {
             sqlcon = con.getConection();
             ps = sqlcon.prepareStatement(sql);
             rs = ps.executeQuery();
-            // System.out.println(ps);
             while (rs.next()) {
                 Modelo modelo = new Modelo();
                 modelo.setId(rs.getInt(1));
