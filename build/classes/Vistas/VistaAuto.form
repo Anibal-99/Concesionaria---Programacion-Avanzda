@@ -86,8 +86,8 @@
                           <Component id="jScrollPane1" min="-2" pref="447" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="EliminarjButton" pref="215" max="32767" attributes="0"/>
-                              <Component id="ListarjButton" max="32767" attributes="0"/>
+                              <Component id="ListarjButton" pref="215" max="32767" attributes="0"/>
+                              <Component id="EliminarjButton" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -230,14 +230,6 @@
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
           </AuxValues>
         </Component>
-        <Component class="javax.swing.JButton" name="EliminarjButton">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Eliminar"/>
-          </Properties>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
-          </AuxValues>
-        </Component>
         <Component class="javax.swing.JButton" name="ListarjButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Listar"/>
@@ -249,6 +241,14 @@
         <Component class="javax.swing.JButton" name="AgregarjButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Agregar"/>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JButton" name="EliminarjButton">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Eliminar"/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>

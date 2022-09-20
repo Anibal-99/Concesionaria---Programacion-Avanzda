@@ -3,6 +3,7 @@ package Modelos;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,4 +65,18 @@ public class AutoDAO {
         }
         return 1;
     }
+
+    public int eliminar(int id) throws SQLException {
+        String sql = ("DELETE FROM auto WHERE id=" + id);
+        try {
+            sqlcon = con.getConection();
+            ps = sqlcon.prepareStatement(sql);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            return 0;
+        }
+        return 1;
+    }
+
+
 }

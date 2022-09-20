@@ -4,6 +4,8 @@
  */
 package Controlador;
 import java.awt.event.ActionListener;
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,24 +41,43 @@ public class GestorAuto implements ActionListener{
         this.vistaAuto = vistaAuto;
         this.vistaAuto.ListarjButton.addActionListener(this);
         this.vistaAuto.AgregarjButton.addActionListener(this);
+        this.vistaAuto.EliminarjButton.addActionListener(this);
+        this.vistaAuto.ModificarjButton.addActionListener(this);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        // JButton btnListar = vistaAuto.ListarjButton;
-        // switch(e.getSource()){
-        //     case btnListar:
-        //         this.listar(vistaAuto.AutosjTable);
-        //     case vistaAuto.AgregarjButton:
-        //         this.agregar();
-        //     default:
-        //         //
-        // }
+        System.out.println(e.getSource() == vistaAuto.EliminarjButton);
         if (e.getSource() == vistaAuto.ListarjButton){
             this.limpiarTabla();
             this.listar(vistaAuto.AutosjTable);
         } else if (e.getSource() == vistaAuto.AgregarjButton) {
             this.agregar();
+            this.limpiarTabla();
+            this.listar(vistaAuto.AutosjTable);
+        } else if (e.getSource() == vistaAuto.EliminarjButton) {
+            this.eliminar();
+            this.limpiarTabla();
+            this.listar(vistaAuto.AutosjTable);
+        } else if (e.getSource() == vistaAuto.ModificarjButton) {
+            this.modificar();
+        }
+    }
+
+    public void modificar() {
+        vistaAuto.IDjTextField.setEnabled(false);
+        int fila = vistaAuto.AutosjTable.getSelectedRow();
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(vistaAuto, "Debe seleccionar una fila");
+        } else {
+            int id = Integer.parseInt((String) vistaAuto.AutosjTable.getValueAt(fila, 0).toString());
+            String modelo = (String) vistaAuto.AutosjTable.getValueAt(fila, 1);
+            Float precio = Float.parseFloat((String) vistaAuto.AutosjTable.getValueAt(fila, 2).toString());
+            String observacion = (String) vistaAuto.AutosjTable.getValueAt(fila, 3);
+            vistaAuto.IDjTextField.setText("" + id);
+            vistaAuto.ModelojComboBox.setSelectedItem(modelo);
+            vistaAuto.PreciojTextField.setText("" + precio);
+            vistaAuto.jTextArea1.setText(observacion);
         }
     }
 
@@ -80,6 +101,22 @@ public class GestorAuto implements ActionListener{
 
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "No se agregaron los datos");
+            }
+        }
+    }
+
+    public void eliminar() {
+        int fila = vistaAuto.AutosjTable.getSelectedRow();
+        System.out.println(fila);
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(vistaAuto, "Debe seleccionar un auto");
+        } else {
+            try {
+                int id = Integer.parseInt((String) vistaAuto.AutosjTable.getValueAt(fila, 0).toString());
+                autoDAO.eliminar(id);
+                JOptionPane.showMessageDialog(vistaAuto, "Auto eliminado");
+            } catch (SQLException ex) {
+                // Logger.getLogger(GestorMarca.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }

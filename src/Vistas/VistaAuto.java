@@ -45,9 +45,9 @@ public class VistaAuto extends javax.swing.JFrame {
         jTextArea1 = new javax.swing.JTextArea();
         ActualizarjButton = new javax.swing.JButton();
         ModificarjButton = new javax.swing.JButton();
-        EliminarjButton = new javax.swing.JButton();
         ListarjButton = new javax.swing.JButton();
         AgregarjButton = new javax.swing.JButton();
+        EliminarjButton = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         AutosjTable = new javax.swing.JTable();
@@ -86,11 +86,11 @@ public class VistaAuto extends javax.swing.JFrame {
 
         ModificarjButton.setText("Modificar");
 
-        EliminarjButton.setText("Eliminar");
-
         ListarjButton.setText("Listar");
 
         AgregarjButton.setText("Agregar");
+
+        EliminarjButton.setText("Eliminar");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -120,8 +120,8 @@ public class VistaAuto extends javax.swing.JFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 447, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(EliminarjButton, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
-                            .addComponent(ListarjButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(ListarjButton, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
+                            .addComponent(EliminarjButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -226,6 +226,10 @@ public class VistaAuto extends javax.swing.JFrame {
     private void ModelojComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModelojComboBoxActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ModelojComboBoxActionPerformed
+    // TODO add your handling code here:
+    // TODO add your handling code here:
+    // TODO add your handling code here:
+
 
     /**
      * @param args the command line arguments
