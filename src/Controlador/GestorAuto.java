@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Controlador;
+
 import java.awt.event.ActionListener;
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
@@ -31,11 +32,13 @@ import Vistas.NumberRenderer;
  *
  * @author Anibal-99
  */
-public class GestorAuto implements ActionListener{
+public class GestorAuto implements ActionListener {
+
     AutoDAO autoDAO = new AutoDAO();
     Auto auto = new Auto();
     VistaAuto vistaAuto = new VistaAuto();
     DefaultTableModel defaultTableModel = new DefaultTableModel();
+    
 
     public GestorAuto(VistaAuto vistaAuto) {
         this.vistaAuto = vistaAuto;
@@ -43,12 +46,13 @@ public class GestorAuto implements ActionListener{
         this.vistaAuto.AgregarjButton.addActionListener(this);
         this.vistaAuto.EliminarjButton.addActionListener(this);
         this.vistaAuto.ModificarjButton.addActionListener(this);
+        this.vistaAuto.ActualizarjButton.addActionListener(this);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         System.out.println(e.getSource() == vistaAuto.EliminarjButton);
-        if (e.getSource() == vistaAuto.ListarjButton){
+        if (e.getSource() == vistaAuto.ListarjButton) {
             this.limpiarTabla();
             this.listar(vistaAuto.AutosjTable);
         } else if (e.getSource() == vistaAuto.AgregarjButton) {
@@ -121,22 +125,22 @@ public class GestorAuto implements ActionListener{
         }
     }
 
-    public void llenarCombo() throws SQLException{
+    public void llenarCombo() throws SQLException {
         ModeloDAO modelos = new ModeloDAO();
         ArrayList<Modelo> listarModelos = modelos.getModelo();
         vistaAuto.ModelojComboBox.removeAllItems();
 
-        for (int i=0; i<listarModelos.size(); i++){
+        for (int i = 0; i < listarModelos.size(); i++) {
             vistaAuto.ModelojComboBox.addItem(
-                listarModelos.get(i).getMarca() + " " + listarModelos.get(i).getNombre() + " " + listarModelos.get(i).getAnio()
+                    listarModelos.get(i).getMarca() + " " + listarModelos.get(i).getNombre() + " " + listarModelos.get(i).getAnio()
             );
         }
     }
 
-    public void listar(JTable tablaAutos){
-        defaultTableModel = (DefaultTableModel)tablaAutos.getModel();
-        List<Auto>autos = AutoDAO.listar();
-        Object[]object = new Object[4];
+    public void listar(JTable tablaAutos) {
+        defaultTableModel = (DefaultTableModel) tablaAutos.getModel();
+        List<Auto> autos = AutoDAO.listar();
+        Object[] object = new Object[4];
         for (int i = 0; i < autos.size(); i++) {
             object[0] = autos.get(i).getId();
             object[1] = autos.get(i).getModelo();
