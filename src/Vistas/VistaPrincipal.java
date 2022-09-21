@@ -37,7 +37,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
         abmcMarca = new javax.swing.JMenuItem();
         abmcCliente = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
 
@@ -83,10 +82,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu1.add(jMenuItem3);
-
-        jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/No cliente.png"))); // NOI18N
-        jMenuItem5.setText("No Clientes");
-        jMenu1.add(jMenuItem5);
 
         jMenuBar1.add(jMenu1);
 
@@ -195,6 +190,5 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem5;
     // End of variables declaration//GEN-END:variables
 }
