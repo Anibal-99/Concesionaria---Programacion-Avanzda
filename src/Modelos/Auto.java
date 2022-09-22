@@ -5,6 +5,7 @@ public class Auto {
     String modelo;
     float precio;
     String observacion;
+    String color;
 
     public Auto(){}
     public Auto(int id, String modelo, float precio, String observacion) {
@@ -12,6 +13,7 @@ public class Auto {
         this.modelo = modelo;
         this.precio = precio;
         this.observacion = observacion;
+        this.color=color;
     }
 
     public int getId() {
@@ -41,8 +43,15 @@ public class Auto {
     public void setPrecio(float precio) {
         this.precio = precio;
     }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
     public void setObservacion(String observacion) {
         this.observacion = observacion;
     }
-
 }

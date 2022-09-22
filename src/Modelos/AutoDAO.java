@@ -8,13 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AutoDAO {
+
     static Conexion con = new Conexion();
     static Connection sqlcon;
     static PreparedStatement ps;
     static ResultSet rs;
 
     public static List<Auto> listar() {
-        List<Auto>autos = new ArrayList<Auto>();
+        List<Auto> autos = new ArrayList<Auto>();
         String tablaAuto = "auto";
         String tablaModelo = "modelo";
         String tablaMarca = "marca";
@@ -23,22 +24,23 @@ public class AutoDAO {
         String precio = "auto.precio";
         String observacion = "auto.observacion";
         String sql = String.format(
-            "SELECT %s AS \"ID\", %s AS \"Modelo\", %s AS \"Precio\", %s AS \"Observacion\" FROM %s INNER JOIN %s ON %s.%s_id = %s.id INNER JOIN %s ON %s.%s_id = %s.id ORDER BY %s.id DESC",
-            pk, modelo, precio, observacion, tablaAuto, tablaModelo, tablaAuto, tablaModelo, tablaModelo, tablaMarca, tablaModelo, tablaMarca, tablaMarca, tablaAuto);
-        try{
+                "SELECT %s AS \"ID\", %s AS \"Modelo\", %s AS \"Precio\", %s AS \"Observacion\" FROM %s INNER JOIN %s ON %s.%s_id = %s.id INNER JOIN %s ON %s.%s_id = %s.id ORDER BY %s.id DESC",
+                pk, modelo, precio, observacion, tablaAuto, tablaModelo, tablaAuto, tablaModelo, tablaModelo, tablaMarca, tablaModelo, tablaMarca, tablaMarca, tablaAuto);
+        try {
             sqlcon = con.getConection();
             ps = sqlcon.prepareStatement(sql);
             rs = ps.executeQuery();
-            while (rs.next()){
+            while (rs.next()) {
+                // Hay que agregar el color aca, (rs.getString(5)), pero tambien hay que hacerlo en la consulta.
                 Auto auto = new Auto(
-                    rs.getInt(1),
-                    rs.getString(2),
-                    rs.getFloat(3),
-                    rs.getString(4)
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getFloat(3),
+                        rs.getString(4)
                 );
                 autos.add(auto);
             }
-        } catch (Exception e){
+        } catch (Exception e) {
 
         }
         return autos;
@@ -52,7 +54,7 @@ public class AutoDAO {
             ps = sqlcon.prepareStatement(auxsql);
             ps.setInt(1, modelo_id);
             rs = ps.executeQuery();
-            while (rs.next()){
+            while (rs.next()) {
                 modelo_id = rs.getInt(1);
             }
             ps = sqlcon.prepareStatement(sql);
@@ -77,6 +79,4 @@ public class AutoDAO {
         }
         return 1;
     }
-
-
 }
