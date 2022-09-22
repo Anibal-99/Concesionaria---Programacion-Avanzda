@@ -38,7 +38,6 @@ public class GestorAuto implements ActionListener {
     Auto auto = new Auto();
     VistaAuto vistaAuto = new VistaAuto();
     DefaultTableModel defaultTableModel = new DefaultTableModel();
-    
 
     public GestorAuto(VistaAuto vistaAuto) {
         this.vistaAuto = vistaAuto;
@@ -65,6 +64,8 @@ public class GestorAuto implements ActionListener {
             this.listar(vistaAuto.AutosjTable);
         } else if (e.getSource() == vistaAuto.ModificarjButton) {
             this.modificar();
+        } else if (e.getSource() == vistaAuto.ActualizarjButton) {
+            this.actualizar();
         }
     }
 
@@ -76,13 +77,38 @@ public class GestorAuto implements ActionListener {
         } else {
             int id = Integer.parseInt((String) vistaAuto.AutosjTable.getValueAt(fila, 0).toString());
             String modelo = (String) vistaAuto.AutosjTable.getValueAt(fila, 1);
-            Float precio = Float.parseFloat((String) vistaAuto.AutosjTable.getValueAt(fila, 2).toString());
+            String precio = (String) vistaAuto.AutosjTable.getValueAt(fila, 2).toString();
             String observacion = (String) vistaAuto.AutosjTable.getValueAt(fila, 3);
             vistaAuto.IDjTextField.setText("" + id);
             vistaAuto.ModelojComboBox.setSelectedItem(modelo);
             vistaAuto.PreciojTextField.setText("" + precio);
             vistaAuto.jTextArea1.setText(observacion);
         }
+    }
+
+    public void actualizar() {
+        if (vistaAuto.IDjTextField.getText().equals("")) {
+            JOptionPane.showMessageDialog(vistaAuto, "No se Identifica el Id debe selecionar la opcion Editar");
+        } else {
+            int id = Integer.parseInt(vistaAuto.IDjTextField.getText());
+            String modelo = this.vistaAuto.ModelojComboBox.getSelectedItem().toString();
+            int modelo_id = this.vistaAuto.ModelojComboBox.getSelectedIndex() + 1;
+            Float precio = Float.parseFloat((String) vistaAuto.PreciojTextField.getText());
+            String observacion = this.vistaAuto.jTextArea1.getText();
+            auto.setId(id);
+            auto.setModelo(modelo);
+            auto.setPrecio(precio);
+            auto.setObservacion(observacion);
+            int flag = autoDAO.actualizar(auto, modelo_id);
+            if (flag == 1) {
+                this.limpiarTabla();
+                this.listar(vistaAuto.AutosjTable);
+                JOptionPane.showMessageDialog(vistaAuto, "Auto actualizado con exito");
+            } else {
+                JOptionPane.showMessageDialog(vistaAuto, "Error, no se actualizo el auto");
+            }
+        }
+
     }
 
     public void agregar() {

@@ -79,4 +79,25 @@ public class AutoDAO {
         }
         return 1;
     }
+
+    public int actualizar(Auto auto, int modelo_id) {
+        int flag = 0;
+        String auxsql = ("SELECT sq.id FROM (select modelo.id as id, marca.nombre as marca from modelo inner join marca ON modelo.marca_id = marca.id order by marca.nombre asc, modelo.id desc limit ?) as sq order by sq.marca desc, sq.id asc limit 1;");
+        try {
+            sqlcon = con.getConection();
+            ps = sqlcon.prepareStatement(auxsql);
+            ps.setInt(1, modelo_id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                modelo_id = rs.getInt(1);
+            }
+            String sql = String.format("UPDATE auto SET observacion = '%s', precio = %s, modelo_id = %s WHERE auto.id = %s",
+            auto.observacion, auto.precio, modelo_id, auto.id);
+            ps = sqlcon.prepareStatement(sql);
+            flag = ps.executeUpdate();
+        } catch (Exception e) {
+            return 0;
+        }
+        return flag;
+    }
 }
