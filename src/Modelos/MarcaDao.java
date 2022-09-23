@@ -21,14 +21,6 @@ public class MarcaDao {
     Conexion conectar = new Conexion();
     Marca m = new Marca();
 
-    //public void agregar(String name, String pais, String obs) throws SQLException{
-    //    con = conectar.getConection();
-    //    insert = con.prepareStatement("INSERT INTO marca(nombre,pais,observacion)values(?,?,?)");
-    //    insert.setString(1, name);
-    //    insert.setString(2, pais);
-    //    insert.setString(3, obs);
-    //    insert.executeUpdate();
-    //}
     public int agregar(Marca m) {
         String sql = ("INSERT INTO marca(nombre,pais_id,observacion)values(?,?,?)");
         try {
