@@ -82,6 +82,7 @@ public class GestorModelo implements ActionListener {
             } catch (SQLException ex) {
                 Logger.getLogger(GestorModelo.class.getName()).log(Level.SEVERE, null, ex);
             }
+            nuevo();
         }
         if(e.getSource()==vista.btnBuscar){
             limpiarTabla();

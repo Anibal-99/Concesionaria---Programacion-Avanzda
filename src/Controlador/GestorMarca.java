@@ -209,8 +209,8 @@ public class GestorMarca implements ActionListener {
         for (int i = 0; i < lista.size(); i++) {
             object[0] = lista.get(i).getId();
             object[1] = lista.get(i).getName();
-            object[2] = lista.get(i).getPais();
-            object[3] = lista.get(i).getObs();
+            object[2] = lista.get(i).getObs();
+            object[3] = lista.get(i).getPais();
             modelo.addRow(object);
         }
     }
