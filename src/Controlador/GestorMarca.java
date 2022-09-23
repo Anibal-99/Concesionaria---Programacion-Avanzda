@@ -76,7 +76,6 @@ public class GestorMarca implements ActionListener {
                 vista.txtname.setText(name);
                 vista.cbxCombo.setSelectedItem(pais);
                 vista.txtobs.setText(obs);
-
             }
         }
         if (e.getSource() == vista.btnActualizar) {
@@ -150,18 +149,14 @@ public class GestorMarca implements ActionListener {
                 JOptionPane.showMessageDialog(vista, "Error, no se actualizo la marca");
             }
         }
-
     }
     //Connection con;
     //PreparedStatement insert;
 
     public void agregar() {
-        //Conexion conectar = new Conexion();
         String name = this.vista.txtname.getText();
-        //String pais = this.vista.txtpais.getText();
         String pais = this.vista.cbxCombo.getSelectedItem().toString();
         String obs = this.vista.txtobs.getText();
-        // System.out.println(pais);
         m.setName(name);
         m.setPais(pais);
         m.setObs(obs);
@@ -219,12 +214,13 @@ public class GestorMarca implements ActionListener {
             modelo.addRow(object);
         }
     }
-    public void llenarCombo() throws SQLException{
+
+    public void llenarCombo() throws SQLException {
         PaisDao paises = new PaisDao();
         ArrayList<Pais> listarPaises = paises.getPais();
         vista.cbxCombo.removeAllItems();
 
-        for (int i=0; i<listarPaises.size(); i++){
+        for (int i = 0; i < listarPaises.size(); i++) {
             vista.cbxCombo.addItem(listarPaises.get(i).getName());
         }
     }
