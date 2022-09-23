@@ -69,4 +69,4 @@ CREATE TABLE venta(
 		REFERENCES auto(id),
 	CONSTRAINT FK_venta_cliente FOREIGN KEY(cliente_id)
 		REFERENCES cliente(id)
-)
+);
