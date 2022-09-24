@@ -36,7 +36,8 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         abmcMarca = new javax.swing.JMenuItem();
         abmcCliente = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        abmcAuto = new javax.swing.JMenuItem();
+        abmcModelos = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
 
@@ -74,14 +75,18 @@ public class VistaPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(abmcCliente);
 
-        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Auto.png"))); // NOI18N
-        jMenuItem3.setText("Autos");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        abmcAuto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Auto.png"))); // NOI18N
+        abmcAuto.setText("Autos");
+        abmcAuto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                abmcAutoActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem3);
+        jMenu1.add(abmcAuto);
+
+        abmcModelos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/matricula.png"))); // NOI18N
+        abmcModelos.setText("Modelos");
+        jMenu1.add(abmcModelos);
 
         jMenuBar1.add(jMenu1);
 
@@ -118,22 +123,18 @@ public class VistaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
 
-    private void abmcMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abmcMarcaActionPerformed
-        VistaMarca vm = new VistaMarca();
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void abmcAutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abmcAutoActionPerformed
+        VistaAuto vm = new VistaAuto();
         try {
             vm.inicializar();
         } catch (SQLException ex) {
             Logger.getLogger(VistaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_abmcMarcaActionPerformed
-
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        System.exit(0);
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
-
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    }//GEN-LAST:event_abmcAutoActionPerformed
 
     private void abmcClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abmcClienteActionPerformed
         // TODO add your handling code here:
@@ -144,6 +145,15 @@ public class VistaPrincipal extends javax.swing.JFrame {
             Logger.getLogger(VistaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_abmcClienteActionPerformed
+
+    private void abmcMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abmcMarcaActionPerformed
+        VistaMarca vm = new VistaMarca();
+        try {
+            vm.inicializar();
+        } catch (SQLException ex) {
+            Logger.getLogger(VistaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_abmcMarcaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -183,12 +193,13 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JDesktopPane PanelPrincipal;
+    private javax.swing.JMenuItem abmcAuto;
     private javax.swing.JMenuItem abmcCliente;
     private javax.swing.JMenuItem abmcMarca;
+    private javax.swing.JMenuItem abmcModelos;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem3;
     // End of variables declaration//GEN-END:variables
 }

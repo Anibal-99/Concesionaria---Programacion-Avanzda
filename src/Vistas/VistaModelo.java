@@ -23,6 +23,18 @@ public class VistaModelo extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }
 
+    public void inicializar() throws SQLException {
+        VistaModelo v = new VistaModelo();
+        setLocationRelativeTo(null);
+        try {
+            GestorModelo con = new GestorModelo(v);
+            con.llenarCombo();
+        } catch (SQLException ex) {
+            Logger.getLogger(VistaMarca.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        v.setVisible(true);
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

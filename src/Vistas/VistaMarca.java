@@ -36,6 +36,7 @@ public class VistaMarca extends javax.swing.JFrame {
 
     public void inicializar() throws SQLException {
         VistaMarca v = new VistaMarca();
+        setLocationRelativeTo(null);
         try {
             GestorMarca con = new GestorMarca(v);
             con.llenarCombo();

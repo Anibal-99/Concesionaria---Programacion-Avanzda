@@ -1,3 +1,7 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package Modelos;
 
 import java.sql.Connection;
@@ -138,7 +142,7 @@ public class AutoDAO {
         String color = "auto.color";
         String observacion = "auto.observacion";
         String sql = String.format(
-                "SELECT %s AS \"ID\", %s AS \"Modelo\", %s AS \"Precio\", %s AS \"Observacion\", color.nombre AS \"Color\" FROM %s INNER JOIN %s ON %s.%s_id = %s.id INNER JOIN %s ON %s.%s_id = %s.id INNER JOIN %s ON %s.%s_id=%s.id WHERE marca.nombre="+"'"+name+"'",
+                "SELECT %s AS \"ID\", %s AS \"Modelo\", %s AS \"Precio\", %s AS \"Observacion\", color.nombre AS \"Color\" FROM %s INNER JOIN %s ON %s.%s_id = %s.id INNER JOIN %s ON %s.%s_id = %s.id INNER JOIN %s ON %s.%s_id=%s.id WHERE marca.nombre=" + "'" + name + "'" + " OR modelo.nombre ="+"'"+name+"'",
                 pk, modelo, precio, observacion, tablaAuto, tablaModelo, tablaAuto, tablaModelo, tablaModelo, tablaMarca, tablaModelo, tablaMarca, tablaMarca, tablaColor, tablaAuto, tablaColor, tablaColor);
         try {
             sqlcon = con.getConection();
