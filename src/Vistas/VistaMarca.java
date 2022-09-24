@@ -9,8 +9,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import Controlador.GestorMarca;
-import Modelos.Pais;
-import Modelos.PaisDao;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.JTextField;
@@ -19,7 +17,6 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import Modelos.TextPrompt;
-import java.util.ArrayList;
 
 /**
  *
@@ -36,36 +33,20 @@ public class VistaMarca extends javax.swing.JFrame {
         //this.inicializar();
         placeHolder();
     }
-    
 
     public void inicializar() throws SQLException {
         VistaMarca v = new VistaMarca();
         try {
             GestorMarca con = new GestorMarca(v);
+            con.llenarCombo();
         } catch (SQLException ex) {
             Logger.getLogger(VistaMarca.class.getName()).log(Level.SEVERE, null, ex);
         }
         v.setVisible(true);
 
     }
-    /*
-    public void llenarComboBox() throws SQLException{
-        PaisDao paises = new PaisDao();
-        
-        ArrayList<Pais> listaPaises = paises.getPais();
-        
-        cbxpais.removeAllItems();
-        
-        for (int i=0; i<listaPaises.size(); i++){
-            cbxpais.addItem(listaPaises.get(i).getName());
-        }
-   
-    }
-    */ 
-            
     public void placeHolder(){
         TextPrompt placeholder = new TextPrompt("Nombre de la marca", txtFiltrar);
-        
     }
 
     /**
@@ -91,7 +72,7 @@ public class VistaMarca extends javax.swing.JFrame {
         btnActualizar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         txtId = new javax.swing.JTextField();
-        txtpais = new javax.swing.JTextField();
+        cbxCombo = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaMarca = new javax.swing.JTable();
@@ -155,6 +136,8 @@ public class VistaMarca extends javax.swing.JFrame {
             }
         });
 
+        cbxCombo.setMaximumSize(new java.awt.Dimension(72, 22));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -169,9 +152,9 @@ public class VistaMarca extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtname, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
-                    .addComponent(txtobs, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
+                    .addComponent(txtobs)
                     .addComponent(txtId)
-                    .addComponent(txtpais))
+                    .addComponent(cbxCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(29, 29, 29)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnActualizar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -219,7 +202,7 @@ public class VistaMarca extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(btnListar))
                                     .addComponent(txtobs)))
-                            .addComponent(txtpais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cbxCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
 
@@ -384,6 +367,7 @@ public class VistaMarca extends javax.swing.JFrame {
     public javax.swing.JButton btnListar;
     public javax.swing.JButton btnModificar;
     private javax.swing.JLabel btnpais;
+    public javax.swing.JComboBox<String> cbxCombo;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -396,7 +380,6 @@ public class VistaMarca extends javax.swing.JFrame {
     public javax.swing.JTextField txtId;
     public javax.swing.JTextField txtname;
     public javax.swing.JTextField txtobs;
-    public javax.swing.JTextField txtpais;
     // End of variables declaration//GEN-END:variables
 
 }

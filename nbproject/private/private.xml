@@ -5,7 +5,9 @@
         <group>
             <file>file:/D:/Users/Usuario/Documents/NetBeansProjects/programacionA/src/Controlador/GestorMarca.java</file>
             <file>file:/D:/Users/Usuario/Documents/NetBeansProjects/programacionA/src/Modelos/MarcaDao.java</file>
-            <file>file:/D:/Users/Usuario/Documents/NetBeansProjects/programacionA/src/Vistas/VistaMarca.java</file>
+            <file>file:/D:/Users/Usuario/Documents/NetBeansProjects/programacionA/src/Controlador/GestorAuto.java</file>
+            <file>file:/D:/Users/Usuario/Documents/NetBeansProjects/programacionA/src/Vistas/VistaAuto.java</file>
+            <file>file:/D:/Users/Usuario/Documents/NetBeansProjects/programacionA/src/Modelos/AutoDAO.java</file>
         </group>
     </open-files>
 </project-private>
