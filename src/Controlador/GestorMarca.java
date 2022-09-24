@@ -63,7 +63,6 @@ public class GestorMarca implements ActionListener {
             nuevo();
         }
         if (e.getSource() == vista.btnModificar) {
-            vista.txtId.setEnabled(false);
             int fila = vista.tablaMarca.getSelectedRow();
             if (fila == -1) {
                 JOptionPane.showMessageDialog(vista, "Debe seleccionar una fila");
@@ -76,7 +75,6 @@ public class GestorMarca implements ActionListener {
                 vista.txtname.setText(name);
                 vista.cbxCombo.setSelectedItem(pais);
                 vista.txtobs.setText(obs);
-
             }
         }
         if (e.getSource() == vista.btnActualizar) {
@@ -156,9 +154,7 @@ public class GestorMarca implements ActionListener {
     //PreparedStatement insert;
 
     public void agregar() {
-        //Conexion conectar = new Conexion();
         String name = this.vista.txtname.getText();
-        //String pais = this.vista.txtpais.getText();
         String pais = this.vista.cbxCombo.getSelectedItem().toString();
         String obs = this.vista.txtobs.getText();
         // System.out.println(pais);
@@ -193,7 +189,6 @@ public class GestorMarca implements ActionListener {
             object[3] = lista.get(i).getObs();
             modelo.addRow(object);
         }
-        //vista.tablaMarca.setModel(modelo);
     }
 
     void limpiarTabla() {
@@ -219,12 +214,13 @@ public class GestorMarca implements ActionListener {
             modelo.addRow(object);
         }
     }
-    public void llenarCombo() throws SQLException{
+
+    public void llenarCombo() throws SQLException {
         PaisDao paises = new PaisDao();
         ArrayList<Pais> listarPaises = paises.getPais();
         vista.cbxCombo.removeAllItems();
 
-        for (int i=0; i<listarPaises.size(); i++){
+        for (int i = 0; i < listarPaises.size(); i++) {
             vista.cbxCombo.addItem(listarPaises.get(i).getName());
         }
     }
