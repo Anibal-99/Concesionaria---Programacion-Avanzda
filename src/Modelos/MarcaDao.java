@@ -90,8 +90,8 @@ public class MarcaDao {
             insert = con.prepareStatement(sqlU);
             insert.setString(1, mar.getName());
             insert.setInt(
-                2,
-                pais_id
+                    2,
+                    pais_id
             );
             insert.setString(3, mar.getObs());
             insert.setInt(4, mar.getId());
@@ -123,14 +123,14 @@ public class MarcaDao {
 
     public ArrayList<Marca> filtrarMarcas(String name) throws SQLException {
         ArrayList<Marca> marcas = new ArrayList<>();
-        String sql = "select * from marca where marca.nombre="+"'"+name+"'";
+        String sql = "select * from marca where marca.nombre=" + "'" + name + "'";
         // System.out.println(sql);
         try {
             con = conectar.getConection();
             insert = con.prepareStatement(sql);
-            rs=insert.executeQuery();
+            rs = insert.executeQuery();
             // System.out.println(rs);
-            while(rs.next()){
+            while (rs.next()) {
                 Marca m = new Marca();
                 m.setId(rs.getInt(1));
                 m.setName(rs.getString(2));
@@ -141,6 +141,27 @@ public class MarcaDao {
         } catch (Exception e) {
         }
         // System.out.println("");
+        return marcas;
+    }
+
+    public ArrayList<Marca> getMarcas() throws SQLException {
+        ArrayList<Marca> marcas = new ArrayList<>();
+        String sql = "select marca.id as \"ID\", marca.nombre as \"Nombre\", pais.nombre as \"Pais\", marca.observacion as \"Observacion\" from marca inner join pais on marca.pais_id=pais.id order by marca.id asc";
+        try {
+            con = conectar.getConection();
+            insert = con.prepareStatement(sql);
+            rs = insert.executeQuery();
+            while (rs.next()) {
+                Marca m = new Marca();
+                m.setId(rs.getInt(1));
+                m.setName(rs.getString(2));
+                m.setPais(rs.getString(3));
+                m.setObs(rs.getString(4));
+                marcas.add(m);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
         return marcas;
     }
 }

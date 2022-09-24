@@ -148,7 +148,6 @@ public class GestorMarca implements ActionListener {
                 JOptionPane.showMessageDialog(vista, "Error, no se actualizo la marca");
             }
         }
-
     }
     //Connection con;
     //PreparedStatement insert;
@@ -157,7 +156,6 @@ public class GestorMarca implements ActionListener {
         String name = this.vista.txtname.getText();
         String pais = this.vista.cbxCombo.getSelectedItem().toString();
         String obs = this.vista.txtobs.getText();
-        // System.out.println(pais);
         m.setName(name);
         m.setPais(pais);
         m.setObs(obs);
