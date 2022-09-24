@@ -4,11 +4,12 @@
  */
 package Modelos;
 import java.awt.*;
+import java.awt.Color;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.event.*;
-import javax.swing.text.*;  
+import javax.swing.text.*;
 
 
 /**
@@ -16,13 +17,13 @@ import javax.swing.text.*;
  * the Document of the text field is empty. The Show property is used to
  * determine the visibility of the prompt.
  *
- * The Font and foreground Color of the prompt will default to those properties
+ * The Font and foreground java.awt.Color of the prompt will default to those properties
  * of the parent text component. You are free to change the properties after
  * class construction.
  */
 public class TextPrompt extends JLabel implements FocusListener, DocumentListener {
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 
@@ -48,9 +49,9 @@ public class TextPrompt extends JLabel implements FocusListener, DocumentListene
 
 		setText(text);
 		setFont(component.getFont());
-                
+
 //		setForeground(component.getForeground());
-		setForeground(Color.gray);
+		setForeground(java.awt.Color.gray);
 //		setBorder(new EmptyBorder(component.getInsets()));
 		setHorizontalAlignment(JLabel.LEADING);
 
@@ -64,7 +65,7 @@ public class TextPrompt extends JLabel implements FocusListener, DocumentListene
 
 	/**
 	 * Convenience method to change the alpha value of the current foreground
-	 * Color to the specifice value.
+	 * java.awt.Color to the specifice value.
 	 *
 	 * @param alpha
 	 *            value in the range of 0 - 1.0.
@@ -75,7 +76,7 @@ public class TextPrompt extends JLabel implements FocusListener, DocumentListene
 
 	/**
 	 * Convenience method to change the alpha value of the current foreground
-	 * Color to the specifice value.
+	 * java.awt.Color to the specifice value.
 	 *
 	 * @param alpha
 	 *            value in the range of 0 - 255.
@@ -83,12 +84,12 @@ public class TextPrompt extends JLabel implements FocusListener, DocumentListene
 	public void changeAlpha(int alpha) {
 		alpha = alpha > 255 ? 255 : alpha < 0 ? 0 : alpha;
 
-		Color foreground = getForeground();
+		java.awt.Color foreground = getForeground();
 		int red = foreground.getRed();
 		int green = foreground.getGreen();
 		int blue = foreground.getBlue();
 
-		Color withAlpha = new Color(red, green, blue, alpha);
+		java.awt.Color withAlpha = new java.awt.Color(red, green, blue, alpha);
 		super.setForeground(withAlpha);
 	}
 

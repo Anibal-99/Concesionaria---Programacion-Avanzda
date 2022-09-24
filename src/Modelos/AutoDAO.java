@@ -138,7 +138,7 @@ public class AutoDAO {
         String color = "auto.color";
         String observacion = "auto.observacion";
         String sql = String.format(
-                "SELECT %s AS \"ID\", %s AS \"Modelo\", %s AS \"Precio\", %s AS \"Observacion\", color.nombre AS \"Color\" FROM %s INNER JOIN %s ON %s.%s_id = %s.id INNER JOIN %s ON %s.%s_id = %s.id INNER JOIN %s ON %s.%s_id=%s.id WHERE marca.nombre="+"'"+name+"'",
+                "SELECT %s AS \"ID\", %s AS \"Modelo\", %s AS \"Precio\", %s AS \"Observacion\", color.nombre AS \"Color\" FROM %s INNER JOIN %s ON %s.%s_id = %s.id INNER JOIN %s ON %s.%s_id = %s.id INNER JOIN %s ON %s.%s_id=%s.id WHERE marca.nombre="+"'"+name+"'" + " OR modelo.nombre ="+"'"+name+"'",
                 pk, modelo, precio, observacion, tablaAuto, tablaModelo, tablaAuto, tablaModelo, tablaModelo, tablaMarca, tablaModelo, tablaMarca, tablaMarca, tablaColor, tablaAuto, tablaColor, tablaColor);
         try {
             sqlcon = con.getConection();
