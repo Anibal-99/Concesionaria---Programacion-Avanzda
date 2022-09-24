@@ -40,6 +40,7 @@ public class ColorDao {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
+        //System.out.println(colores);
         return colores;
     }
 }

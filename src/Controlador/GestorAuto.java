@@ -25,8 +25,10 @@ import Modelos.AutoDAO;
 import Modelos.Modelo;
 import Modelos.ModeloDAO;
 import Modelos.Auto;
+import Modelos.ColorDao;
 import Vistas.VistaAuto;
 import Vistas.NumberRenderer;
+import Modelos.Color;
 
 /**
  *
@@ -41,31 +43,47 @@ public class GestorAuto implements ActionListener {
 
     public GestorAuto(VistaAuto vistaAuto) {
         this.vistaAuto = vistaAuto;
-        this.vistaAuto.ListarjButton.addActionListener(this);
+        this.vistaAuto.ListarjButton1.addActionListener(this);
         this.vistaAuto.AgregarjButton.addActionListener(this);
         this.vistaAuto.EliminarjButton.addActionListener(this);
         this.vistaAuto.ModificarjButton.addActionListener(this);
         this.vistaAuto.ActualizarjButton.addActionListener(this);
+        this.vistaAuto.btnNuevo.addActionListener(this);
+        this.vistaAuto.btnBuscar.addActionListener(this);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println(e.getSource() == vistaAuto.EliminarjButton);
-        if (e.getSource() == vistaAuto.ListarjButton) {
+        if (e.getSource() == vistaAuto.ListarjButton1) {
             this.limpiarTabla();
             this.listar(vistaAuto.AutosjTable);
+            nuevo();
         } else if (e.getSource() == vistaAuto.AgregarjButton) {
             this.agregar();
             this.limpiarTabla();
             this.listar(vistaAuto.AutosjTable);
+            nuevo();
         } else if (e.getSource() == vistaAuto.EliminarjButton) {
             this.eliminar();
             this.limpiarTabla();
             this.listar(vistaAuto.AutosjTable);
+            nuevo();
         } else if (e.getSource() == vistaAuto.ModificarjButton) {
             this.modificar();
         } else if (e.getSource() == vistaAuto.ActualizarjButton) {
             this.actualizar();
+            nuevo();
+        }
+        if (e.getSource() == vistaAuto.btnNuevo) {
+            nuevo();
+        }
+        if(e.getSource()==vistaAuto.btnBuscar){
+            limpiarTabla();
+            try {
+                this.buscarAutos(vistaAuto.AutosjTable);
+            } catch (SQLException ex) {
+                java.util.logging.Logger.getLogger(GestorAuto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            }
         }
     }
 
@@ -79,10 +97,12 @@ public class GestorAuto implements ActionListener {
             String modelo = (String) vistaAuto.AutosjTable.getValueAt(fila, 1);
             String precio = (String) vistaAuto.AutosjTable.getValueAt(fila, 2).toString();
             String observacion = (String) vistaAuto.AutosjTable.getValueAt(fila, 3);
+            String color = (String) vistaAuto.AutosjTable.getValueAt(fila, 4);
             vistaAuto.IDjTextField.setText("" + id);
             vistaAuto.ModelojComboBox.setSelectedItem(modelo);
             vistaAuto.PreciojTextField.setText("" + precio);
             vistaAuto.jTextArea1.setText(observacion);
+            vistaAuto.cbxColor.setSelectedItem(color);
         }
     }
 
@@ -95,10 +115,13 @@ public class GestorAuto implements ActionListener {
             int modelo_id = this.vistaAuto.ModelojComboBox.getSelectedIndex() + 1;
             Float precio = Float.parseFloat((String) vistaAuto.PreciojTextField.getText());
             String observacion = this.vistaAuto.jTextArea1.getText();
+            String color = this.vistaAuto.cbxColor.getSelectedItem().toString();
             auto.setId(id);
             auto.setModelo(modelo);
             auto.setPrecio(precio);
             auto.setObservacion(observacion);
+            auto.setColor(color);
+
             int flag = autoDAO.actualizar(auto, modelo_id);
             if (flag == 1) {
                 this.limpiarTabla();
@@ -116,9 +139,11 @@ public class GestorAuto implements ActionListener {
         int modelo_id = this.vistaAuto.ModelojComboBox.getSelectedIndex() + 1;
         float precio = Float.parseFloat(this.vistaAuto.PreciojTextField.getText());
         String observacion = this.vistaAuto.jTextArea1.getText();
+        String color = this.vistaAuto.cbxColor.getSelectedItem().toString();
         auto.setModelo(modelo);
         auto.setPrecio(precio);
         auto.setObservacion(observacion);
+        auto.setColor(color);
 
         if (this.vistaAuto.ModelojComboBox.getSelectedItem().toString().isEmpty()) {
             JOptionPane.showMessageDialog(null, "No se puedo agregar sin ingresar los datos");
@@ -166,12 +191,13 @@ public class GestorAuto implements ActionListener {
     public void listar(JTable tablaAutos) {
         defaultTableModel = (DefaultTableModel) tablaAutos.getModel();
         List<Auto> autos = AutoDAO.listar();
-        Object[] object = new Object[4];
+        Object[] object = new Object[5];
         for (int i = 0; i < autos.size(); i++) {
             object[0] = autos.get(i).getId();
             object[1] = autos.get(i).getModelo();
             object[2] = autos.get(i).getPrecio();
             object[3] = autos.get(i).getObservacion();
+            object[4] = autos.get(i).getColor();
             defaultTableModel.addRow(object);
         }
         DefaultTableCellRenderer renderLeft = new DefaultTableCellRenderer();
@@ -191,6 +217,39 @@ public class GestorAuto implements ActionListener {
         for (int i = 0; i < vistaAuto.AutosjTable.getRowCount(); i++) {
             defaultTableModel.removeRow(i);
             i = i - 1;
+        }
+    }
+
+    public void llenarComboColor() throws SQLException {
+        ColorDao colores = new ColorDao();
+        ArrayList<Color> listarColores = colores.getColor();
+        vistaAuto.cbxColor.removeAllItems();
+        for (int i = 0; i < listarColores.size(); i++) {
+            vistaAuto.cbxColor.addItem(listarColores.get(i).getNombre());
+        }
+    }
+
+    void nuevo() {
+        vistaAuto.IDjTextField.setText("");
+        vistaAuto.PreciojTextField.setText("");
+        vistaAuto.jTextArea1.setText("");
+    }
+
+    public void buscarAutos(JTable tablaAuto) throws SQLException {
+        // Esto es para que se ejecute la tabla al momento de iniciar el programa
+        defaultTableModel = (DefaultTableModel) tablaAuto.getModel();
+        String name = this.vistaAuto.txtBuscar.getText();
+
+        List<Auto> autos = autoDAO.buscarAutos(name);
+        Object[] object = new Object[5];
+
+        for (int i = 0; i < autos.size(); i++) {
+            object[0] = autos.get(i).getId();
+            object[1] = autos.get(i).getModelo();
+            object[2] = autos.get(i).getPrecio();
+            object[3] = autos.get(i).getObservacion();
+            object[4] = autos.get(i).getColor();
+            defaultTableModel.addRow(object);
         }
     }
 }

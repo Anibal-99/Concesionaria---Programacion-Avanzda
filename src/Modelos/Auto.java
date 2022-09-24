@@ -8,7 +8,7 @@ public class Auto {
     String color;
 
     public Auto(){}
-    public Auto(int id, String modelo, float precio, String observacion) {
+    public Auto(int id, String modelo, float precio, String observacion, String color) {
         this.id = id;
         this.modelo = modelo;
         this.precio = precio;

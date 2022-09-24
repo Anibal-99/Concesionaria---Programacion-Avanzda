@@ -46,11 +46,12 @@ public class VistaAuto extends javax.swing.JFrame {
         jTextArea1 = new javax.swing.JTextArea();
         ActualizarjButton = new javax.swing.JButton();
         ModificarjButton = new javax.swing.JButton();
-        ListarjButton = new javax.swing.JButton();
         AgregarjButton = new javax.swing.JButton();
         EliminarjButton = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         cbxColor = new javax.swing.JComboBox<>();
+        ListarjButton1 = new javax.swing.JButton();
+        btnNuevo = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         AutosjTable = new javax.swing.JTable();
@@ -92,13 +93,15 @@ public class VistaAuto extends javax.swing.JFrame {
 
         ModificarjButton.setText("Modificar");
 
-        ListarjButton.setText("Listar");
-
         AgregarjButton.setText("Agregar");
 
         EliminarjButton.setText("Eliminar");
 
         jLabel5.setText("Color");
+
+        ListarjButton1.setText("Listar");
+
+        btnNuevo.setText("Nuevo");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -128,13 +131,15 @@ public class VistaAuto extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(ListarjButton, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)))
+                        .addComponent(ListarjButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(IDjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
@@ -157,9 +162,10 @@ public class VistaAuto extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel4)
-                    .addComponent(ListarjButton, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(35, 35, 35))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
+                    .addComponent(btnNuevo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ListarjButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(22, 22, 22))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Listado de autos"));
@@ -169,11 +175,11 @@ public class VistaAuto extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Modelo", "Precio", "Observación"
+                "ID", "Modelo", "Precio", "Observación", "Color"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Object.class, java.lang.Float.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.Object.class, java.lang.Float.class, java.lang.String.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -244,7 +250,6 @@ public class VistaAuto extends javax.swing.JFrame {
     // TODO add your handling code here:
     // TODO add your handling code here:
 
-
     /**
      * @param args the command line arguments
      * @throws SQLException
@@ -255,6 +260,7 @@ public class VistaAuto extends javax.swing.JFrame {
         vistaAuto.setVisible(true);
         vistaAuto.setLocationRelativeTo(vistaAuto);
         gestorAuto.llenarCombo();
+        gestorAuto.llenarComboColor();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -263,11 +269,12 @@ public class VistaAuto extends javax.swing.JFrame {
     public javax.swing.JTable AutosjTable;
     public javax.swing.JButton EliminarjButton;
     public javax.swing.JTextField IDjTextField;
-    public javax.swing.JButton ListarjButton;
+    public javax.swing.JButton ListarjButton1;
     public javax.swing.JComboBox<String> ModelojComboBox;
     public javax.swing.JButton ModificarjButton;
     public javax.swing.JTextField PreciojTextField;
     public javax.swing.JButton btnBuscar;
+    public javax.swing.JButton btnNuevo;
     public javax.swing.JComboBox<String> cbxColor;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
