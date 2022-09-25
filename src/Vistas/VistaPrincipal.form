@@ -52,6 +52,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Modelos"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="abmcModelosActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>

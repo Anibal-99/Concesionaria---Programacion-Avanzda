@@ -47,7 +47,7 @@ public class VistaMarca extends javax.swing.JFrame {
 
     }
     public void placeHolder(){
-        TextPrompt placeholder = new TextPrompt("Nombre de la marca", txtFiltrar);
+        TextPrompt placeholder = new TextPrompt("Filtrar por nombre de marca", txtFiltrar);
     }
 
     /**

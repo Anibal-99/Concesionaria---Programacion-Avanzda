@@ -86,6 +86,11 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         abmcModelos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/matricula.png"))); // NOI18N
         abmcModelos.setText("Modelos");
+        abmcModelos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                abmcModelosActionPerformed(evt);
+            }
+        });
         jMenu1.add(abmcModelos);
 
         jMenuBar1.add(jMenu1);
@@ -154,6 +159,16 @@ public class VistaPrincipal extends javax.swing.JFrame {
             Logger.getLogger(VistaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_abmcMarcaActionPerformed
+
+    private void abmcModelosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abmcModelosActionPerformed
+        // TODO add your handling code here:
+        VistaModelo vm = new VistaModelo();
+        try {
+            vm.inicializar();
+        } catch (SQLException ex) {
+            Logger.getLogger(VistaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_abmcModelosActionPerformed
 
     /**
      * @param args the command line arguments

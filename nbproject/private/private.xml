@@ -7,7 +7,9 @@
             <file>file:/D:/Users/Usuario/Documents/NetBeansProjects/programacionALimpia/src/Vistas/VistaModelo.java</file>
             <file>file:/D:/Users/Usuario/Documents/NetBeansProjects/programacionALimpia/src/Vistas/VistaPrincipal.java</file>
             <file>file:/D:/Users/Usuario/Documents/NetBeansProjects/programacionALimpia/src/Modelos/AutoDAO.java</file>
-            <file>file:/D:/Users/Usuario/Documents/NetBeansProjects/programacionALimpia/src/Vistas/VistaMarca.java</file>
+            <file>file:/D:/Users/Usuario/Documents/NetBeansProjects/programacionALimpia/src/Controlador/GestorCliente.java</file>
+            <file>file:/D:/Users/Usuario/Documents/NetBeansProjects/programacionALimpia/src/Vistas/VistaCliente.java</file>
+            <file>file:/D:/Users/Usuario/Documents/NetBeansProjects/programacionALimpia/src/Modelos/ClienteDao.java</file>
         </group>
     </open-files>
 </project-private>

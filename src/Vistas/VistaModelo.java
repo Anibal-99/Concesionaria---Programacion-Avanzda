@@ -8,6 +8,7 @@ import Controlador.GestorModelo;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import Modelos.TextPrompt;
 
 /**
  *
@@ -21,11 +22,17 @@ public class VistaModelo extends javax.swing.JFrame {
     public VistaModelo() {
         initComponents();
         setLocationRelativeTo(null);
+        placeHolder();
+    }
+
+    public void placeHolder() {
+        TextPrompt placeholder = new TextPrompt("Filtrar por nombre modelo", txtBuscar);
     }
 
     public void inicializar() throws SQLException {
         VistaModelo v = new VistaModelo();
         setLocationRelativeTo(null);
+        placeHolder();
         try {
             GestorModelo con = new GestorModelo(v);
             con.llenarCombo();
@@ -67,7 +74,7 @@ public class VistaModelo extends javax.swing.JFrame {
 
         jLabel4.setText("jLabel4");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos modelo"));
 

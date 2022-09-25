@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 
 import Controlador.GestorAuto;
 import Controlador.GestorMarca;
+import Modelos.TextPrompt;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -26,11 +27,17 @@ public class VistaAuto extends javax.swing.JFrame {
     public VistaAuto() {
         initComponents();
         setLocationRelativeTo(null);
+        placeHolder();
+    }
+
+    public void placeHolder() {
+        TextPrompt placeholder = new TextPrompt("Filtrar por marca o modelo de auto", txtBuscar);
     }
 
     public void inicializar() throws SQLException {
         VistaAuto v = new VistaAuto();
         setLocationRelativeTo(null);
+        placeHolder();
         try {
             GestorAuto con = new GestorAuto(v);
             con.llenarCombo();
