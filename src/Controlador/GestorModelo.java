@@ -57,6 +57,7 @@ public class GestorModelo implements ActionListener {
             this.modificar();
         }
         if (e.getSource() == vista.btnListar) {
+            limpiarTabla();
             try {
                 listarModelos(vista.tablaModelo);
             } catch (SQLException ex) {
