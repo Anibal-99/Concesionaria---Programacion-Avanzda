@@ -69,11 +69,12 @@ public class GestorMarca implements ActionListener {
             } else {
                 int id = Integer.parseInt((String) vista.tablaMarca.getValueAt(fila, 0).toString());
                 String name = (String) vista.tablaMarca.getValueAt(fila, 1);
-                String pais = (String) vista.tablaMarca.getValueAt(fila, 2);
+                Pais pais = ((Pais) vista.tablaMarca.getValueAt(fila, 2));
                 String obs = (String) vista.tablaMarca.getValueAt(fila, 3);
                 vista.txtId.setText("" + id);
                 vista.txtname.setText(name);
-                vista.cbxCombo.setSelectedItem(pais);
+                DefaultComboBoxModel<Pais> cbxModel = ((DefaultComboBoxModel) vista.cbxCombo.getModel());
+                cbxModel.setSelectedItem(pais);
                 vista.txtobs.setText(obs);
             }
         }
@@ -135,7 +136,7 @@ public class GestorMarca implements ActionListener {
         } else {
             int id = Integer.parseInt(vista.txtId.getText());
             String name = this.vista.txtname.getText();
-            String pais = this.vista.cbxCombo.getSelectedItem().toString();
+            Pais pais = ((Pais) this.vista.cbxCombo.getSelectedItem());
             String obs = this.vista.txtobs.getText();
             m.setId(id);
             m.setName(name);
@@ -154,7 +155,7 @@ public class GestorMarca implements ActionListener {
 
     public void agregar() {
         String name = this.vista.txtname.getText();
-        String pais = this.vista.cbxCombo.getSelectedItem().toString();
+        Pais pais = ((Pais) this.vista.cbxCombo.getSelectedItem());
         String obs = this.vista.txtobs.getText();
         m.setName(name);
         m.setPais(pais);
@@ -175,17 +176,20 @@ public class GestorMarca implements ActionListener {
 
     public void buscarMarcas(JTable tabla) throws SQLException {
         // Esto es para que se ejecute la tabla al momento de iniciar el programa
-        modelo = (DefaultTableModel) tabla.getModel();
+        DefaultTableModel dtm = new DefaultTableModel();
+        tabla.setModel(dtm);
+        // modelo = (DefaultTableModel) tabla.getModel();
 
         List<Marca> lista = mDao.listarMarcas();
-        Object[] object = new Object[4];
+        System.out.println(lista.size());
 
-        for (int i = 0; i < lista.size(); i++) {
-            object[0] = lista.get(i).getId();
-            object[1] = lista.get(i).getName();
-            object[2] = lista.get(i).getPais();
-            object[3] = lista.get(i).getObs();
-            modelo.addRow(object);
+        for (Marca m: lista) {
+            Object[] object = new Object[4];
+            object[0] = m.getId();
+            object[1] = m.getName();
+            object[2] = m.getPais();
+            object[3] = m.getObs();
+            dtm.addRow(object);
         }
     }
 
@@ -216,10 +220,11 @@ public class GestorMarca implements ActionListener {
     public void llenarCombo() throws SQLException {
         PaisDao paises = new PaisDao();
         ArrayList<Pais> listarPaises = paises.getPais();
+        DefaultComboBoxModel<Pais> cbxModel = ((DefaultComboBoxModel) vista.cbxCombo.getModel());
         vista.cbxCombo.removeAllItems();
 
         for (int i = 0; i < listarPaises.size(); i++) {
-            vista.cbxCombo.addItem(listarPaises.get(i).getName());
+            cbxModel.addElement(listarPaises.get(i));
         }
     }
 }

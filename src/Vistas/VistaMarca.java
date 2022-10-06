@@ -7,6 +7,8 @@ package Vistas;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import Controlador.GestorMarca;
 import java.awt.event.KeyAdapter;
