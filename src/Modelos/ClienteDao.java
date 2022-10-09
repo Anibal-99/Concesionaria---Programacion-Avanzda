@@ -44,7 +44,6 @@ public class ClienteDao {
             insert.setString(6, c.getTel());
             insert.setString(7, c.getDireccion());
             insert.setString(8, c.getLocalidad());
-            System.out.println(insert);
             insert.executeUpdate();
         } catch (Exception e) {
 
@@ -54,7 +53,6 @@ public class ClienteDao {
 
     public int modificar(Cliente c) {
         int act = 0;
-        System.out.println("ffaffffff");
         String sqlU = ("UPDATE cliente SET nombre=?,apellido=?,razon_social=?,cuit=?,telefono=?,direccion=?,localidad=?,pais_id=? WHERE id=?");
 
         try {
@@ -68,7 +66,6 @@ public class ClienteDao {
                 }
             }
 
-            System.out.println(pais_id);
             con = conectar.getConection();
             insert = con.prepareStatement(sqlU);
             insert.setString(1, c.getNombre());
@@ -80,7 +77,6 @@ public class ClienteDao {
             insert.setString(7, c.getLocalidad());
             insert.setInt(8, pais_id);
             insert.setInt(9, c.getId());
-            System.out.println(sqlU);
             act = insert.executeUpdate();
 
             if (act == 1) {
@@ -127,7 +123,6 @@ public class ClienteDao {
     public int delete(int id) throws SQLException {
         int del = 0;
         String sqlD = ("DELETE FROM cliente WHERE id=" + id);
-        System.out.println(sqlD);
         try {
             con = conectar.getConection();
             insert = con.prepareStatement(sqlD);
@@ -141,12 +136,10 @@ public class ClienteDao {
     public ArrayList<Cliente> buscarClientes(String name) throws SQLException {
         ArrayList<Cliente> clientes = new ArrayList<>();
         String sql = "select * from cliente where cliente.nombre=" + "'" + name + "'";
-        System.out.println(sql);
         try {
             con = conectar.getConection();
             insert = con.prepareStatement(sql);
             rs = insert.executeQuery();
-            System.out.println(rs);
             while (rs.next()) {
                 Cliente c = new Cliente();
                 c.setId(rs.getInt(1));

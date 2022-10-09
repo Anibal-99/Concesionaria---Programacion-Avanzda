@@ -101,7 +101,7 @@ public class GestorMarca implements ActionListener {
         if (e.getSource() == vista.btnFiltrar) {
             limpiarTabla();
             try {
-                this.filtrarMarca(vista.tablaMarca);
+                filtrarMarca(vista.tablaMarca);
             } catch (SQLException ex) {
                 Logger.getLogger(GestorMarca.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -175,21 +175,12 @@ public class GestorMarca implements ActionListener {
     }
 
     public void buscarMarcas(JTable tabla) throws SQLException {
-        // Esto es para que se ejecute la tabla al momento de iniciar el programa
-        DefaultTableModel dtm = new DefaultTableModel();
-        tabla.setModel(dtm);
-        // modelo = (DefaultTableModel) tabla.getModel();
-
+        modelo = (DefaultTableModel) tabla.getModel();
         List<Marca> lista = mDao.listarMarcas();
-        System.out.println(lista.size());
 
-        for (Marca m: lista) {
-            Object[] object = new Object[4];
-            object[0] = m.getId();
-            object[1] = m.getName();
-            object[2] = m.getPais();
-            object[3] = m.getObs();
-            dtm.addRow(object);
+        for (Marca mar : lista) {
+            Object[] object = {mar.getId(), mar.getName(), mar.getPais(), mar.getObs()};
+            modelo.addRow(object);
         }
     }
 
@@ -204,17 +195,13 @@ public class GestorMarca implements ActionListener {
         // Esto es para que se ejecute la tabla al momento de iniciar el programa
         modelo = (DefaultTableModel) tablaMarca.getModel();
         String name = this.vista.txtFiltrar.getText();
-
         List<Marca> lista = mDao.filtrarMarcas(name);
-        Object[] object = new Object[4];
-
-        for (int i = 0; i < lista.size(); i++) {
-            object[0] = lista.get(i).getId();
-            object[1] = lista.get(i).getName();
-            object[2] = lista.get(i).getPais();
-            object[3] = lista.get(i).getObs();
+        
+        for (Marca mar : lista) {
+            Object[] object = {mar.getId(), mar.getName(), mar.getPais(), mar.getObs()};
             modelo.addRow(object);
         }
+
     }
 
     public void llenarCombo() throws SQLException {

@@ -47,13 +47,11 @@ public class ModeloDAO {
                     marca_id = mar.getId();
                 }
             }
-            System.out.println(marca_id);
             sqlcon = con.getConection();
             ps = sqlcon.prepareStatement(sql);
             ps.setString(1, m.getNombre());
             ps.setInt(2, m.getAnio());
             ps.setInt(3, marca_id);
-            System.out.println(ps);
             ps.executeUpdate();
         } catch (Exception e) {
 
@@ -100,7 +98,6 @@ public class ModeloDAO {
             ps.setInt(2, m.getAnio());
             ps.setInt(3, marca_id);
             ps.setInt(4, m.getId());
-            System.out.println(ps);
             act = ps.executeUpdate();
             if (act == 1) {
                 return 1;
@@ -116,7 +113,6 @@ public class ModeloDAO {
     public int delete(int id) throws SQLException {
         int del = 0;
         String sqlD = ("DELETE FROM modelo WHERE id=" + id);
-        // System.out.println(sqlD);
         try {
             sqlcon = con.getConection();
             ps = sqlcon.prepareStatement(sqlD);
@@ -129,12 +125,10 @@ public class ModeloDAO {
         public ArrayList<Modelo> buscarMarcas(String name) throws SQLException {
         ArrayList<Modelo> modelos = new ArrayList<>();
         String sql = "select modelo.id as \"Id\", marca.nombre as \"Marca\", modelo.nombre as \"Nombre\", modelo.anio as \"Anio\" from modelo inner join marca on modelo.marca_id=marca.id where modelo.nombre="+"'"+name+"'";
-        // System.out.println(sql);
         try {
             sqlcon = con.getConection();
             ps = sqlcon.prepareStatement(sql);
             rs = ps.executeQuery();
-            // System.out.println(rs);
             while (rs.next()) {
                 Modelo m = new Modelo();
                 m.setId(rs.getInt(1));
@@ -145,7 +139,6 @@ public class ModeloDAO {
             }
         } catch (Exception e) {
         }
-        // System.out.println("");
         return modelos;
     }
 }

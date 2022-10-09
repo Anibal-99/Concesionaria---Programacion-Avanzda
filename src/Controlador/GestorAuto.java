@@ -162,7 +162,6 @@ public class GestorAuto implements ActionListener {
 
     public void eliminar() {
         int fila = vistaAuto.AutosjTable.getSelectedRow();
-        System.out.println(fila);
         if (fila == -1) {
             JOptionPane.showMessageDialog(vistaAuto, "Debe seleccionar un auto");
         } else {

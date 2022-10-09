@@ -67,7 +67,6 @@ public class AutoDAO {
             for (Color c : listarColores) {
                 if (auto.getColor().equals(c.getNombre())) {
                     color_id = c.getId();
-                    System.out.println(color_id);
                 }
             }
             ps = sqlcon.prepareStatement(sql);
@@ -75,7 +74,6 @@ public class AutoDAO {
             ps.setFloat(2, auto.getPrecio());
             ps.setInt(3, modelo_id);
             ps.setInt(4, color_id);
-            System.out.println(ps);
             ps.executeUpdate();
 
         } catch (Exception e) {
@@ -113,7 +111,6 @@ public class AutoDAO {
             for (Color c : listarColores) {
                 if (auto.getColor().equals(c.getNombre())) {
                     color_id = c.getId();
-                    System.out.println(color_id);
                 }
             }
             String sql = String.format("UPDATE auto SET observacion = '%s', precio = %s, modelo_id = %s, color_id = %s WHERE auto.id = %s",
@@ -144,7 +141,6 @@ public class AutoDAO {
             sqlcon = con.getConection();
             ps = sqlcon.prepareStatement(sql);
             rs = ps.executeQuery();
-            System.out.println(ps);
             while (rs.next()) {
                 Auto auto = new Auto(
                         rs.getInt(1),
@@ -157,7 +153,6 @@ public class AutoDAO {
             }
         } catch (Exception e) {
         }
-        // System.out.println("");
         return autos;
     }
 }

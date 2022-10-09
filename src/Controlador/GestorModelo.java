@@ -180,7 +180,6 @@ public class GestorModelo implements ActionListener {
             int modded = modeloDao.actualizar(m);
             if (modded == 1) {
                 JOptionPane.showMessageDialog(vista, "Marca actualizada con exito");
-                System.out.println("Entro al modded");
             } else {
                 JOptionPane.showMessageDialog(vista, "Error, no se actualizo la marca");
             }
@@ -225,5 +224,5 @@ public class GestorModelo implements ActionListener {
             modelo.addRow(object);
         }
     }
-    
+
 }
