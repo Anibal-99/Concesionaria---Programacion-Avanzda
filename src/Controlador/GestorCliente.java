@@ -17,6 +17,7 @@ import Modelos.Pais;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -85,7 +86,7 @@ public class GestorCliente implements ActionListener {
                 String cuit = (String) vista.tablaCliente.getValueAt(fila, 3);
                 String razonSocial = (String) vista.tablaCliente.getValueAt(fila, 4);
                 String telefono = (String) vista.tablaCliente.getValueAt(fila, 5);
-                String pais = (String) vista.tablaCliente.getValueAt(fila, 6);
+                Pais pais = (Pais) vista.tablaCliente.getValueAt(fila, 6);
                 String direccion = (String) vista.tablaCliente.getValueAt(fila, 7);
                 String localidad = (String) vista.tablaCliente.getValueAt(fila, 8);
                 vista.txtId.setText("" + id);
@@ -94,7 +95,8 @@ public class GestorCliente implements ActionListener {
                 vista.txtCuit.setText(cuit);
                 vista.txtRazonSocial.setText(razonSocial);
                 vista.txtTelefono.setText(telefono);
-                vista.cbxPais.setSelectedItem(pais);
+                DefaultComboBoxModel<Pais> cbxModel = ((DefaultComboBoxModel) vista.cbxPais.getModel());
+                cbxModel.setSelectedItem(pais);
                 vista.txtDireccion.setText(direccion);
                 vista.txtLocalidad.setText(localidad);
             }
@@ -126,7 +128,7 @@ public class GestorCliente implements ActionListener {
         String direccion = this.vista.txtDireccion.getText();
         String localidad = this.vista.txtLocalidad.getText();
         String tel = this.vista.txtTelefono.getText();
-        String pais = this.vista.cbxPais.getSelectedItem().toString();
+        Pais pais = ((Pais) this.vista.cbxPais.getSelectedItem());
 
         c.setNombre(name);
         c.setApellido(apellido);
@@ -161,7 +163,7 @@ public class GestorCliente implements ActionListener {
             String razonSocial = this.vista.txtRazonSocial.getText();
             String cuit = this.vista.txtCuit.getText();
             String telefono = this.vista.txtTelefono.getText();
-            String pais = this.vista.cbxPais.getSelectedItem().toString();
+            Pais pais = ((Pais) this.vista.cbxPais.getSelectedItem());
             String direccion = this.vista.txtDireccion.getText();
             String localidad = this.vista.txtLocalidad.getText();
 
@@ -189,18 +191,9 @@ public class GestorCliente implements ActionListener {
         modelo = (DefaultTableModel) tabla.getModel();
 
         List<Cliente> lista = cDao.listarClientes();
-        Object[] object = new Object[9];
-
-        for (int i = 0; i < lista.size(); i++) {
-            object[0] = lista.get(i).getId();
-            object[1] = lista.get(i).getNombre();
-            object[2] = lista.get(i).getApellido();
-            object[3] = lista.get(i).getCuit();
-            object[4] = lista.get(i).getRazonSocial();
-            object[5] = lista.get(i).getTel();
-            object[6] = lista.get(i).getPais();
-            object[7] = lista.get(i).getDireccion();
-            object[8] = lista.get(i).getLocalidad();
+        
+        for (Cliente c : lista) {
+            Object[] object = {c.getId(), c.getNombre(), c.getApellido(), c.getCuit(), c.getRazonSocial(), c.getTel(), c.getPais(), c.getLocalidad(),  c.getDireccion()};
             modelo.addRow(object);
         }
     }
@@ -223,10 +216,11 @@ public class GestorCliente implements ActionListener {
     public void llenarCombo() throws SQLException {
         PaisDao paises = new PaisDao();
         ArrayList<Pais> listarPaises = paises.getPais();
+        DefaultComboBoxModel<Pais> cbxModel = ((DefaultComboBoxModel) vista.cbxPais.getModel());
         vista.cbxPais.removeAllItems();
 
         for (int i = 0; i < listarPaises.size(); i++) {
-            vista.cbxPais.addItem(listarPaises.get(i).getName());
+            cbxModel.addElement(listarPaises.get(i));
         }
     }
 
@@ -241,20 +235,10 @@ public class GestorCliente implements ActionListener {
         // Esto es para que se ejecute la tabla al momento de iniciar el programa
         modelo = (DefaultTableModel) vista.tablaCliente.getModel();
         String name = this.vista.txtBuscar.getText();
-
         List<Cliente> listaClientes = cDao.buscarClientes(name);
-        Object[] object = new Object[9];
 
-        for (int i = 0; i < listaClientes.size(); i++) {
-            object[0] = listaClientes.get(i).getId();
-            object[1] = listaClientes.get(i).getNombre();
-            object[2] = listaClientes.get(i).getApellido();
-            object[3] = listaClientes.get(i).getCuit();
-            object[4] = listaClientes.get(i).getRazonSocial();
-            object[5] = listaClientes.get(i).getTel();
-            object[6] = listaClientes.get(i).getPais();
-            object[7] = listaClientes.get(i).getDireccion();
-            object[8] = listaClientes.get(i).getLocalidad();
+        for (Cliente c : listaClientes) {
+            Object[] object = {c.getId(), c.getNombre(), c.getApellido(), c.getCuit(), c.getRazonSocial(), c.getTel(), c.getPais(), c.getLocalidad(), c.getDireccion()};
             modelo.addRow(object);
         }
     }

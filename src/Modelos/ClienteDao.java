@@ -22,22 +22,15 @@ public class ClienteDao {
     Connection con;
     Conexion conectar = new Conexion();
     Cliente c = new Cliente();
+    PaisDao paisDao = new PaisDao();
 
     public int agregar(Cliente c) {
         String sql = ("INSERT INTO cliente(nombre,pais_id,apellido,razon_social,cuit,telefono,direccion,localidad)values(?,?,?,?,?,?,?,?)");
         try {
-            PaisDao paises = new PaisDao();
-            ArrayList<Pais> listarPaises = paises.getPais();
-            int pais_id = 0;
-            for (Pais p : listarPaises) {
-                if (c.getPais().equals(p.getName())) {
-                    pais_id = p.getId();
-                }
-            }
             con = conectar.getConection();
             insert = con.prepareStatement(sql);
             insert.setString(1, c.getNombre());
-            insert.setInt(2, pais_id);
+            insert.setInt(2, c.getPais().getId());
             insert.setString(3, c.getApellido());
             insert.setString(4, c.getRazonSocial());
             insert.setString(5, c.getCuit());
@@ -56,16 +49,6 @@ public class ClienteDao {
         String sqlU = ("UPDATE cliente SET nombre=?,apellido=?,razon_social=?,cuit=?,telefono=?,direccion=?,localidad=?,pais_id=? WHERE id=?");
 
         try {
-            PaisDao paises = new PaisDao();
-            ArrayList<Pais> listarPaises = paises.getPais();
-
-            int pais_id = 0;
-            for (Pais p : listarPaises) {
-                if (c.getPais().equals(p.getName())) {
-                    pais_id = p.getId();
-                }
-            }
-
             con = conectar.getConection();
             insert = con.prepareStatement(sqlU);
             insert.setString(1, c.getNombre());
@@ -75,7 +58,7 @@ public class ClienteDao {
             insert.setString(5, c.getTel());
             insert.setString(6, c.getDireccion());
             insert.setString(7, c.getLocalidad());
-            insert.setInt(8, pais_id);
+            insert.setInt(8, c.getPais().getId());
             insert.setInt(9, c.getId());
             act = insert.executeUpdate();
 
@@ -92,11 +75,7 @@ public class ClienteDao {
 
     public ArrayList<Cliente> listarClientes() throws SQLException {
         ArrayList<Cliente> data = new ArrayList<>();
-        String sql = "SELECT cliente.id as \"ID\", cliente.nombre as \"Nombre\", cliente.apellido as \"Apellido\", "
-                + "cliente.cuit as \"CUIT\", cliente.razon_social as \"Razon Social\", "
-                + "cliente.telefono as \"Telefono\", pais.nombre as \"Pais\", cliente.direccion as \"Direccion\", "
-                + "cliente.localidad as \"Localidad\" FROM cliente INNER JOIN pais ON "
-                + "cliente.pais_id = pais.id ORDER BY cliente.id DESC";
+        String sql = "select cliente.id, cliente.nombre, cliente.apellido, cliente.razon_social, cliente.cuit, cliente.telefono, cliente.direccion, cliente.localidad, cliente.pais_id from cliente order by cliente.id desc";
         try {
             con = conectar.getConection();
             insert = con.prepareStatement(sql);
@@ -106,12 +85,12 @@ public class ClienteDao {
                 c.setId(rs.getInt(1));
                 c.setNombre(rs.getString(2));
                 c.setApellido(rs.getString(3));
-                c.setCuit(rs.getString(4));
-                c.setRazonSocial(rs.getString(5));
+                c.setRazonSocial(rs.getString(4));
+                c.setCuit(rs.getString(5));
                 c.setTel(rs.getString(6));
-                c.setPais(rs.getString(7));
-                c.setDireccion(rs.getString(8));
-                c.setLocalidad(rs.getString(9));
+                c.setDireccion(rs.getString(7));
+                c.setLocalidad(rs.getString(8));
+                c.setPais(paisDao.getPaisById(rs.getInt(9)));
                 data.add(c);
             }
         } catch (Exception e) {
@@ -135,7 +114,7 @@ public class ClienteDao {
 
     public ArrayList<Cliente> buscarClientes(String name) throws SQLException {
         ArrayList<Cliente> clientes = new ArrayList<>();
-        String sql = "select * from cliente where cliente.nombre=" + "'" + name + "'";
+        String sql = "select cliente.id, cliente.nombre, cliente.apellido, cliente.razon_social, cliente.cuit, cliente.telefono, cliente.direccion, cliente.localidad, cliente.pais_id from cliente where cliente.nombre = "+ "'"+  name  +"'" + "order by cliente.id desc";
         try {
             con = conectar.getConection();
             insert = con.prepareStatement(sql);
@@ -145,12 +124,12 @@ public class ClienteDao {
                 c.setId(rs.getInt(1));
                 c.setNombre(rs.getString(2));
                 c.setApellido(rs.getString(3));
-                c.setCuit(rs.getString(4));
-                c.setRazonSocial(rs.getString(5));
+                c.setRazonSocial(rs.getString(4));
+                c.setCuit(rs.getString(5));
                 c.setTel(rs.getString(6));
-                c.setPais(rs.getString(7));
-                c.setDireccion(rs.getString(8));
-                c.setLocalidad(rs.getString(9));
+                c.setDireccion(rs.getString(7));
+                c.setLocalidad(rs.getString(8));
+                c.setPais(paisDao.getPaisById(rs.getInt(9)));
                 clientes.add(c);
             }
         } catch (Exception e) {
