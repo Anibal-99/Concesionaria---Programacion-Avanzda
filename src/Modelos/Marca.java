@@ -56,4 +56,8 @@ public class Marca {
         this.obs = obs;
     } 
 
+    @Override
+    public String toString() {
+        return this.name;
+    }
 }

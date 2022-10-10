@@ -14,6 +14,7 @@ public class ModeloDAO {
     static Connection sqlcon;
     static PreparedStatement ps;
     static ResultSet rs;
+    MarcaDao marcaDao= new MarcaDao();
 
     public ArrayList<Modelo> getModelo() throws SQLException {
         ArrayList<Modelo> modelos = new ArrayList<>();
@@ -25,7 +26,7 @@ public class ModeloDAO {
             while (rs.next()) {
                 Modelo modelo = new Modelo();
                 modelo.setId(rs.getInt(1));
-                modelo.setMarca(rs.getString(2));
+                modelo.setMarca(marcaDao.getMarcaById(rs.getInt(2)));
                 modelo.setNombre(rs.getString(3));
                 modelo.setAnio(rs.getInt(4));
                 modelos.add(modelo);
@@ -39,29 +40,21 @@ public class ModeloDAO {
     public int agregar(Modelo m) {
         String sql = ("INSERT INTO modelo(nombre,anio, marca_id)values(?,?,?)");
         try {
-            MarcaDao marcas = new MarcaDao();
-            ArrayList<Marca> listarMarcas = marcas.getMarcas();
-            int marca_id = 0;
-            for (Marca mar : listarMarcas) {
-                if (m.getMarca().equals(mar.getName())) {
-                    marca_id = mar.getId();
-                }
-            }
             sqlcon = con.getConection();
             ps = sqlcon.prepareStatement(sql);
             ps.setString(1, m.getNombre());
             ps.setInt(2, m.getAnio());
-            ps.setInt(3, marca_id);
+            ps.setInt(3, m.getMarca().getId());
             ps.executeUpdate();
         } catch (Exception e) {
-
+            
         }
         return 1;
     }
 
     public ArrayList<Modelo> getListarModelos() throws SQLException {
         ArrayList<Modelo> modelos = new ArrayList<>();
-        String sql = "select modelo.id as \"ID\", marca.nombre as \"Marca\", modelo.nombre as \"Modelo\", modelo.anio as \"Año\" FROM modelo INNER JOIN marca ON modelo.marca_id = marca.id order by modelo.id desc";
+        String sql = "select modelo.id, modelo.marca_id, modelo.nombre, modelo.anio FROM modelo order by modelo.id desc";
         try {
             sqlcon = con.getConection();
             ps = sqlcon.prepareStatement(sql);
@@ -69,7 +62,7 @@ public class ModeloDAO {
             while (rs.next()) {
                 Modelo modelo = new Modelo();
                 modelo.setId(rs.getInt(1));
-                modelo.setMarca(rs.getString(2));
+                modelo.setMarca(marcaDao.getMarcaById(rs.getInt(2)));
                 modelo.setNombre(rs.getString(3));
                 modelo.setAnio(rs.getInt(4));
                 modelos.add(modelo);
@@ -84,19 +77,11 @@ public class ModeloDAO {
         int act = 0;
         String sqlU = ("UPDATE modelo SET nombre=?,anio=?,marca_id=? WHERE id=?");
         try {
-            MarcaDao marcas = new MarcaDao();
-            ArrayList<Marca> listarMarcas = marcas.getMarcas();
-            int marca_id = 0;
-            for (Marca mar : listarMarcas) {
-                if (m.getMarca().equals(mar.getName())) {
-                    marca_id = mar.getId();
-                }
-            }
             sqlcon = con.getConection();
             ps = sqlcon.prepareStatement(sqlU);
             ps.setString(1, m.getNombre());
             ps.setInt(2, m.getAnio());
-            ps.setInt(3, marca_id);
+            ps.setInt(3, m.getMarca().getId());
             ps.setInt(4, m.getId());
             act = ps.executeUpdate();
             if (act == 1) {
@@ -122,9 +107,10 @@ public class ModeloDAO {
         }
         return del;
     }
-        public ArrayList<Modelo> buscarMarcas(String name) throws SQLException {
+
+    public ArrayList<Modelo> buscarModelos(String name) throws SQLException {
         ArrayList<Modelo> modelos = new ArrayList<>();
-        String sql = "select modelo.id as \"Id\", marca.nombre as \"Marca\", modelo.nombre as \"Nombre\", modelo.anio as \"Anio\" from modelo inner join marca on modelo.marca_id=marca.id where modelo.nombre="+"'"+name+"'";
+        String sql = "select modelo.id, modelo.nombre, modelo.anio, modelo.marca_id from modelo where modelo.nombre=" + "'" + name + "'";
         try {
             sqlcon = con.getConection();
             ps = sqlcon.prepareStatement(sql);
@@ -132,9 +118,9 @@ public class ModeloDAO {
             while (rs.next()) {
                 Modelo m = new Modelo();
                 m.setId(rs.getInt(1));
-                m.setMarca(rs.getString(2));
-                m.setNombre(rs.getString(3));
-                m.setAnio(rs.getInt(4));
+                m.setNombre(rs.getString(2));
+                m.setAnio(rs.getInt(3));
+                m.setMarca(marcaDao.getMarcaById(rs.getInt(4)));
                 modelos.add(m);
             }
         } catch (Exception e) {

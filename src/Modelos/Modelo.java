@@ -4,7 +4,7 @@ public class Modelo {
     int id;
     String nombre;
     int anio;
-    String marca;
+    Marca marca;
 
     public int getId() {
         return id;
@@ -30,11 +30,11 @@ public class Modelo {
         this.anio = anio;
     }
 
-    public String getMarca() {
+    public Marca getMarca() {
         return marca;
     }
 
-    public void setMarca(String marca) {
+    public void setMarca(Marca marca) {
         this.marca = marca;
     }
 

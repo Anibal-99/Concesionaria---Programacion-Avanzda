@@ -104,12 +104,12 @@ public class MarcaDao {
             rs = insert.executeQuery();
             System.out.println(insert);
             while (rs.next()) {
-                        Marca m = new Marca();
+                Marca m = new Marca();
                 m.setId(rs.getInt(1));
                 m.setName(rs.getString(2));
                 m.setPais(paisDao.getPaisById(rs.getInt(3)));
                 m.setObs(rs.getString(4));
-                System.out.println(m.getId()+" "+m.getName()+" "+m.getPais()+" "+m.getObs());
+                System.out.println(m.getId() + " " + m.getName() + " " + m.getPais() + " " + m.getObs());
                 marcas.add(m);
             }
         } catch (Exception e) {
@@ -119,7 +119,7 @@ public class MarcaDao {
 
     public ArrayList<Marca> getMarcas() throws SQLException {
         ArrayList<Marca> marcas = new ArrayList<>();
-        String sql = "select marca.id as \"ID\", marca.nombre as \"Nombre\", marca.pais_id as \"Pais\", marca.observacion as \"Observacion\" from marca order by marca.id asc";
+        String sql = "select marca.id as \"ID\", marca.nombre as \"Nombre\", marca.pais_id as \"Pais\", marca.observacion as \"Observacion\" from marca order by marca.id desc";
         try {
             con = conectar.getConection();
             insert = con.prepareStatement(sql);
@@ -135,6 +135,27 @@ public class MarcaDao {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
+        System.out.println(marcas);
         return marcas;
+    }
+
+    public Marca getMarcaById(int id) throws SQLException {
+        Marca marca = new Marca();
+        String sql = "select * from marca where id = ?";
+        try {
+            con = conectar.getConection();
+            insert = con.prepareStatement(sql);
+            insert.setInt(1, id);
+            rs = insert.executeQuery();
+            while (rs.next()) {
+                marca.setId(rs.getInt(1));
+                marca.setName(rs.getString(2));
+                marca.setObs(rs.getString(3));
+                marca.setPais(paisDao.getPaisById(rs.getInt(4)));
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        return marca;
     }
 }
