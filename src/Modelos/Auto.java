@@ -5,10 +5,10 @@ public class Auto {
     String modelo;
     float precio;
     String observacion;
-    String color;
+    Color color;
 
     public Auto(){}
-    public Auto(int id, String modelo, float precio, String observacion, String color) {
+    public Auto(int id, String modelo, float precio, String observacion, Color color) {
         this.id = id;
         this.modelo = modelo;
         this.precio = precio;
@@ -44,11 +44,11 @@ public class Auto {
         this.precio = precio;
     }
 
-    public String getColor() {
+    public Color getColor() {
         return color;
     }
 
-    public void setColor(String color) {
+    public void setColor(Color color) {
         this.color = color;
     }
     public void setObservacion(String observacion) {

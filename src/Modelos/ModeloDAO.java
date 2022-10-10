@@ -14,11 +14,11 @@ public class ModeloDAO {
     static Connection sqlcon;
     static PreparedStatement ps;
     static ResultSet rs;
-    MarcaDao marcaDao= new MarcaDao();
+    MarcaDao marcaDao = new MarcaDao();
 
     public ArrayList<Modelo> getModelo() throws SQLException {
         ArrayList<Modelo> modelos = new ArrayList<>();
-        String sql = "select modelo.id as \"ID\", marca.nombre as \"Marca\", modelo.nombre as \"Modelo\", modelo.anio as \"Año\" FROM modelo INNER JOIN marca ON modelo.marca_id = marca.id order by marca.nombre asc, modelo.id desc";
+        String sql = "select modelo.id, modelo.marca_id, modelo.nombre, modelo.anio from modelo order by modelo.id desc";
         try {
             sqlcon = con.getConection();
             ps = sqlcon.prepareStatement(sql);
@@ -47,7 +47,7 @@ public class ModeloDAO {
             ps.setInt(3, m.getMarca().getId());
             ps.executeUpdate();
         } catch (Exception e) {
-            
+
         }
         return 1;
     }
@@ -124,6 +124,27 @@ public class ModeloDAO {
                 modelos.add(m);
             }
         } catch (Exception e) {
+        }
+        return modelos;
+    }
+
+    public Modelo getModeloById(int id) throws SQLException {
+        Modelo modelos = new Modelo();
+        MarcaDao marcaDao = new MarcaDao();
+        String sql = "select * from modelo where id = ?";
+        try {
+            sqlcon = con.getConection();
+            ps = sqlcon.prepareStatement(sql);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                modelos.setId(rs.getInt(1));
+                modelos.setNombre(rs.getString(2));
+                modelos.setAnio(rs.getInt(3));
+                modelos.setMarca(marcaDao.getMarcaById(rs.getInt(4)));
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
         }
         return modelos;
     }

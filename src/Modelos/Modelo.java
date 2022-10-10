@@ -38,5 +38,9 @@ public class Modelo {
         this.marca = marca;
     }
 
-
+    @Override
+    public String toString() {
+        return this.nombre;
+    }
+    
 }

@@ -207,6 +207,7 @@ public class GestorMarca implements ActionListener {
     public void llenarCombo() throws SQLException {
         PaisDao paises = new PaisDao();
         ArrayList<Pais> listarPaises = paises.getPais();
+        
         DefaultComboBoxModel<Pais> cbxModel = ((DefaultComboBoxModel) vista.cbxCombo.getModel());
         vista.cbxCombo.removeAllItems();
 
