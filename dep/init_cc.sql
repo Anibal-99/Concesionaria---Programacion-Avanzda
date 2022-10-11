@@ -52,6 +52,7 @@ CREATE TABLE auto(
 	id serial PRIMARY KEY,
 	observacion TEXT,
 	precio NUMERIC(12, 2),
+	costo NUMERIC(12, 2),
 	modelo_id INT,
 	color_id INT,
 	CONSTRAINT FK_auto_modelo FOREIGN KEY(modelo_id)
