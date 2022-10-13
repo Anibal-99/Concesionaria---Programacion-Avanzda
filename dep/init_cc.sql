@@ -5,10 +5,18 @@ CREATE DATABASE consdb;
 
 \c consdb
 
+CREATE TABLE region (
+	id INT PRIMARY KEY,
+	nombre VARCHAR(60) NOT NULL
+);
+
 CREATE TABLE pais (
 	id serial PRIMARY KEY,
 	nombre VARCHAR(60) NOT NULL,
-	codigo VARCHAR(6) NOT NULL
+	codigo VARCHAR(6) NOT NULL,
+	region_id INT,
+	CONSTRAINT FK_pais_region FOREIGN KEY (region_id)
+		REFERENCES region(id)
 );
 
 CREATE TABLE marca (
