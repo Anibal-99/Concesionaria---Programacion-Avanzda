@@ -66,6 +66,7 @@ CREATE TABLE venta(
 	fecha_venta DATE,
 	auto_id INT,
 	cliente_id INT,
+	vendedor_id INT,
 	CONSTRAINT FK_venta_auto FOREIGN KEY(auto_id)
 		REFERENCES auto(id),
 	CONSTRAINT FK_venta_cliente FOREIGN KEY(cliente_id)
