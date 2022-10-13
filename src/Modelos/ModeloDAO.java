@@ -16,7 +16,7 @@ public class ModeloDAO {
     static ResultSet rs;
     MarcaDao marcaDao = new MarcaDao();
 
-    public ArrayList<Modelo> getModelo() throws SQLException {
+    public ArrayList<Modelo> getModelos() throws SQLException {
         ArrayList<Modelo> modelos = new ArrayList<>();
         String sql = "select modelo.id, modelo.marca_id, modelo.nombre, modelo.anio from modelo order by modelo.id desc";
         try {

@@ -2,13 +2,13 @@ package Modelos;
 
 public class Auto {
     int id;
-    String modelo;
+    Modelo modelo;
     float precio;
     String observacion;
     Color color;
 
     public Auto(){}
-    public Auto(int id, String modelo, float precio, String observacion, Color color) {
+    public Auto(int id, Modelo modelo, float precio, String observacion, Color color) {
         this.id = id;
         this.modelo = modelo;
         this.precio = precio;
@@ -20,7 +20,7 @@ public class Auto {
         return this.id;
     }
 
-    public String getModelo() {
+    public Modelo getModelo() {
         return this.modelo;
     }
 
@@ -36,7 +36,7 @@ public class Auto {
         this.id = id;
     }
 
-    public void setModelo(String modelo) {
+    public void setModelo(Modelo modelo) {
         this.modelo = modelo;
     }
 

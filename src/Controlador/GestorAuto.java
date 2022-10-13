@@ -111,18 +111,18 @@ public class GestorAuto implements ActionListener {
             JOptionPane.showMessageDialog(vistaAuto, "Debe seleccionar una fila");
         } else {
             int id = Integer.parseInt((String) vistaAuto.AutosjTable.getValueAt(fila, 0).toString());
-            String modelo =  vistaAuto.AutosjTable.getValueAt(fila, 1).toString();
+            Modelo modelo =  (Modelo) vistaAuto.AutosjTable.getValueAt(fila, 1);
             String precio = (String) vistaAuto.AutosjTable.getValueAt(fila, 2).toString();
             String observacion = (String) vistaAuto.AutosjTable.getValueAt(fila, 3);
             Color color = (Color) vistaAuto.AutosjTable.getValueAt(fila, 4);
-            
+
             vistaAuto.IDjTextField.setText("" + id);
-            DefaultComboBoxModel<Modelo> cbxModel = ((DefaultComboBoxModel) vistaAuto.ModelojComboBox.getModel());
-            cbxModel.setSelectedItem(modelo);
             vistaAuto.PreciojTextField.setText("" + precio);
             vistaAuto.jTextArea1.setText(observacion);
             DefaultComboBoxModel<Color> cbxcolor = ((DefaultComboBoxModel) vistaAuto.cbxColor.getModel());
+            DefaultComboBoxModel<Modelo> cbxModel = ((DefaultComboBoxModel) vistaAuto.ModelojComboBox.getModel());
             cbxcolor.setSelectedItem(color);
+            cbxModel.setSelectedItem(modelo);
         }
     }
 
@@ -131,8 +131,7 @@ public class GestorAuto implements ActionListener {
             JOptionPane.showMessageDialog(vistaAuto, "No se Identifica el Id debe selecionar la opcion Editar");
         } else {
             int id = Integer.parseInt(vistaAuto.IDjTextField.getText());
-            String modelo = this.vistaAuto.ModelojComboBox.getSelectedItem().toString();
-            int modelo_id = this.vistaAuto.ModelojComboBox.getSelectedIndex() + 1;
+            Modelo modelo = (Modelo) this.vistaAuto.ModelojComboBox.getSelectedItem();
             Float precio = Float.parseFloat((String) vistaAuto.PreciojTextField.getText());
             String observacion = this.vistaAuto.jTextArea1.getText();
             Color color = (Color) this.vistaAuto.cbxColor.getSelectedItem();
@@ -143,7 +142,7 @@ public class GestorAuto implements ActionListener {
             auto.setObservacion(observacion);
             auto.setColor(color);
 
-            int flag = autoDAO.actualizar(auto, modelo_id);
+            int flag = autoDAO.actualizar(auto);
             if (flag == 1) {
                 this.limpiarTabla();
                 this.listar(vistaAuto.AutosjTable);
@@ -156,13 +155,14 @@ public class GestorAuto implements ActionListener {
     }
 
     public void agregar() {
-        String modelo = this.vistaAuto.ModelojComboBox.getSelectedItem().toString();
-        int modelo_id = this.vistaAuto.ModelojComboBox.getSelectedIndex() + 1;
+        // String modelo = this.vistaAuto.ModelojComboBox.getSelectedItem().toString();
+        // int modelo_id = this.vistaAuto.ModelojComboBox.getSelectedIndex() + 1;
+
+        Modelo modelo = ((Modelo) this.vistaAuto.ModelojComboBox.getSelectedItem());
         float precio = Float.parseFloat(this.vistaAuto.PreciojTextField.getText());
         String observacion = this.vistaAuto.jTextArea1.getText();
         Color color = (Color) this.vistaAuto.cbxColor.getSelectedItem();
-        
-        System.out.println(modelo);
+
         auto.setModelo(modelo);
         auto.setPrecio(precio);
         auto.setObservacion(observacion);
@@ -172,7 +172,7 @@ public class GestorAuto implements ActionListener {
             JOptionPane.showMessageDialog(null, "No se puedo agregar sin ingresar los datos");
         } else {
             try {
-                autoDAO.agregar(auto, modelo_id);
+                autoDAO.agregar(auto);
                 this.limpiarTabla();
                 this.listar(vistaAuto.AutosjTable);
                 JOptionPane.showMessageDialog(null, "Marca se agrego con exito");
@@ -198,15 +198,7 @@ public class GestorAuto implements ActionListener {
         }
     }
 
-    public void llenarCombo() throws SQLException {
-        ModeloDAO modelos = new ModeloDAO();
-        ArrayList<Modelo> listarModelos = modelos.getModelo();
-        vistaAuto.ModelojComboBox.removeAllItems();
 
-        for (Modelo m : listarModelos) {
-            vistaAuto.ModelojComboBox.addItem(m.getMarca().getName() + " " + m.getNombre() + " " + m.getAnio());
-        }
-    }
 
     public void listar(JTable tablaAutos) throws SQLException{
         defaultTableModel = (DefaultTableModel) tablaAutos.getModel();
@@ -245,6 +237,18 @@ public class GestorAuto implements ActionListener {
         for (int i = 0; i < listarColores.size(); i++) {
             cbxColor.addElement(listarColores.get(i));
         }
+    }
+
+    public void llenarCombo() throws SQLException {
+        ModeloDAO modeloDao = new ModeloDAO();
+        ArrayList<Modelo> modelos = modeloDao.getModelos();
+        DefaultComboBoxModel<Modelo> cbxModel = ((DefaultComboBoxModel) vistaAuto.ModelojComboBox.getModel());
+        vistaAuto.ModelojComboBox.removeAllItems();
+
+        for (int i = 0; i < modelos.size(); i++) {
+            cbxModel.addElement(modelos.get(i));
+        }
+
     }
 
     void nuevo() {

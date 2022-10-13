@@ -40,7 +40,7 @@ public class Modelo {
 
     @Override
     public String toString() {
-        return this.nombre;
+        return this.getMarca().getName() + " " + this.getNombre() + " " + this.getAnio();
     }
-    
+
 }
