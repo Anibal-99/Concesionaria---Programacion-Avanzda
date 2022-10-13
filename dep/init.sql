@@ -61,4 +61,15 @@ CREATE TABLE venta(
 		REFERENCES auto(id),
 	CONSTRAINT FK_venta_cliente FOREIGN KEY(cliente_id)
 		REFERENCES cliente(id)
-)
+);
+
+
+
+CREATE TABLE cliente (
+	legajo INT PRIMARY KEY,
+	nombre VARCHAR(60),
+	apellido VARCHAR(60),
+	telefono VARCHAR(60),
+	direccion VARCHAR(60),
+	localidad VARCHAR(60),
+);

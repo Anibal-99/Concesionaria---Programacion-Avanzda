@@ -46,7 +46,7 @@ public class GestorMarca implements ActionListener {
             this.agregar();
             limpiarTabla();
             try {
-                buscarMarcas(vista.tablaMarca);
+                buscarMarcas(vista.tablaVendedor);
             } catch (SQLException ex) {
                 Logger.getLogger(GestorMarca.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -56,23 +56,23 @@ public class GestorMarca implements ActionListener {
         if (e.getSource() == vista.btnListar) {
             limpiarTabla();
             try {
-                buscarMarcas(vista.tablaMarca);
+                buscarMarcas(vista.tablaVendedor);
             } catch (SQLException ex) {
                 Logger.getLogger(GestorMarca.class.getName()).log(Level.SEVERE, null, ex);
             }
             nuevo();
         }
         if (e.getSource() == vista.btnModificar) {
-            int fila = vista.tablaMarca.getSelectedRow();
+            int fila = vista.tablaVendedor.getSelectedRow();
             if (fila == -1) {
                 JOptionPane.showMessageDialog(vista, "Debe seleccionar una fila");
             } else {
-                int id = Integer.parseInt((String) vista.tablaMarca.getValueAt(fila, 0).toString());
-                String name = (String) vista.tablaMarca.getValueAt(fila, 1);
-                String pais = (String) vista.tablaMarca.getValueAt(fila, 2);
-                String obs = (String) vista.tablaMarca.getValueAt(fila, 3);
+                int id = Integer.parseInt((String) vista.tablaVendedor.getValueAt(fila, 0).toString());
+                String name = (String) vista.tablaVendedor.getValueAt(fila, 1);
+                String pais = (String) vista.tablaVendedor.getValueAt(fila, 2);
+                String obs = (String) vista.tablaVendedor.getValueAt(fila, 3);
                 vista.txtId.setText("" + id);
-                vista.txtname.setText(name);
+                vista.txtNombre.setText(name);
                 vista.cbxCombo.setSelectedItem(pais);
                 vista.txtobs.setText(obs);
             }
@@ -81,7 +81,7 @@ public class GestorMarca implements ActionListener {
             actualizar();
             limpiarTabla();
             try {
-                buscarMarcas(vista.tablaMarca);
+                buscarMarcas(vista.tablaVendedor);
             } catch (SQLException ex) {
                 Logger.getLogger(GestorMarca.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -91,7 +91,7 @@ public class GestorMarca implements ActionListener {
             try {
                 delete();
                 limpiarTabla();
-                buscarMarcas(vista.tablaMarca);
+                buscarMarcas(vista.tablaVendedor);
             } catch (SQLException ex) {
                 Logger.getLogger(GestorMarca.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -100,7 +100,7 @@ public class GestorMarca implements ActionListener {
         if (e.getSource() == vista.btnFiltrar) {
             limpiarTabla();
             try {
-                this.filtrarMarca(vista.tablaMarca);
+                this.filtrarMarca(vista.tablaVendedor);
             } catch (SQLException ex) {
                 Logger.getLogger(GestorMarca.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -108,12 +108,12 @@ public class GestorMarca implements ActionListener {
     }
 
     public void delete() {
-        int fila = vista.tablaMarca.getSelectedRow();
+        int fila = vista.tablaVendedor.getSelectedRow();
         if (fila == -1) {// de esta manera el usuario solo podra eliminar si selecciona una marca sino no
             JOptionPane.showMessageDialog(vista, "Debe seleccionar una marca");
         } else {
             try {
-                int id = Integer.parseInt((String) vista.tablaMarca.getValueAt(fila, 0).toString());
+                int id = Integer.parseInt((String) vista.tablaVendedor.getValueAt(fila, 0).toString());
                 mDao.delete(id);
                 JOptionPane.showMessageDialog(vista, "Marca eliminada");
             } catch (SQLException ex) {
@@ -124,7 +124,7 @@ public class GestorMarca implements ActionListener {
 
     void nuevo() {
         vista.txtId.setText("");
-        vista.txtname.setText("");
+        vista.txtNombre.setText("");
         vista.txtobs.setText("");
     }
 
@@ -134,7 +134,7 @@ public class GestorMarca implements ActionListener {
             JOptionPane.showMessageDialog(vista, "No se Identifica el Id debe selecionar la opcion Editar");
         } else {
             int id = Integer.parseInt(vista.txtId.getText());
-            String name = this.vista.txtname.getText();
+            String name = this.vista.txtNombre.getText();
             String pais = this.vista.cbxCombo.getSelectedItem().toString();
             String obs = this.vista.txtobs.getText();
             m.setId(id);
@@ -153,14 +153,14 @@ public class GestorMarca implements ActionListener {
     //PreparedStatement insert;
 
     public void agregar() {
-        String name = this.vista.txtname.getText();
+        String name = this.vista.txtNombre.getText();
         String pais = this.vista.cbxCombo.getSelectedItem().toString();
         String obs = this.vista.txtobs.getText();
         m.setName(name);
         m.setPais(pais);
         m.setObs(obs);
 
-        if (this.vista.txtname.getText().isEmpty()) {
+        if (this.vista.txtNombre.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "No se puedo agregar sin ingresar los datos");
         } else {
             try {
@@ -190,7 +190,7 @@ public class GestorMarca implements ActionListener {
     }
 
     void limpiarTabla() {
-        for (int i = 0; i < vista.tablaMarca.getRowCount(); i++) {
+        for (int i = 0; i < vista.tablaVendedor.getRowCount(); i++) {
             modelo.removeRow(i);
             i = i - 1;
         }
