@@ -47,4 +47,9 @@ public class Pais {
     public void setCodigo(String codigo) {
         this.codigo = codigo;
     }
+
+    @Override
+    public String toString() {
+        return this.name;
+    }
 }

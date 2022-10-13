@@ -179,7 +179,15 @@ public class VistaModelo extends javax.swing.JFrame {
             new String [] {
                 "ID", "Marca", "Nombre", "Año"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tablaModelo);
 
         btnListar.setText("Listar");

@@ -328,11 +328,11 @@
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="5" rowCount="0">
-                    <Column editable="true" title="ID" type="java.lang.Integer"/>
-                    <Column editable="true" title="Modelo" type="java.lang.Object"/>
-                    <Column editable="true" title="Precio" type="java.lang.Float"/>
-                    <Column editable="true" title="Observaci&#xf3;n" type="java.lang.String"/>
-                    <Column editable="true" title="Color" type="java.lang.Object"/>
+                    <Column editable="false" title="ID" type="java.lang.Integer"/>
+                    <Column editable="false" title="Modelo" type="java.lang.Object"/>
+                    <Column editable="false" title="Precio" type="java.lang.Float"/>
+                    <Column editable="false" title="Observaci&#xf3;n" type="java.lang.String"/>
+                    <Column editable="false" title="Color" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">

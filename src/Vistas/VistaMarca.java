@@ -7,6 +7,8 @@ package Vistas;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import Controlador.GestorMarca;
 import java.awt.event.KeyAdapter;
@@ -218,11 +220,18 @@ public class VistaMarca extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         tablaMarca.addKeyListener(new java.awt.event.KeyAdapter() {

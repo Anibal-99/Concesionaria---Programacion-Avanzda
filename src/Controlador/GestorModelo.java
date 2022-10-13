@@ -85,7 +85,7 @@ public class GestorModelo implements ActionListener {
             }
             nuevo();
         }
-        if(e.getSource()==vista.btnBuscar){
+        if (e.getSource() == vista.btnBuscar) {
             limpiarTabla();
             try {
                 busrcarModelos(vista.tablaModelo);
@@ -97,7 +97,7 @@ public class GestorModelo implements ActionListener {
 
     public void agregar() {
         String nombre = this.vista.txtNombre.getText();
-        String marca = this.vista.cbxCombo.getSelectedItem().toString();
+        Marca marca = (Marca) this.vista.cbxCombo.getSelectedItem();
         if (this.vista.txtNombre.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "No se puedo agregar sin ingresar los datos");
         } else {
@@ -108,7 +108,6 @@ public class GestorModelo implements ActionListener {
                 m.setMarca(marca);
                 modeloDao.agregar(m);
                 JOptionPane.showMessageDialog(null, "Modelo se agrego con exito");
-
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "No se agregaron los datos");
             }
@@ -118,10 +117,11 @@ public class GestorModelo implements ActionListener {
     public void llenarCombo() throws SQLException {
         MarcaDao marcas = new MarcaDao();
         ArrayList<Marca> listarMarcas = marcas.getMarcas();
+        DefaultComboBoxModel<Marca> cbxModel = ((DefaultComboBoxModel) vista.cbxCombo.getModel());
         vista.cbxCombo.removeAllItems();
 
         for (int i = 0; i < listarMarcas.size(); i++) {
-            vista.cbxCombo.addItem(listarMarcas.get(i).getName());
+            cbxModel.addElement(listarMarcas.get(i));
         }
     }
 
@@ -138,12 +138,13 @@ public class GestorModelo implements ActionListener {
             JOptionPane.showMessageDialog(vista, "Debe seleccionar una fila");
         } else {
             int id = Integer.parseInt((String) vista.tablaModelo.getValueAt(fila, 0).toString());
-            String marca = (String) vista.tablaModelo.getValueAt(fila, 1);
+            Marca marca = (Marca) vista.tablaModelo.getValueAt(fila, 1);
             String name = (String) vista.tablaModelo.getValueAt(fila, 2);
             int anio = Integer.parseInt((String) vista.tablaModelo.getValueAt(fila, 3).toString());
             vista.txtId.setText("" + id);
             vista.txtNombre.setText(name);
-            vista.cbxCombo.setSelectedItem(marca);
+            DefaultComboBoxModel<Marca> cbxModel = ((DefaultComboBoxModel) vista.cbxCombo.getModel());
+            cbxModel.setSelectedItem(marca);
             vista.txtAnio.setText("" + anio);
         }
     }
@@ -151,18 +152,12 @@ public class GestorModelo implements ActionListener {
     public void listarModelos(JTable tabla) throws SQLException {
         // Esto es para que se ejecute la tabla al momento de iniciar el programa
         modelo = (DefaultTableModel) tabla.getModel();
-
         List<Modelo> lista = modeloDao.getListarModelos();
-        Object[] object = new Object[4];
 
-        for (int i = 0; i < lista.size(); i++) {
-            object[0] = lista.get(i).getId();
-            object[1] = lista.get(i).getMarca();
-            object[2] = lista.get(i).getNombre();
-            object[3] = lista.get(i).getAnio();
+        for (Modelo mod : lista) {
+            Object[] object = {mod.getId(), mod.getMarca(), mod.getNombre(), mod.getAnio()};
             modelo.addRow(object);
         }
-        //vista.tablaMarca.setModel(modelo);
     }
 
     public void actualizar() {
@@ -171,7 +166,7 @@ public class GestorModelo implements ActionListener {
         } else {
             int id = Integer.parseInt(vista.txtId.getText());
             String name = this.vista.txtNombre.getText();
-            String marca = this.vista.cbxCombo.getSelectedItem().toString();
+            Marca marca = (Marca) this.vista.cbxCombo.getSelectedItem();
             int anio = Integer.parseInt(this.vista.txtAnio.getText());
             m.setId(id);
             m.setNombre(name);
@@ -180,7 +175,6 @@ public class GestorModelo implements ActionListener {
             int modded = modeloDao.actualizar(m);
             if (modded == 1) {
                 JOptionPane.showMessageDialog(vista, "Marca actualizada con exito");
-                System.out.println("Entro al modded");
             } else {
                 JOptionPane.showMessageDialog(vista, "Error, no se actualizo la marca");
             }
@@ -214,16 +208,12 @@ public class GestorModelo implements ActionListener {
         modelo = (DefaultTableModel) tabla.getModel();
         String name = this.vista.txtBuscar.getText();
 
-        List<Modelo> lista = modeloDao.buscarMarcas(name);
-        Object[] object = new Object[4];
-
-        for (int i = 0; i < lista.size(); i++) {
-            object[0] = lista.get(i).getId();
-            object[1] = lista.get(i).getMarca();
-            object[2] = lista.get(i).getNombre();
-            object[3] = lista.get(i).getAnio();
+        List<Modelo> lista = modeloDao.buscarModelos(name);
+        for (Modelo mod : lista) {
+            Object[] object = {mod.getId(), mod.getMarca(), mod.getNombre(), mod.getAnio()};
             modelo.addRow(object);
         }
+
     }
-    
+
 }

@@ -69,11 +69,12 @@ public class GestorMarca implements ActionListener {
             } else {
                 int id = Integer.parseInt((String) vista.tablaMarca.getValueAt(fila, 0).toString());
                 String name = (String) vista.tablaMarca.getValueAt(fila, 1);
-                String pais = (String) vista.tablaMarca.getValueAt(fila, 2);
+                Pais pais = ((Pais) vista.tablaMarca.getValueAt(fila, 2));
                 String obs = (String) vista.tablaMarca.getValueAt(fila, 3);
                 vista.txtId.setText("" + id);
                 vista.txtname.setText(name);
-                vista.cbxCombo.setSelectedItem(pais);
+                DefaultComboBoxModel<Pais> cbxModel = ((DefaultComboBoxModel) vista.cbxCombo.getModel());
+                cbxModel.setSelectedItem(pais);
                 vista.txtobs.setText(obs);
             }
         }
@@ -100,7 +101,7 @@ public class GestorMarca implements ActionListener {
         if (e.getSource() == vista.btnFiltrar) {
             limpiarTabla();
             try {
-                this.filtrarMarca(vista.tablaMarca);
+                filtrarMarca(vista.tablaMarca);
             } catch (SQLException ex) {
                 Logger.getLogger(GestorMarca.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -135,7 +136,7 @@ public class GestorMarca implements ActionListener {
         } else {
             int id = Integer.parseInt(vista.txtId.getText());
             String name = this.vista.txtname.getText();
-            String pais = this.vista.cbxCombo.getSelectedItem().toString();
+            Pais pais = ((Pais) this.vista.cbxCombo.getSelectedItem());
             String obs = this.vista.txtobs.getText();
             m.setId(id);
             m.setName(name);
@@ -154,7 +155,7 @@ public class GestorMarca implements ActionListener {
 
     public void agregar() {
         String name = this.vista.txtname.getText();
-        String pais = this.vista.cbxCombo.getSelectedItem().toString();
+        Pais pais = ((Pais) this.vista.cbxCombo.getSelectedItem());
         String obs = this.vista.txtobs.getText();
         m.setName(name);
         m.setPais(pais);
@@ -174,17 +175,11 @@ public class GestorMarca implements ActionListener {
     }
 
     public void buscarMarcas(JTable tabla) throws SQLException {
-        // Esto es para que se ejecute la tabla al momento de iniciar el programa
         modelo = (DefaultTableModel) tabla.getModel();
-
         List<Marca> lista = mDao.listarMarcas();
-        Object[] object = new Object[4];
 
-        for (int i = 0; i < lista.size(); i++) {
-            object[0] = lista.get(i).getId();
-            object[1] = lista.get(i).getName();
-            object[2] = lista.get(i).getPais();
-            object[3] = lista.get(i).getObs();
+        for (Marca mar : lista) {
+            Object[] object = {mar.getId(), mar.getName(), mar.getPais(), mar.getObs()};
             modelo.addRow(object);
         }
     }
@@ -200,26 +195,24 @@ public class GestorMarca implements ActionListener {
         // Esto es para que se ejecute la tabla al momento de iniciar el programa
         modelo = (DefaultTableModel) tablaMarca.getModel();
         String name = this.vista.txtFiltrar.getText();
-
         List<Marca> lista = mDao.filtrarMarcas(name);
-        Object[] object = new Object[4];
-
-        for (int i = 0; i < lista.size(); i++) {
-            object[0] = lista.get(i).getId();
-            object[1] = lista.get(i).getName();
-            object[2] = lista.get(i).getPais();
-            object[3] = lista.get(i).getObs();
+        
+        for (Marca mar : lista) {
+            Object[] object = {mar.getId(), mar.getName(), mar.getPais(), mar.getObs()};
             modelo.addRow(object);
         }
+
     }
 
     public void llenarCombo() throws SQLException {
         PaisDao paises = new PaisDao();
         ArrayList<Pais> listarPaises = paises.getPais();
+        
+        DefaultComboBoxModel<Pais> cbxModel = ((DefaultComboBoxModel) vista.cbxCombo.getModel());
         vista.cbxCombo.removeAllItems();
 
         for (int i = 0; i < listarPaises.size(); i++) {
-            vista.cbxCombo.addItem(listarPaises.get(i).getName());
+            cbxModel.addElement(listarPaises.get(i));
         }
     }
 }

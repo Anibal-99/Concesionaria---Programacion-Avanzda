@@ -11,13 +11,13 @@ package Modelos;
 public class Marca {
     int id;
     String name;
-    String pais;
+    Pais pais;
     String obs;
 
     public Marca(){
 
     }
-    public Marca(int id, String name, String pais, String obs) {
+    public Marca(int id, String name, Pais pais, String obs) {
         this.id = id;
         this.name = name;
         this.pais = pais;
@@ -40,14 +40,13 @@ public class Marca {
         this.name = name;
     }
 
-    public String getPais() {
+    public Pais getPais() {
         return pais;
     }
 
-    public void setPais(String pais) {
+    public void setPais(Pais pais) {
         this.pais = pais;
     }
-
 
     public String getObs() {
         return obs;
@@ -55,7 +54,10 @@ public class Marca {
 
     public void setObs(String obs) {
         this.obs = obs;
+    } 
+
+    @Override
+    public String toString() {
+        return this.name;
     }
-
-
 }

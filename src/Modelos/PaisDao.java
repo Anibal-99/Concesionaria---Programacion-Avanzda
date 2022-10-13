@@ -43,4 +43,23 @@ public class PaisDao {
         }
         return paises;
     }
+
+    public Pais getPaisById(int id) throws SQLException{
+        Pais pais = new Pais();
+        String sql = "select * from pais where id = ?";
+        try {
+            con = conectar.getConection();
+            insert = con.prepareStatement(sql);
+            insert.setInt(1, id);
+            rs = insert.executeQuery();
+            while (rs.next()) {
+                pais.setId(rs.getInt(1));
+                pais.setName(rs.getString(2));
+                pais.setCodigo(rs.getString(3));
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        return pais;
+    }
 }
