@@ -54,4 +54,9 @@ public class Auto {
     public void setObservacion(String observacion) {
         this.observacion = observacion;
     }
+
+    @Override
+    public String toString() {
+        return this.modelo.getMarca().getName() + " " + this.modelo.getNombre() + " " + this.modelo.getAnio();
+    }
 }

@@ -107,4 +107,9 @@ public class Cliente {
     public void setTel(String tel) {
         this.tel = tel;
     }
+
+    @Override
+    public String toString() {
+        return this.nombre + " " + this.apellido;
+    }
 }

@@ -120,4 +120,28 @@ public class VendedorDao {
         }
         return vendedores;
     }
+
+    public ArrayList<Vendedor> getVendedores() throws SQLException {
+        ArrayList<Vendedor> vendedores = new ArrayList<>();
+        String sql = "select vendedor.id, vendedor.nombre, vendedor.apellido, vendedor.dni, vendedor.pais_id from vendedor order by vendedor.id asc";
+        try {
+            con = conectar.getConection();
+            insert = con.prepareStatement(sql);
+            rs = insert.executeQuery();
+
+            while (rs.next()) {
+                Vendedor v = new Vendedor();
+                v.setId(rs.getInt(1));
+                v.setNombre(rs.getString(2));
+                v.setApellido(rs.getString(3));
+                v.setDni(rs.getString(4));
+                v.setPais(paisDao.getPaisById(rs.getInt(5)));
+                
+                vendedores.add(v);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        return vendedores;
+    }
 }
