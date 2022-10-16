@@ -14,14 +14,19 @@ import Modelos.Vendedor;
 import Modelos.VendedorDao;
 import Modelos.Venta;
 import Modelos.VentaDao;
+
 import Vistas.VistaVenta;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -30,6 +35,9 @@ import javax.swing.DefaultComboBoxModel;
 public class GestorVenta implements ActionListener {
 
     VistaVenta vistaVenta = new VistaVenta();
+    Venta v = new Venta();
+    VentaDao vDao = new VentaDao();
+    DefaultTableModel modelo = new DefaultTableModel();
 
     public GestorVenta(VistaVenta vistaVenta) {
         this.vistaVenta = vistaVenta;
@@ -53,12 +61,20 @@ public class GestorVenta implements ActionListener {
         if (e.getSource() == vistaVenta.btnOkAuto) {
             this.obtenerAuto();
         }
-        if(e.getSource()==vistaVenta.btnCalcular){
+        if (e.getSource() == vistaVenta.btnCalcular) {
+            float importe = 0;
             try {
-                this.calcularImpuesto();
+                importe = this.calcularImpuesto();
             } catch (SQLException ex) {
                 Logger.getLogger(GestorVenta.class.getName()).log(Level.SEVERE, null, ex);
             }
+            int cantidad = (int) this.vistaVenta.cantAutos.getValue();
+            float monto = Float.parseFloat(this.vistaVenta.txtPrecio.getText());
+            float montoTotal = (monto * cantidad) + importe;
+            vistaVenta.txtTotal.setText(montoTotal + "");
+        }
+        if(e.getSource()==this.vistaVenta.btnAgregar){
+            this.agregar();
         }
     }
 
@@ -110,18 +126,18 @@ public class GestorVenta implements ActionListener {
         vistaVenta.txtPrecio.setText(auto.getPrecio() + "");
     }
 
-    public void calcularImpuesto() throws SQLException {
+    public float calcularImpuesto() throws SQLException {
         vistaVenta.txtImpuesto.setText("");
         Auto auto = ((Auto) this.vistaVenta.cbxAuto.getSelectedItem());
         int cantidad = (int) this.vistaVenta.cantAutos.getValue();
         float monto = Float.parseFloat(this.vistaVenta.txtPrecio.getText());
-        
-        vistaVenta.txtMonto.setText(monto*cantidad+"");
+
+        vistaVenta.txtMonto.setText(monto * cantidad + "");
 
         RegionDao regionDao = new RegionDao();
         ArrayList<Region> regiones = regionDao.getRegion();
 
-        float importe;
+        float importe = 0;
         for (Region r : regiones) {
             if (auto.getModelo().getMarca().getPais().getRegion().getNombre().equals("Extrangero")) {
                 importe = (float) ((monto * cantidad) * 0.2);
@@ -133,5 +149,41 @@ public class GestorVenta implements ActionListener {
                 break;
             }
         }
+        return importe;
     }
+
+    public void agregar() {
+        Date fecha = new Date();
+        SimpleDateFormat fechaAct = new SimpleDateFormat("dd/MM/YYYY");
+        
+        int cantidad = (int) this.vistaVenta.cantAutos.getValue();
+        float montoTotal = Float.parseFloat(this.vistaVenta.txtTotal.getText());
+        float impuesto = Float.parseFloat(this.vistaVenta.txtImpuesto.getText());
+        Cliente cliente = ((Cliente) this.vistaVenta.cbxCliente.getSelectedItem());
+        Vendedor vendedor = ((Vendedor) this.vistaVenta.cbxVendedor.getSelectedItem());
+        Auto auto = (Auto) this.vistaVenta.cbxAuto.getSelectedItem();
+
+        v.setAuto(auto);
+        v.setCliente(cliente);
+        v.setVendedor(vendedor);
+        v.setFecha(fechaAct.format(fecha));
+        System.out.println(fechaAct.format(fecha));
+        v.setCantidad(cantidad);
+        v.setMontoTotal(montoTotal);
+        v.setImpuesto(impuesto);
+
+        if (this.vistaVenta.txtTotal.getText().isEmpty()) {
+            System.out.println("LLLEGOOOOO");
+            JOptionPane.showMessageDialog(null, "No se puede agregar sin ingresar todos los datos");
+        } else {
+            try {
+                vDao.agregar(v);
+                JOptionPane.showMessageDialog(null, "Venta se agrego con exito");
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "No se agregaron los datos");
+            }
+        }
+    }
+
 }

@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Modelos;
-	
+
 import java.util.Date;
 
 /**
@@ -11,27 +11,59 @@ import java.util.Date;
  * @author Anibal-99
  */
 public class Venta {
-    Date fecha = new Date();
+
+    int id;
+    String fecha;
     Auto auto;
     Cliente cliente;
     Vendedor vendedor;
     float montoTotal;
+    int cantidad;
+    float impuesto;
 
     public Venta() {
     }
 
-    public Venta(Auto auto, Cliente cliente, Vendedor vendedor, float montoTotal) {
+    public Venta(int id, String fecha, Auto auto, Cliente cliente, Vendedor vendedor, float montoTotal, int cantidad, float impuesto) {
+        this.id = id;
+        this.fecha = fecha;
         this.auto = auto;
         this.cliente = cliente;
         this.vendedor = vendedor;
         this.montoTotal = montoTotal;
+        this.cantidad = cantidad;
+        this.impuesto = impuesto;
     }
 
-    public Date getFecha() {
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public float getImpuesto() {
+        return impuesto;
+    }
+
+    public void setImpuesto(float impuesto) {
+        this.impuesto = impuesto;
+    }
+
+    public String getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 

@@ -25,7 +25,7 @@ public class VistaVenta extends javax.swing.JFrame {
     }
     public String fecha(){
         Date fecha = new Date();
-        SimpleDateFormat fechaAct= new SimpleDateFormat("dd/mm/yyyy");
+        SimpleDateFormat fechaAct= new SimpleDateFormat("dd/MM/YYYY");
         return fechaAct.format(fecha);
     }
 

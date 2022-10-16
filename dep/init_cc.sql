@@ -81,7 +81,7 @@ CREATE TABLE auto(
 
 CREATE TABLE venta(
 	id serial PRIMARY KEY,
-	fecha_venta DATE,
+	fecha_venta VARCHAR(60),
 	auto_id INT,
 	cliente_id INT,
 	vendedor_id INT,
