@@ -86,6 +86,8 @@ CREATE TABLE venta(
 	cliente_id INT,
 	vendedor_id INT,
 	monto_total INT,
+	impuesto INT,
+	cantidad INT,
 	CONSTRAINT FK_venta_auto FOREIGN KEY(auto_id)
 		REFERENCES auto(id),
 	CONSTRAINT FK_venta_cliente FOREIGN KEY(cliente_id)
