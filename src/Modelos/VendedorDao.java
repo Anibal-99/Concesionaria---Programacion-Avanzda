@@ -136,12 +136,33 @@ public class VendedorDao {
                 v.setApellido(rs.getString(3));
                 v.setDni(rs.getString(4));
                 v.setPais(paisDao.getPaisById(rs.getInt(5)));
-                
+
                 vendedores.add(v);
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
         return vendedores;
+    }
+
+    public Vendedor getVendedorById(int id) throws SQLException {
+        Vendedor vendedor = new Vendedor();
+        String sql = " select vendedor.id, vendedor.nombre, vendedor.apellido, vendedor.dni, vendedor.pais_id from vendedor where vendedor.id = ? order by vendedor.id desc";
+        try {
+            con = conectar.getConection();
+            insert = con.prepareStatement(sql);
+            insert.setInt(1, id);
+            rs = insert.executeQuery();
+            while (rs.next()) {
+                vendedor.setId(rs.getInt(1));
+                vendedor.setNombre(rs.getString(2));
+                vendedor.setApellido(rs.getString(3));
+                vendedor.setDni(rs.getString(4));
+                vendedor.setPais(paisDao.getPaisById(rs.getInt(5)));
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        return vendedor;
     }
 }

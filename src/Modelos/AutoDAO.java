@@ -128,4 +128,25 @@ public class AutoDAO {
         }
         return autos;
     }
+
+    public Auto getAutoById(int id) throws SQLException {
+        Auto auto = new Auto();
+        String sql = " SELECT id, precio, observacion, color_id, modelo_id FROM auto where auto.id =? order by auto.id desc";
+        try {
+            sqlcon = con.getConection();
+            ps = sqlcon.prepareStatement(sql);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                auto.setId(rs.getInt(1));
+                auto.setPrecio(rs.getFloat(2));
+                auto.setObservacion(rs.getString(3));
+                auto.setColor(colorDao.getColorById(rs.getInt(4)));
+                auto.setModelo(modeloDao.getModeloById(rs.getInt(5)));
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        return auto;
+    }
 }

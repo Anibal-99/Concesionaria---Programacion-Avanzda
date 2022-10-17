@@ -162,4 +162,29 @@ public class ClienteDao {
         }
         return clientes;
     }
+
+    public Cliente getClienteById(int id) throws SQLException {
+        Cliente cliente = new Cliente();
+        String sql = "select cliente.id, cliente.nombre, cliente.apellido, cliente.razon_social, cliente.cuit, cliente.telefono, cliente.direccion, cliente.localidad, cliente.pais_id from cliente where cliente.id =? order by cliente.id desc";
+        try {
+            con = conectar.getConection();
+            insert = con.prepareStatement(sql);
+            insert.setInt(1, id);
+            rs = insert.executeQuery();
+            while (rs.next()) {
+                cliente.setId(rs.getInt(1));
+                cliente.setNombre(rs.getString(2));
+                cliente.setApellido(rs.getString(3));
+                cliente.setRazonSocial(rs.getString(4));
+                cliente.setCuit(rs.getString(5));
+                cliente.setTel(rs.getString(6));
+                cliente.setDireccion(rs.getString(7));
+                cliente.setLocalidad(rs.getString(8));
+                cliente.setPais(paisDao.getPaisById(rs.getInt(9)));
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        return cliente;
+    }
 }

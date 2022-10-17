@@ -22,10 +22,12 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -51,6 +53,8 @@ public class GestorVenta implements ActionListener {
         this.vistaVenta.btnOkCliente.addActionListener(this);
         this.vistaVenta.btnOkAuto.addActionListener(this);
         this.vistaVenta.btnCalcular.addActionListener(this);
+        this.vistaVenta.btnListarVenta.addActionListener(this);
+        this.vistaVenta.btnBuscarVenta.addActionListener(this);
     }
 
     @Override
@@ -73,8 +77,15 @@ public class GestorVenta implements ActionListener {
             float montoTotal = (monto * cantidad) + importe;
             vistaVenta.txtTotal.setText(montoTotal + "");
         }
-        if(e.getSource()==this.vistaVenta.btnAgregar){
+        if (e.getSource() == this.vistaVenta.btnAgregar) {
             this.agregar();
+        }
+        if(e.getSource()==this.vistaVenta.btnListarVenta){
+            try {
+                listarVentas(vistaVenta.tableVenta);
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorVenta.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
@@ -155,7 +166,7 @@ public class GestorVenta implements ActionListener {
     public void agregar() {
         Date fecha = new Date();
         SimpleDateFormat fechaAct = new SimpleDateFormat("dd/MM/YYYY");
-        
+
         int cantidad = (int) this.vistaVenta.cantAutos.getValue();
         float montoTotal = Float.parseFloat(this.vistaVenta.txtTotal.getText());
         float impuesto = Float.parseFloat(this.vistaVenta.txtImpuesto.getText());
@@ -186,4 +197,15 @@ public class GestorVenta implements ActionListener {
         }
     }
 
+    public void listarVentas(JTable tableVenta) throws SQLException {
+        // Esto es para que se ejecute la tabla al momento de iniciar el programa
+        modelo = (DefaultTableModel) tableVenta.getModel();
+
+        List<Venta> lista = vDao.listarVentas();
+
+        for (Venta v : lista) {
+            Object[] object = {v.getId(), v.getCliente(), v.getAuto(), v.getCantidad(), v.getAuto().getPrecio(), v.getImpuesto(), v.getMontoTotal(), v.getFecha()};
+            modelo.addRow(object);
+        }
+    }   
 }
