@@ -87,4 +87,30 @@ public class VentaDao {
         }
         return del;
     }
+
+    public int actualizar(Venta venta) {
+        int flag = 0;
+        String sql = ("UPDATE venta SET fecha_venta=?,auto_id=?,cliente_id=?, vendedor_id=?, monto_total=?, impuesto=?, cantidad=? WHERE id=?");
+        try {
+            con = conectar.getConection();
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, venta.getFecha());
+            ps.setInt(2, venta.getAuto().getId());
+            ps.setInt(3, venta.getCliente().getId());
+            ps.setInt(4, venta.getVendedor().getId());
+            ps.setFloat(5, venta.getMontoTotal());
+            ps.setFloat(6, venta.getImpuesto());
+            ps.setInt(7, venta.getCantidad());
+            ps.setInt(8, venta.getId());
+            flag = ps.executeUpdate();
+            if (flag == 1) {
+                return 1;
+            } else {
+                return 0;
+            }
+        } catch (Exception e) {
+
+        }
+        return flag;
+    }
 }

@@ -149,13 +149,23 @@ public class VistaVenta extends javax.swing.JFrame {
             }
         });
 
+        txtCuit.setEditable(false);
+
         jLabel6.setText("Telefono");
+
+        txtTelefono.setEditable(false);
 
         jLabel14.setText("Pais");
 
+        txtPais.setEditable(false);
+
         jLabel15.setText("Localidad");
 
+        txtLocalidad.setEditable(false);
+
         jLabel16.setText("Direccion");
+
+        txtDireccion.setEditable(false);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -223,7 +233,11 @@ public class VistaVenta extends javax.swing.JFrame {
 
         jLabel8.setText("Precio");
 
+        txtPrecio.setEditable(false);
+
         jLabel10.setText("Color");
+
+        txtColor.setEditable(false);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -265,9 +279,15 @@ public class VistaVenta extends javax.swing.JFrame {
 
         jLabel11.setText("Monto");
 
+        txtMonto.setEditable(false);
+
         jLabel12.setText("Impuesto");
 
+        txtImpuesto.setEditable(false);
+
         jLabel13.setText("TOTAL");
+
+        txtTotal.setEditable(false);
 
         jLabel9.setText("Cantidad");
 
@@ -407,7 +427,7 @@ public class VistaVenta extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
+                                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 602, Short.MAX_VALUE))))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())

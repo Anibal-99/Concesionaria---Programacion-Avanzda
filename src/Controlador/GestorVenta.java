@@ -104,8 +104,18 @@ public class GestorVenta implements ActionListener {
             }
             nuevo();
         }
-        if(e.getSource()==this.vistaVenta.btnNuevo){
+        if (e.getSource() == this.vistaVenta.btnNuevo) {
             nuevo();
+        }
+        if (e.getSource() == this.vistaVenta.btnActualizar) {
+
+            try {
+                this.actualizar();
+                limpiarTabla();
+                listarVentas(vistaVenta.tableVenta);
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorVenta.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
@@ -314,5 +324,40 @@ public class GestorVenta implements ActionListener {
         vistaVenta.txtMonto.setText("");
         vistaVenta.txtImpuesto.setText("");
         vistaVenta.txtTotal.setText("");
+    }
+
+    public void actualizar() throws SQLException {
+        if (this.vistaVenta.txtNroVenta.getText().equals("")) {
+            JOptionPane.showMessageDialog(this.vistaVenta, "No se Identifica el numero de venta debe selecionar la opcion Editar");
+        } else {
+            int nroVenta = Integer.parseInt(this.vistaVenta.txtNroVenta.getText());
+            int cantidad = (int) this.vistaVenta.cantAutos.getValue();
+            float montoTotal = Float.parseFloat(this.vistaVenta.txtTotal.getText());
+            float impuesto = Float.parseFloat(this.vistaVenta.txtImpuesto.getText());
+            String fecha = this.vistaVenta.txtFecha.getText();
+
+            Auto auto = (Auto) this.vistaVenta.cbxAuto.getSelectedItem();
+            Cliente cliente = ((Cliente) this.vistaVenta.cbxCliente.getSelectedItem());
+            Vendedor vendedor = ((Vendedor) this.vistaVenta.cbxVendedor.getSelectedItem());
+
+            Venta venta = new Venta();
+
+            venta.setId(nroVenta);
+            venta.setAuto(auto);
+            venta.setCliente(cliente);
+            venta.setVendedor(vendedor);
+            venta.setFecha(fecha);
+            venta.setCantidad(cantidad);
+            venta.setMontoTotal(montoTotal);
+            venta.setImpuesto(impuesto);
+            int flag = vDao.actualizar(venta);
+            if (flag == 1) {
+                // limpiar tabla
+                this.listarVentas(this.vistaVenta.tableVenta);
+                JOptionPane.showMessageDialog(this.vistaVenta, "Venta actualizada con exito");
+            } else {
+                JOptionPane.showMessageDialog(this.vistaVenta, "Error, no se actualizo la venta");
+            }
+        }
     }
 }
