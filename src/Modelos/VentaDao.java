@@ -56,7 +56,7 @@ public class VentaDao {
             con = conectar.getConection();
             insert = con.prepareStatement(sql);
             rs = insert.executeQuery();
-            
+
             while (rs.next()) {
                 Venta v = new Venta();
                 v.setId(rs.getInt(1));
@@ -73,5 +73,18 @@ public class VentaDao {
             JOptionPane.showMessageDialog(null, e);
         }
         return data;
+    }
+
+    public int delete(int id) throws SQLException {
+        int del = 0;
+        String sqlD = ("DELETE FROM venta WHERE id=" + id);
+        try {
+            con = conectar.getConection();
+            insert = con.prepareStatement(sqlD);
+            del = insert.executeUpdate();
+        } catch (Exception e) {
+
+        }
+        return del;
     }
 }

@@ -79,13 +79,33 @@ public class GestorVenta implements ActionListener {
         }
         if (e.getSource() == this.vistaVenta.btnAgregar) {
             this.agregar();
+            limpiarTabla();
+            nuevo();
         }
-        if(e.getSource()==this.vistaVenta.btnListarVenta){
+        if (e.getSource() == this.vistaVenta.btnListarVenta) {
+            limpiarTabla();
             try {
                 listarVentas(vistaVenta.tableVenta);
             } catch (SQLException ex) {
                 Logger.getLogger(GestorVenta.class.getName()).log(Level.SEVERE, null, ex);
             }
+            nuevo();
+        }
+        if (e.getSource() == this.vistaVenta.btnModificar) {
+            this.modificar();
+        }
+        if (e.getSource() == this.vistaVenta.btnEliminar) {
+            this.delete();
+            limpiarTabla();
+            try {
+                listarVentas(vistaVenta.tableVenta);
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorVenta.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            nuevo();
+        }
+        if(e.getSource()==this.vistaVenta.btnNuevo){
+            nuevo();
         }
     }
 
@@ -178,7 +198,6 @@ public class GestorVenta implements ActionListener {
         v.setCliente(cliente);
         v.setVendedor(vendedor);
         v.setFecha(fechaAct.format(fecha));
-        System.out.println(fechaAct.format(fecha));
         v.setCantidad(cantidad);
         v.setMontoTotal(montoTotal);
         v.setImpuesto(impuesto);
@@ -204,8 +223,96 @@ public class GestorVenta implements ActionListener {
         List<Venta> lista = vDao.listarVentas();
 
         for (Venta v : lista) {
-            Object[] object = {v.getId(), v.getCliente(), v.getAuto(), v.getCantidad(), v.getAuto().getPrecio(), v.getImpuesto(), v.getMontoTotal(), v.getFecha()};
+            Object[] object = {
+                v.getId(),
+                v.getCliente(),
+                v.getAuto(),
+                v.getCantidad(),
+                v.getAuto().getPrecio(),
+                v.getImpuesto(),
+                v.getMontoTotal(),
+                v.getFecha(),
+                v.getVendedor()
+            };
             modelo.addRow(object);
         }
-    }   
+    }
+
+    public void modificar() {
+        vistaVenta.txtNroVenta.setEnabled(false);
+        int fila = vistaVenta.tableVenta.getSelectedRow();
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(vistaVenta, "Debe seleccionar una fila");
+        } else {
+            int id = Integer.parseInt((String) vistaVenta.tableVenta.getValueAt(fila, 0).toString());
+            Cliente cliente = (Cliente) vistaVenta.tableVenta.getValueAt(fila, 1);
+            Auto auto = (Auto) vistaVenta.tableVenta.getValueAt(fila, 2);
+            int cantidad = (int) (vistaVenta.tableVenta.getValueAt(fila, 3));
+            float monto = (float) vistaVenta.tableVenta.getValueAt(fila, 4);
+            float impuesto = Float.parseFloat((String) vistaVenta.tableVenta.getValueAt(fila, 5).toString());
+            float total = Float.parseFloat((String) vistaVenta.tableVenta.getValueAt(fila, 6).toString());
+            String fecha = (String) vistaVenta.tableVenta.getValueAt(fila, 7);
+            Vendedor vendedor = (Vendedor) vistaVenta.tableVenta.getValueAt(fila, 8);
+
+            vistaVenta.txtNroVenta.setText("" + id);
+            DefaultComboBoxModel<Cliente> cbxCliente = ((DefaultComboBoxModel) vistaVenta.cbxCliente.getModel());
+            cbxCliente.setSelectedItem(cliente);
+            vistaVenta.txtCuit.setText(cliente.getCuit());
+            vistaVenta.txtTelefono.setText(cliente.getTel());
+            vistaVenta.txtPais.setText(cliente.getPais() + "");
+            vistaVenta.txtLocalidad.setText(cliente.getLocalidad());
+            vistaVenta.txtDireccion.setText(cliente.getDireccion());
+
+            DefaultComboBoxModel<Auto> cbxAuto = ((DefaultComboBoxModel) vistaVenta.cbxAuto.getModel());
+            cbxAuto.setSelectedItem(auto);
+            vistaVenta.txtPrecio.setText(auto.getPrecio() + "");
+            vistaVenta.txtColor.setText(auto.getColor() + "");
+
+            vistaVenta.cantAutos.setValue(cantidad);
+            vistaVenta.txtMonto.setText(monto + "");
+            vistaVenta.txtImpuesto.setText(impuesto + "");
+            vistaVenta.txtTotal.setText(total + "");
+            vistaVenta.txtFecha.setText(fecha);
+            DefaultComboBoxModel<Vendedor> cbxVendedor = ((DefaultComboBoxModel) vistaVenta.cbxVendedor.getModel());
+            cbxVendedor.setSelectedItem(vendedor);
+
+        }
+    }
+
+    public void delete() {
+        int fila = vistaVenta.tableVenta.getSelectedRow();
+        if (fila == -1) {// de esta manera el usuario solo podra eliminar si selecciona una marca sino no
+            JOptionPane.showMessageDialog(vistaVenta, "Debe seleccionar una venta");
+        } else {
+            try {
+                int id = Integer.parseInt((String) vistaVenta.tableVenta.getValueAt(fila, 0).toString());
+                vDao.delete(id);
+                JOptionPane.showMessageDialog(vistaVenta, "Venta eliminada");
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorMarca.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    void limpiarTabla() {
+        for (int i = 0; i < vistaVenta.tableVenta.getRowCount(); i++) {
+            modelo.removeRow(i);
+            i = i - 1;
+        }
+    }
+
+    void nuevo() {
+        vistaVenta.txtNroVenta.setText("");
+        vistaVenta.txtFecha.setText("");
+        vistaVenta.txtPais.setText("");
+        vistaVenta.txtCuit.setText("");
+        vistaVenta.txtTelefono.setText("");
+        vistaVenta.txtLocalidad.setText("");
+        vistaVenta.txtDireccion.setText("");
+        vistaVenta.txtPrecio.setText("");
+        vistaVenta.txtColor.setText("");
+        vistaVenta.txtMonto.setText("");
+        vistaVenta.txtImpuesto.setText("");
+        vistaVenta.txtTotal.setText("");
+    }
 }
