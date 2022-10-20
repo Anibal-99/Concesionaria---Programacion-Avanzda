@@ -231,7 +231,7 @@ public class GestorCliente implements ActionListener {
         }
     }
 
-    public void buscarClientes(JTable tablaMarca) throws SQLException {
+    public void buscarClientes(JTable tablaCliente) throws SQLException {
         // Esto es para que se ejecute la tabla al momento de iniciar el programa
         modelo = (DefaultTableModel) vista.tablaCliente.getModel();
         String name = this.vista.txtBuscar.getText();

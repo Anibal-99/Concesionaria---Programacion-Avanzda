@@ -13,15 +13,25 @@ public class Pais {
     int id;
     String name;
     String codigo;
+    Region region;
 
     public Pais() {
 
     }
 
-    public Pais(int id, String name, String codigo) {
+    public Pais(int id, String name, String codigo, Region region) {
         this.id = id;
         this.name = name;
         this.codigo = codigo;
+        this.region=region;
+    }
+
+    public Region getRegion() {
+        return region;
+    }
+
+    public void setRegion(Region region) {
+        this.region = region;
     }
 
     public int getId() {

@@ -114,7 +114,7 @@ public class ClienteDao {
 
     public ArrayList<Cliente> buscarClientes(String name) throws SQLException {
         ArrayList<Cliente> clientes = new ArrayList<>();
-        String sql = "select cliente.id, cliente.nombre, cliente.apellido, cliente.razon_social, cliente.cuit, cliente.telefono, cliente.direccion, cliente.localidad, cliente.pais_id from cliente where cliente.nombre = "+ "'"+  name  +"'" + "order by cliente.id desc";
+        String sql = "select cliente.id, cliente.nombre, cliente.apellido, cliente.razon_social, cliente.cuit, cliente.telefono, cliente.direccion, cliente.localidad, cliente.pais_id from cliente where cliente.nombre = " + "'" + name + "'" + "order by cliente.id desc";
         try {
             con = conectar.getConection();
             insert = con.prepareStatement(sql);
@@ -135,5 +135,56 @@ public class ClienteDao {
         } catch (Exception e) {
         }
         return clientes;
+    }
+
+    public ArrayList<Cliente> getClientes() throws SQLException {
+        ArrayList<Cliente> clientes = new ArrayList<>();
+        String sql = "select cliente.id, cliente.nombre, cliente.apellido, cliente.razon_social, cliente.cuit, cliente.telefono, cliente.direccion, cliente.localidad, cliente.pais_id from cliente order by cliente.nombre asc";
+        try {
+            con = conectar.getConection();
+            insert = con.prepareStatement(sql);
+            rs = insert.executeQuery();
+            while (rs.next()) {
+                Cliente c = new Cliente();
+                c.setId(rs.getInt(1));
+                c.setNombre(rs.getString(2));
+                c.setApellido(rs.getString(3));
+                c.setRazonSocial(rs.getString(4));
+                c.setCuit(rs.getString(5));
+                c.setTel(rs.getString(6));
+                c.setDireccion(rs.getString(7));
+                c.setLocalidad(rs.getString(8));
+                c.setPais(paisDao.getPaisById(rs.getInt(9)));
+                clientes.add(c);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        return clientes;
+    }
+
+    public Cliente getClienteById(int id) throws SQLException {
+        Cliente cliente = new Cliente();
+        String sql = "select cliente.id, cliente.nombre, cliente.apellido, cliente.razon_social, cliente.cuit, cliente.telefono, cliente.direccion, cliente.localidad, cliente.pais_id from cliente where cliente.id =? order by cliente.id desc";
+        try {
+            con = conectar.getConection();
+            insert = con.prepareStatement(sql);
+            insert.setInt(1, id);
+            rs = insert.executeQuery();
+            while (rs.next()) {
+                cliente.setId(rs.getInt(1));
+                cliente.setNombre(rs.getString(2));
+                cliente.setApellido(rs.getString(3));
+                cliente.setRazonSocial(rs.getString(4));
+                cliente.setCuit(rs.getString(5));
+                cliente.setTel(rs.getString(6));
+                cliente.setDireccion(rs.getString(7));
+                cliente.setLocalidad(rs.getString(8));
+                cliente.setPais(paisDao.getPaisById(rs.getInt(9)));
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        return cliente;
     }
 }

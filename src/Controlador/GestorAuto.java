@@ -10,6 +10,7 @@ import java.lang.System.Logger.Level;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.ImageIcon;
 
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JButton;
@@ -248,7 +249,6 @@ public class GestorAuto implements ActionListener {
         for (int i = 0; i < modelos.size(); i++) {
             cbxModel.addElement(modelos.get(i));
         }
-
     }
 
     void nuevo() {

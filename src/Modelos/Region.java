@@ -8,16 +8,15 @@ package Modelos;
  *
  * @author Anibal-99
  */
-public class Color {
+public class Region {
     int id;
     String nombre;
-    
-    public Color(){
-        
+
+    public Region() {
     }
 
-    public Color(int id, String nombre) {
-        this.id=id;
+    public Region(int id, String nombre) {
+        this.id = id;
         this.nombre = nombre;
     }
 
@@ -36,9 +35,4 @@ public class Color {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
-    @Override
-    public String toString() {
-        return this.nombre;
-    }         
 }

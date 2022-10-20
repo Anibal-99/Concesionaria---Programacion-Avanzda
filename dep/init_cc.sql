@@ -19,6 +19,16 @@ CREATE TABLE pais (
 		REFERENCES region(id)
 );
 
+CREATE TABLE vendedor(
+	id serial PRIMARY KEY,
+	nombre VARCHAR(60),
+	apellido VARCHAR(60),
+	dni VARCHAR(60),
+	pais_id INT,
+	CONSTRAINT FK_vendedor_pais FOREIGN KEY (pais_id)
+		REFERENCES pais(id)
+);
+
 CREATE TABLE marca (
 	id serial PRIMARY KEY,
 	nombre VARCHAR(60) NOT NULL,
@@ -71,12 +81,17 @@ CREATE TABLE auto(
 
 CREATE TABLE venta(
 	id serial PRIMARY KEY,
-	fecha_venta DATE,
+	fecha_venta VARCHAR(60),
 	auto_id INT,
 	cliente_id INT,
 	vendedor_id INT,
+	monto_total INT,
+	impuesto INT,
+	cantidad INT,
 	CONSTRAINT FK_venta_auto FOREIGN KEY(auto_id)
 		REFERENCES auto(id),
 	CONSTRAINT FK_venta_cliente FOREIGN KEY(cliente_id)
-		REFERENCES cliente(id)
+		REFERENCES cliente(id),
+	CONSTRAINT FK_venta_vendedor FOREIGN KEY(vendedor_id)
+		REFERENCES vendedor(id)
 );
