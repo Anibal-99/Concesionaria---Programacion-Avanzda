@@ -25,7 +25,9 @@ public class VistaVenta extends javax.swing.JFrame {
      */
     public VistaVenta() {
         initComponents();
+        setLocationRelativeTo(null);
         txtFecha.setText(fecha());
+        placeHolder();
     }
 
     public String fecha() {
@@ -51,7 +53,7 @@ public class VistaVenta extends javax.swing.JFrame {
     }
 
     public void placeHolder() {
-        TextPrompt placeholder = new TextPrompt("Filtrar fecha de la venta", txtBuscarVenta);
+        TextPrompt placeholder = new TextPrompt("Filtrar por fecha de la venta", txtBuscarVenta);
     }
 
     /**
@@ -104,9 +106,7 @@ public class VistaVenta extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         btnCalcular = new javax.swing.JButton();
         btnAgregar = new javax.swing.JButton();
-        btnModificar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
-        btnActualizar = new javax.swing.JButton();
         btnNuevo = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         txtBuscarVenta = new javax.swing.JTextField();
@@ -376,11 +376,7 @@ public class VistaVenta extends javax.swing.JFrame {
 
         btnAgregar.setText("Agregar");
 
-        btnModificar.setText("Modificar");
-
         btnEliminar.setText("Eliminar");
-
-        btnActualizar.setText("Actualizar");
 
         btnNuevo.setText("Nuevo");
 
@@ -447,14 +443,10 @@ public class VistaVenta extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnNuevo)
-                                .addGap(18, 18, 18)
+                                .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnActualizar)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnModificar)
-                                .addGap(18, 18, 18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnAgregar))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -482,8 +474,6 @@ public class VistaVenta extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAgregar)
-                    .addComponent(btnModificar)
-                    .addComponent(btnActualizar)
                     .addComponent(btnEliminar)
                     .addComponent(btnNuevo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -512,13 +502,11 @@ public class VistaVenta extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public javax.swing.JButton btnActualizar;
     public javax.swing.JButton btnAgregar;
     public javax.swing.JButton btnBuscarVenta;
     public javax.swing.JButton btnCalcular;
     public javax.swing.JButton btnEliminar;
     public javax.swing.JButton btnListarVenta;
-    public javax.swing.JButton btnModificar;
     public javax.swing.JButton btnNuevo;
     public javax.swing.JButton btnOkAuto;
     public javax.swing.JButton btnOkCliente;

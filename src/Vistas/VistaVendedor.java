@@ -23,6 +23,7 @@ public class VistaVendedor extends javax.swing.JFrame {
     public VistaVendedor() {
         initComponents();
         setLocationRelativeTo(null);
+        placeHolder();
     }
 
     public void placeHolder() {

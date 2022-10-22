@@ -48,8 +48,6 @@ public class GestorVenta implements ActionListener {
         this.vistaVenta.btnOkCliente.addActionListener(this);
         this.vistaVenta.btnOkCliente.addActionListener(this);
         this.vistaVenta.btnAgregar.addActionListener(this);
-        this.vistaVenta.btnModificar.addActionListener(this);
-        this.vistaVenta.btnActualizar.addActionListener(this);
         this.vistaVenta.btnEliminar.addActionListener(this);
         this.vistaVenta.btnNuevo.addActionListener(this);
         this.vistaVenta.btnOkCliente.addActionListener(this);
@@ -93,9 +91,6 @@ public class GestorVenta implements ActionListener {
             }
             nuevo();
         }
-        if (e.getSource() == this.vistaVenta.btnModificar) {
-            this.modificar();
-        }
         if (e.getSource() == this.vistaVenta.btnEliminar) {
             this.delete();
             limpiarTabla();
@@ -108,16 +103,6 @@ public class GestorVenta implements ActionListener {
         }
         if (e.getSource() == this.vistaVenta.btnNuevo) {
             nuevo();
-        }
-        if (e.getSource() == this.vistaVenta.btnActualizar) {
-
-            try {
-                this.actualizar();
-                limpiarTabla();
-                listarVentas(vistaVenta.tableVenta);
-            } catch (SQLException ex) {
-                Logger.getLogger(GestorVenta.class.getName()).log(Level.SEVERE, null, ex);
-            }
         }
     }
 
@@ -255,47 +240,6 @@ public class GestorVenta implements ActionListener {
         
     }
 
-    public void modificar() {
-        vistaVenta.txtNroVenta.setEnabled(false);
-        int fila = vistaVenta.tableVenta.getSelectedRow();
-        if (fila == -1) {
-            JOptionPane.showMessageDialog(vistaVenta, "Debe seleccionar una fila");
-        } else {
-            int id = Integer.parseInt((String) vistaVenta.tableVenta.getValueAt(fila, 0).toString());
-            Cliente cliente = (Cliente) vistaVenta.tableVenta.getValueAt(fila, 1);
-            Auto auto = (Auto) vistaVenta.tableVenta.getValueAt(fila, 2);
-            int cantidad = (int) (vistaVenta.tableVenta.getValueAt(fila, 3));
-            float monto = (float) vistaVenta.tableVenta.getValueAt(fila, 4);
-            float impuesto = Float.parseFloat((String) vistaVenta.tableVenta.getValueAt(fila, 5).toString());
-            float total = Float.parseFloat((String) vistaVenta.tableVenta.getValueAt(fila, 6).toString());
-            String fecha = (String) vistaVenta.tableVenta.getValueAt(fila, 7);
-            Vendedor vendedor = (Vendedor) vistaVenta.tableVenta.getValueAt(fila, 8);
-
-            vistaVenta.txtNroVenta.setText("" + id);
-            DefaultComboBoxModel<Cliente> cbxCliente = ((DefaultComboBoxModel) vistaVenta.cbxCliente.getModel());
-            cbxCliente.setSelectedItem(cliente);
-            vistaVenta.txtCuit.setText(cliente.getCuit());
-            vistaVenta.txtTelefono.setText(cliente.getTel());
-            vistaVenta.txtPais.setText(cliente.getPais() + "");
-            vistaVenta.txtLocalidad.setText(cliente.getLocalidad());
-            vistaVenta.txtDireccion.setText(cliente.getDireccion());
-
-            DefaultComboBoxModel<Auto> cbxAuto = ((DefaultComboBoxModel) vistaVenta.cbxAuto.getModel());
-            cbxAuto.setSelectedItem(auto);
-            vistaVenta.txtPrecio.setText(auto.getPrecio() + "");
-            vistaVenta.txtColor.setText(auto.getColor() + "");
-
-            vistaVenta.cantAutos.setValue(cantidad);
-            vistaVenta.txtMonto.setText(monto + "");
-            vistaVenta.txtImpuesto.setText(impuesto + "");
-            vistaVenta.txtTotal.setText(total + "");
-            vistaVenta.txtFecha.setText(fecha);
-            DefaultComboBoxModel<Vendedor> cbxVendedor = ((DefaultComboBoxModel) vistaVenta.cbxVendedor.getModel());
-            cbxVendedor.setSelectedItem(vendedor);
-
-        }
-    }
-
     public void delete() {
         int fila = vistaVenta.tableVenta.getSelectedRow();
         if (fila == -1) {// de esta manera el usuario solo podra eliminar si selecciona una marca sino no
@@ -331,40 +275,5 @@ public class GestorVenta implements ActionListener {
         vistaVenta.txtMonto.setText("");
         vistaVenta.txtImpuesto.setText("");
         vistaVenta.txtTotal.setText("");
-    }
-
-    public void actualizar() throws SQLException {
-        if (this.vistaVenta.txtNroVenta.getText().equals("")) {
-            JOptionPane.showMessageDialog(this.vistaVenta, "No se Identifica el numero de venta debe selecionar la opcion Editar");
-        } else {
-            int nroVenta = Integer.parseInt(this.vistaVenta.txtNroVenta.getText());
-            int cantidad = (int) this.vistaVenta.cantAutos.getValue();
-            float montoTotal = Float.parseFloat(this.vistaVenta.txtTotal.getText());
-            float impuesto = Float.parseFloat(this.vistaVenta.txtImpuesto.getText());
-            String fecha = this.vistaVenta.txtFecha.getText();
-
-            Auto auto = (Auto) this.vistaVenta.cbxAuto.getSelectedItem();
-            Cliente cliente = ((Cliente) this.vistaVenta.cbxCliente.getSelectedItem());
-            Vendedor vendedor = ((Vendedor) this.vistaVenta.cbxVendedor.getSelectedItem());
-
-            Venta venta = new Venta();
-
-            venta.setId(nroVenta);
-            venta.setAuto(auto);
-            venta.setCliente(cliente);
-            venta.setVendedor(vendedor);
-            venta.setFecha(fecha);
-            venta.setCantidad(cantidad);
-            venta.setMontoTotal(montoTotal);
-            venta.setImpuesto(impuesto);
-            int flag = vDao.actualizar(venta);
-            if (flag == 1) {
-                // limpiar tabla
-                this.listarVentas(this.vistaVenta.tableVenta);
-                JOptionPane.showMessageDialog(this.vistaVenta, "Venta actualizada con exito");
-            } else {
-                JOptionPane.showMessageDialog(this.vistaVenta, "Error, no se actualizo la venta");
-            }
-        }
     }
 }
