@@ -6,14 +6,16 @@ public class Auto {
     float precio;
     String observacion;
     Color color;
+    float costo;
 
     public Auto(){}
-    public Auto(int id, Modelo modelo, float precio, String observacion, Color color) {
+    public Auto(int id, Modelo modelo, float precio, float costo, String observacion, Color color) {
         this.id = id;
         this.modelo = modelo;
         this.precio = precio;
         this.observacion = observacion;
         this.color=color;
+        this.costo=costo;
     }
 
     public int getId() {
@@ -30,6 +32,14 @@ public class Auto {
 
     public float getPrecio() {
         return this.precio;
+    }
+
+    public float getCosto() {
+        return costo;
+    }
+
+    public void setCosto(float costo) {
+        this.costo = costo;
     }
 
     public void setId(int id) {

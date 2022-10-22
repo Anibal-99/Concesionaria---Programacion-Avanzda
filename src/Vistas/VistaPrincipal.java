@@ -38,6 +38,8 @@ public class VistaPrincipal extends javax.swing.JFrame {
         abmcCliente = new javax.swing.JMenuItem();
         abmcAuto = new javax.swing.JMenuItem();
         abmcModelos = new javax.swing.JMenuItem();
+        menuVendedor = new javax.swing.JMenuItem();
+        menuVenta = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
 
@@ -92,6 +94,24 @@ public class VistaPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu1.add(abmcModelos);
+
+        menuVendedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/empleado-con-corbata (1).png"))); // NOI18N
+        menuVendedor.setText("Vendedor");
+        menuVendedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuVendedorActionPerformed(evt);
+            }
+        });
+        jMenu1.add(menuVendedor);
+
+        menuVenta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/carrito-de-compras.png"))); // NOI18N
+        menuVenta.setText("Venta");
+        menuVenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuVentaActionPerformed(evt);
+            }
+        });
+        jMenu1.add(menuVenta);
 
         jMenuBar1.add(jMenu1);
 
@@ -170,6 +190,27 @@ public class VistaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_abmcModelosActionPerformed
 
+    private void menuVendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuVendedorActionPerformed
+        // TODO add your handling code here:
+        VistaVendedor v = new VistaVendedor();
+        try {
+            v.inicializar();
+        } catch (SQLException ex) {
+            Logger.getLogger(VistaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_menuVendedorActionPerformed
+
+    private void menuVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuVentaActionPerformed
+        // TODO add your handling code here:
+        VistaVenta v = new VistaVenta();
+        try {
+            v.inicializar();
+        } catch (SQLException ex) {
+            Logger.getLogger(VistaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_menuVentaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -216,5 +257,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem menuVendedor;
+    private javax.swing.JMenuItem menuVenta;
     // End of variables declaration//GEN-END:variables
 }

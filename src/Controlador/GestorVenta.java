@@ -14,6 +14,7 @@ import Modelos.Vendedor;
 import Modelos.VendedorDao;
 import Modelos.Venta;
 import Modelos.VentaDao;
+import Vistas.NumberRenderer;
 
 import Vistas.VistaVenta;
 import java.awt.event.ActionEvent;
@@ -29,6 +30,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 
 /**
  *
@@ -246,6 +248,11 @@ public class GestorVenta implements ActionListener {
             };
             modelo.addRow(object);
         }
+        TableColumnModel tcm = vistaVenta.tableVenta.getColumnModel();
+        tcm.getColumn(4).setCellRenderer(NumberRenderer.getCurrencyRenderer());
+        tcm.getColumn(5).setCellRenderer(NumberRenderer.getCurrencyRenderer());
+        tcm.getColumn(6).setCellRenderer(NumberRenderer.getCurrencyRenderer());
+        
     }
 
     public void modificar() {

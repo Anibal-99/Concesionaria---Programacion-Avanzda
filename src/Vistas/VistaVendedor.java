@@ -3,7 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Vistas;
+
+import Controlador.GestorAuto;
 import Controlador.GestorVendedor;
+import Modelos.TextPrompt;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,6 +23,23 @@ public class VistaVendedor extends javax.swing.JFrame {
     public VistaVendedor() {
         initComponents();
         setLocationRelativeTo(null);
+    }
+
+    public void placeHolder() {
+        TextPrompt placeholder = new TextPrompt("Filtrar por nombre de vendedor", txtBuscar);
+    }
+
+    public void inicializar() throws SQLException {
+        VistaVendedor v = new VistaVendedor();
+        setLocationRelativeTo(null);
+        placeHolder();
+        try {
+            GestorVendedor gv = new GestorVendedor(v);
+            gv.llenarCombo();
+        } catch (SQLException ex) {
+            Logger.getLogger(VistaMarca.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        v.setVisible(true);
     }
 
     /**
@@ -53,7 +73,7 @@ public class VistaVendedor extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tableVendedor = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos vendedor"));
@@ -135,6 +155,7 @@ public class VistaVendedor extends javax.swing.JFrame {
         );
 
         txtId.setEditable(false);
+        txtId.setEnabled(false);
 
         jLabel1.setText("Legajo");
 

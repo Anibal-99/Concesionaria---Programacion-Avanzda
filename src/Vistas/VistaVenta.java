@@ -4,10 +4,14 @@
  */
 package Vistas;
 
+import Controlador.GestorVendedor;
 import Controlador.GestorVenta;
+import Modelos.TextPrompt;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 
 /**
@@ -23,10 +27,31 @@ public class VistaVenta extends javax.swing.JFrame {
         initComponents();
         txtFecha.setText(fecha());
     }
-    public String fecha(){
+
+    public String fecha() {
         Date fecha = new Date();
-        SimpleDateFormat fechaAct= new SimpleDateFormat("dd/MM/YYYY");
+        SimpleDateFormat fechaAct = new SimpleDateFormat("dd/MM/YYYY");
         return fechaAct.format(fecha);
+    }
+
+    public void inicializar() throws SQLException {
+        VistaVenta vistaVenta = new VistaVenta();
+        setLocationRelativeTo(null);
+        placeHolder();
+        txtFecha.setText(fecha());
+        try {
+            GestorVenta gv = new GestorVenta(vistaVenta);
+            gv.llenarComboAuto();
+            gv.llenarComboCliente();
+            gv.llenarComboVendedor();
+        } catch (SQLException ex) {
+            Logger.getLogger(VistaMarca.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        vistaVenta.setVisible(true);
+    }
+
+    public void placeHolder() {
+        TextPrompt placeholder = new TextPrompt("Filtrar fecha de la venta", txtBuscarVenta);
     }
 
     /**
@@ -90,7 +115,7 @@ public class VistaVenta extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tableVenta = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos de venta"));
@@ -100,6 +125,7 @@ public class VistaVenta extends javax.swing.JFrame {
         jLabel2.setText("Nro venta");
 
         txtNroVenta.setEditable(false);
+        txtNroVenta.setEnabled(false);
 
         jLabel3.setText("Vendedor");
 
@@ -150,22 +176,27 @@ public class VistaVenta extends javax.swing.JFrame {
         });
 
         txtCuit.setEditable(false);
+        txtCuit.setEnabled(false);
 
         jLabel6.setText("Telefono");
 
         txtTelefono.setEditable(false);
+        txtTelefono.setEnabled(false);
 
         jLabel14.setText("Pais");
 
         txtPais.setEditable(false);
+        txtPais.setEnabled(false);
 
         jLabel15.setText("Localidad");
 
         txtLocalidad.setEditable(false);
+        txtLocalidad.setEnabled(false);
 
         jLabel16.setText("Direccion");
 
         txtDireccion.setEditable(false);
+        txtDireccion.setEnabled(false);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -234,10 +265,12 @@ public class VistaVenta extends javax.swing.JFrame {
         jLabel8.setText("Precio");
 
         txtPrecio.setEditable(false);
+        txtPrecio.setEnabled(false);
 
         jLabel10.setText("Color");
 
         txtColor.setEditable(false);
+        txtColor.setEnabled(false);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -280,14 +313,17 @@ public class VistaVenta extends javax.swing.JFrame {
         jLabel11.setText("Monto");
 
         txtMonto.setEditable(false);
+        txtMonto.setEnabled(false);
 
         jLabel12.setText("Impuesto");
 
         txtImpuesto.setEditable(false);
+        txtImpuesto.setEnabled(false);
 
         jLabel13.setText("TOTAL");
 
         txtTotal.setEditable(false);
+        txtTotal.setEnabled(false);
 
         jLabel9.setText("Cantidad");
 
@@ -359,7 +395,7 @@ public class VistaVenta extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nro venta", "Cliente", "Auto", "Cantidad", "Monto", "Impuesto", "Total", "Fecha venta", "Vendedor"
+                "Nro venta", "Cliente", "Auto", "Cantidad de autos", "Monto", "Impuesto", "Total", "Fecha venta", "Vendedor"
             }
         ) {
             boolean[] canEdit = new boolean [] {

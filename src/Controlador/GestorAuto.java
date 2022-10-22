@@ -112,13 +112,15 @@ public class GestorAuto implements ActionListener {
             JOptionPane.showMessageDialog(vistaAuto, "Debe seleccionar una fila");
         } else {
             int id = Integer.parseInt((String) vistaAuto.AutosjTable.getValueAt(fila, 0).toString());
-            Modelo modelo =  (Modelo) vistaAuto.AutosjTable.getValueAt(fila, 1);
+            Modelo modelo = (Modelo) vistaAuto.AutosjTable.getValueAt(fila, 1);
             String precio = (String) vistaAuto.AutosjTable.getValueAt(fila, 2).toString();
-            String observacion = (String) vistaAuto.AutosjTable.getValueAt(fila, 3);
+            String costo = (String) vistaAuto.AutosjTable.getValueAt(fila, 3).toString();
             Color color = (Color) vistaAuto.AutosjTable.getValueAt(fila, 4);
+            String observacion = (String) vistaAuto.AutosjTable.getValueAt(fila, 5);
 
             vistaAuto.IDjTextField.setText("" + id);
             vistaAuto.PreciojTextField.setText("" + precio);
+            vistaAuto.txtCosto.setText("" + costo);
             vistaAuto.jTextArea1.setText(observacion);
             DefaultComboBoxModel<Color> cbxcolor = ((DefaultComboBoxModel) vistaAuto.cbxColor.getModel());
             DefaultComboBoxModel<Modelo> cbxModel = ((DefaultComboBoxModel) vistaAuto.ModelojComboBox.getModel());
@@ -136,12 +138,14 @@ public class GestorAuto implements ActionListener {
             Float precio = Float.parseFloat((String) vistaAuto.PreciojTextField.getText());
             String observacion = this.vistaAuto.jTextArea1.getText();
             Color color = (Color) this.vistaAuto.cbxColor.getSelectedItem();
+            float costo = Float.parseFloat(this.vistaAuto.txtCosto.getText());
 
             auto.setId(id);
             auto.setModelo(modelo);
             auto.setPrecio(precio);
             auto.setObservacion(observacion);
             auto.setColor(color);
+            auto.setCosto(costo);
 
             int flag = autoDAO.actualizar(auto);
             if (flag == 1) {
@@ -163,11 +167,13 @@ public class GestorAuto implements ActionListener {
         float precio = Float.parseFloat(this.vistaAuto.PreciojTextField.getText());
         String observacion = this.vistaAuto.jTextArea1.getText();
         Color color = (Color) this.vistaAuto.cbxColor.getSelectedItem();
+        float costo = Float.parseFloat(this.vistaAuto.txtCosto.getText());
 
         auto.setModelo(modelo);
         auto.setPrecio(precio);
         auto.setObservacion(observacion);
         auto.setColor(color);
+        auto.setCosto(costo);
 
         if (this.vistaAuto.ModelojComboBox.getSelectedItem().toString().isEmpty()) {
             JOptionPane.showMessageDialog(null, "No se puedo agregar sin ingresar los datos");
@@ -199,14 +205,12 @@ public class GestorAuto implements ActionListener {
         }
     }
 
-
-
-    public void listar(JTable tablaAutos) throws SQLException{
+    public void listar(JTable tablaAutos) throws SQLException {
         defaultTableModel = (DefaultTableModel) tablaAutos.getModel();
         List<Auto> autos = autoDAO.listar();
 
         for (Auto a : autos) {
-            Object[] object = {a.getId(), a.getModelo(), a.getPrecio(), a.getObservacion(), a.getColor()};
+            Object[] object = {a.getId(), a.getModelo(), a.getPrecio(), a.getCosto(), a.getColor(), a.getObservacion()};
             defaultTableModel.addRow(object);
         }
 
@@ -218,8 +222,11 @@ public class GestorAuto implements ActionListener {
         tcm.getColumn(0).setPreferredWidth(30);
         tcm.getColumn(1).setPreferredWidth(150);
         tcm.getColumn(2).setPreferredWidth(120);
-        tcm.getColumn(3).setPreferredWidth(450);
+        tcm.getColumn(3).setPreferredWidth(120);
+        tcm.getColumn(4).setPreferredWidth(120);
+        tcm.getColumn(5).setPreferredWidth(300);
         tcm.getColumn(2).setCellRenderer(NumberRenderer.getCurrencyRenderer());
+        tcm.getColumn(3).setCellRenderer(NumberRenderer.getCurrencyRenderer());
     }
 
     void limpiarTabla() {
@@ -264,7 +271,7 @@ public class GestorAuto implements ActionListener {
         List<Auto> autos = autoDAO.buscarAutos(name);
 
         for (Auto a : autos) {
-            Object[] object = {a.getId(), a.getModelo(), a.getPrecio(), a.getObservacion(), a.getColor()};
+            Object[] object = {a.getId(), a.getModelo(), a.getPrecio(), a.getCosto(), a.getColor(), a.getObservacion()};
             defaultTableModel.addRow(object);
         }
     }
