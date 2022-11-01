@@ -23,6 +23,7 @@ public class MarcaDao {
     PaisDao paisDao = new PaisDao();
 
     public int agregar(Marca m) {
+        int flag = 0;
         String sql = ("INSERT INTO marca(nombre,pais_id,observacion)values(?,?,?)");
         try {
             con = conectar.getConection();
@@ -30,11 +31,9 @@ public class MarcaDao {
             insert.setString(1, m.getName());
             insert.setInt(2, m.getPais().getId());
             insert.setString(3, m.getObs());
-            insert.executeUpdate();
-        } catch (Exception e) {
-
-        }
-        return 1;
+            flag = insert.executeUpdate();
+        } catch (Exception e) {}
+        return flag == 1 ? 1 : 0;
     }
 
     public ArrayList<Marca> listarMarcas() throws SQLException {
@@ -94,13 +93,14 @@ public class MarcaDao {
         return del;
     }
 
-    public ArrayList<Marca> filtrarMarcas(String name) throws SQLException {
+    public ArrayList<Marca> filtrarMarcas(String valor) throws SQLException {
         ArrayList<Marca> marcas = new ArrayList<>();
-        String sql = "SELECT marca.id, marca.nombre, marca.pais_id, marca.observacion FROM marca where marca.nombre=?";
+        String sql = "SELECT marca.id, marca.nombre, marca.pais_id, marca.observacion FROM marca INNER JOIN pais ON marca.pais_id = pais.id WHERE marca.nombre ~ ? OR pais.nombre ~ ?";
         try {
             con = conectar.getConection();
             insert = con.prepareStatement(sql);
-            insert.setString(1, name);
+            insert.setString(1, valor);
+            insert.setString(2, valor);
             rs = insert.executeQuery();
             System.out.println(insert);
             while (rs.next()) {
