@@ -262,6 +262,7 @@ public class GestorAuto implements ActionListener {
         vistaAuto.IDjTextField.setText("");
         vistaAuto.PreciojTextField.setText("");
         vistaAuto.jTextArea1.setText("");
+        vistaAuto.txtCosto.setText("");
     }
 
     public void buscarAutos(JTable tablaAuto) throws SQLException {

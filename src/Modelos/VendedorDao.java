@@ -24,7 +24,7 @@ public class VendedorDao {
     Vendedor vendedor = new Vendedor();
     PaisDao paisDao = new PaisDao();
 
-    public int agregar(Vendedor vendedor) {
+    public int agregar(Vendedor vendedor) throws SQLException {
         String sql = ("INSERT INTO vendedor(nombre,pais_id,apellido,dni)values(?,?,?,?)");
         try {
             con = conectar.getConection();
@@ -63,7 +63,7 @@ public class VendedorDao {
         return data;
     }
 
-    public int actualizar(Vendedor vendedor) {
+    public int actualizar(Vendedor vendedor) throws SQLException {
         int act = 0;
         String sqlU = ("UPDATE vendedor SET nombre=?,apellido=?,dni=?,pais_id=? WHERE id=?");
         System.out.println("llega");

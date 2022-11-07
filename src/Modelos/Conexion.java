@@ -17,7 +17,7 @@ public class Conexion {
 
     Connection con;
 
-    public Connection getConection() {
+    public Connection getConection() throws SQLException {
         try {
             Class.forName("org.postgresql.Driver");
             String url = "jdbc:postgresql://" + host + ":" + port + "/" + db;
@@ -28,4 +28,9 @@ public class Conexion {
         }
         return con;
     }
+
+    void close() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
 }

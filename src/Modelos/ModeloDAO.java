@@ -35,9 +35,10 @@ public class ModeloDAO {
             JOptionPane.showMessageDialog(null, e);
         }
         return modelos;
+
     }
 
-    public int agregar(Modelo m) {
+    public int agregar(Modelo m) throws SQLException {
         String sql = ("INSERT INTO modelo(nombre,anio, marca_id)values(?,?,?)");
         try {
             sqlcon = con.getConection();

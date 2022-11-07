@@ -15,6 +15,7 @@ import Modelos.VendedorDao;
 import Modelos.Venta;
 import Modelos.VentaDao;
 import Vistas.NumberRenderer;
+import Vistas.VistaListaVentas;
 
 import Vistas.VistaVenta;
 import java.awt.event.ActionEvent;
@@ -48,13 +49,12 @@ public class GestorVenta implements ActionListener {
         this.vistaVenta.btnOkCliente.addActionListener(this);
         this.vistaVenta.btnOkCliente.addActionListener(this);
         this.vistaVenta.btnAgregar.addActionListener(this);
-        this.vistaVenta.btnEliminar.addActionListener(this);
+        this.vistaVenta.btnListaVentas.addActionListener(this);
         this.vistaVenta.btnNuevo.addActionListener(this);
         this.vistaVenta.btnOkCliente.addActionListener(this);
         this.vistaVenta.btnOkAuto.addActionListener(this);
         this.vistaVenta.btnCalcular.addActionListener(this);
-        this.vistaVenta.btnListarVenta.addActionListener(this);
-        this.vistaVenta.btnBuscarVenta.addActionListener(this);
+        //this.vistaVenta.btnListaVentas.addActionListener(this);
     }
 
     @Override
@@ -79,28 +79,9 @@ public class GestorVenta implements ActionListener {
         }
         if (e.getSource() == this.vistaVenta.btnAgregar) {
             this.agregar();
-            limpiarTabla();
             nuevo();
         }
-        if (e.getSource() == this.vistaVenta.btnListarVenta) {
-            limpiarTabla();
-            try {
-                listarVentas(vistaVenta.tableVenta);
-            } catch (SQLException ex) {
-                Logger.getLogger(GestorVenta.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            nuevo();
-        }
-        if (e.getSource() == this.vistaVenta.btnEliminar) {
-            this.delete();
-            limpiarTabla();
-            try {
-                listarVentas(vistaVenta.tableVenta);
-            } catch (SQLException ex) {
-                Logger.getLogger(GestorVenta.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            nuevo();
-        }
+
         if (e.getSource() == this.vistaVenta.btnNuevo) {
             nuevo();
         }
@@ -175,14 +156,14 @@ public class GestorVenta implements ActionListener {
                 importe = (float) ((monto * cantidad) * 0.1);
                 vistaVenta.txtImpuesto.setText(importe + "");
                 break;
+            }else{
+                vistaVenta.txtImpuesto.setText(importe + "");
             }
         }
         return importe;
     }
 
     public void agregar() {
-        Date fecha = new Date();
-        SimpleDateFormat fechaAct = new SimpleDateFormat("dd/MM/YYYY");
 
         int cantidad = (int) this.vistaVenta.cantAutos.getValue();
         float montoTotal = Float.parseFloat(this.vistaVenta.txtTotal.getText());
@@ -190,11 +171,12 @@ public class GestorVenta implements ActionListener {
         Cliente cliente = ((Cliente) this.vistaVenta.cbxCliente.getSelectedItem());
         Vendedor vendedor = ((Vendedor) this.vistaVenta.cbxVendedor.getSelectedItem());
         Auto auto = (Auto) this.vistaVenta.cbxAuto.getSelectedItem();
+        String fecha = this.vistaVenta.txtFecha.getText();
 
         v.setAuto(auto);
         v.setCliente(cliente);
         v.setVendedor(vendedor);
-        v.setFecha(fechaAct.format(fecha));
+        v.setFecha(fecha);
         v.setCantidad(cantidad);
         v.setMontoTotal(montoTotal);
         v.setImpuesto(impuesto);
@@ -213,55 +195,6 @@ public class GestorVenta implements ActionListener {
         }
     }
 
-    public void listarVentas(JTable tableVenta) throws SQLException {
-        // Esto es para que se ejecute la tabla al momento de iniciar el programa
-        modelo = (DefaultTableModel) tableVenta.getModel();
-
-        List<Venta> lista = vDao.listarVentas();
-
-        for (Venta v : lista) {
-            Object[] object = {
-                v.getId(),
-                v.getCliente(),
-                v.getAuto(),
-                v.getCantidad(),
-                v.getAuto().getPrecio(),
-                v.getImpuesto(),
-                v.getMontoTotal(),
-                v.getFecha(),
-                v.getVendedor()
-            };
-            modelo.addRow(object);
-        }
-        TableColumnModel tcm = vistaVenta.tableVenta.getColumnModel();
-        tcm.getColumn(4).setCellRenderer(NumberRenderer.getCurrencyRenderer());
-        tcm.getColumn(5).setCellRenderer(NumberRenderer.getCurrencyRenderer());
-        tcm.getColumn(6).setCellRenderer(NumberRenderer.getCurrencyRenderer());
-        
-    }
-
-    public void delete() {
-        int fila = vistaVenta.tableVenta.getSelectedRow();
-        if (fila == -1) {// de esta manera el usuario solo podra eliminar si selecciona una marca sino no
-            JOptionPane.showMessageDialog(vistaVenta, "Debe seleccionar una venta");
-        } else {
-            try {
-                int id = Integer.parseInt((String) vistaVenta.tableVenta.getValueAt(fila, 0).toString());
-                vDao.delete(id);
-                JOptionPane.showMessageDialog(vistaVenta, "Venta eliminada");
-            } catch (SQLException ex) {
-                Logger.getLogger(GestorMarca.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }
-
-    void limpiarTabla() {
-        for (int i = 0; i < vistaVenta.tableVenta.getRowCount(); i++) {
-            modelo.removeRow(i);
-            i = i - 1;
-        }
-    }
-
     void nuevo() {
         vistaVenta.txtNroVenta.setText("");
         vistaVenta.txtFecha.setText("");
@@ -276,4 +209,5 @@ public class GestorVenta implements ActionListener {
         vistaVenta.txtImpuesto.setText("");
         vistaVenta.txtTotal.setText("");
     }
+
 }

@@ -34,13 +34,14 @@ public class AutoDAO {
                 auto.setModelo(modeloDao.getModeloById(rs.getInt(6)));
                 autos.add(auto);
             }
+            con.close();
         } catch (Exception e) {
 
         }
         return autos;
     }
 
-    public int agregar(Auto auto) {
+    public int agregar(Auto auto) throws SQLException {
         System.out.println(auto.getModelo().getId());
         String sql = ("INSERT INTO auto(observacion,precio,costo,modelo_id, color_id)values(?,?,?,?,?)");
         try {
@@ -72,7 +73,7 @@ public class AutoDAO {
         return 1;
     }
 
-    public int actualizar(Auto auto) {
+    public int actualizar(Auto auto) throws SQLException {
         int flag = 0;
         try {
             sqlcon = con.getConection();
@@ -105,7 +106,6 @@ public class AutoDAO {
             }
         } catch (Exception e) {
         }
-        // System.out.println("");
         return autos;
     }
 

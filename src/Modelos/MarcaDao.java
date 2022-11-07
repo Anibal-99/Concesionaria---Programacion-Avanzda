@@ -22,7 +22,7 @@ public class MarcaDao {
     Marca m = new Marca();
     PaisDao paisDao = new PaisDao();
 
-    public int agregar(Marca m) {
+    public int agregar(Marca m) throws SQLException {
         String sql = ("INSERT INTO marca(nombre,pais_id,observacion)values(?,?,?)");
         try {
             con = conectar.getConection();
@@ -59,7 +59,7 @@ public class MarcaDao {
         return data;
     }
 
-    public int modificar(Marca mar) {
+    public int modificar(Marca mar) throws SQLException {
         int act = 0;
         String sqlU = ("UPDATE marca SET nombre=?,pais_id=?,observacion=? WHERE id=?");
         try {
@@ -135,7 +135,6 @@ public class MarcaDao {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
-        System.out.println(marcas);
         return marcas;
     }
 
