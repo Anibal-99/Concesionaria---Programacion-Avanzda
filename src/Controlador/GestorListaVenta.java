@@ -109,7 +109,6 @@ public class GestorListaVenta implements ActionListener {
     }
 
     public void delete() {
-        System.out.println("Llego");
         int fila = vistaVenta.tableVentas.getSelectedRow();
         if (fila == -1) {// de esta manera el usuario solo podra eliminar si selecciona una marca sino no
             JOptionPane.showMessageDialog(vistaVenta, "Debe seleccionar una venta");
@@ -128,7 +127,6 @@ public class GestorListaVenta implements ActionListener {
         modelo = (DefaultTableModel) tablaVentas.getModel();
         String fechaDesde = this.vistaVenta.txtFechaDesde.getText();
         String fechaHasta = this.vistaVenta.txtFechaHasta.getText();
-        System.out.println(fechaDesde);
         List<Venta> lista = vDao.filtrarVentasPorFecha(fechaDesde, fechaHasta);
 
         for (Venta v : lista) {

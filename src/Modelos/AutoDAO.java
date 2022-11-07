@@ -42,7 +42,6 @@ public class AutoDAO {
     }
 
     public int agregar(Auto auto) throws SQLException {
-        System.out.println(auto.getModelo().getId());
         String sql = ("INSERT INTO auto(observacion,precio,costo,modelo_id, color_id)values(?,?,?,?,?)");
         try {
             sqlcon = con.getConection();
@@ -52,7 +51,6 @@ public class AutoDAO {
             ps.setFloat(3, auto.getCosto());
             ps.setInt(4, auto.getModelo().getId());
             ps.setInt(5, auto.getColor().getId());
-            System.out.println(ps);
             ps.executeUpdate();
 
         } catch (Exception e) {
@@ -97,7 +95,6 @@ public class AutoDAO {
             sqlcon = con.getConection();
             ps = sqlcon.prepareStatement(sql);
             rs = ps.executeQuery();
-            System.out.println(ps);
             while (rs.next()) {
                 Auto auto = new Auto();
                 auto.setId(rs.getInt(1));

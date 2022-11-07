@@ -68,7 +68,6 @@ public class VendedorDao {
     public int actualizar(Vendedor vendedor) throws SQLException {
         int act = 0;
         String sqlU = ("UPDATE vendedor SET nombre=?,apellido=?,dni=?,pais_id=? WHERE id=?");
-        System.out.println("llega");
         try {
             con = conectar.getConection();
             insert = con.prepareStatement(sqlU);

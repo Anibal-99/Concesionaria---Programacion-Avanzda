@@ -24,7 +24,6 @@ public class VentaDao {
     Venta v = new Venta();
 
     public int agregar(Venta venta) throws SQLException {
-        System.out.println("Llego");
         String sql = ("INSERT INTO venta(fecha_venta,auto_id,cliente_id,vendedor_id,monto_total,impuesto,cantidad)values(?,?,?,?,?,?,?)");
         try {
             con = conectar.getConection();
@@ -37,7 +36,6 @@ public class VentaDao {
             insert.setFloat(5, venta.getMontoTotal());
             insert.setFloat(6, venta.getImpuesto());
             insert.setInt(7, venta.getCantidad());
-            System.out.println(insert);
             insert.executeUpdate();
 
         } catch (Exception e) {
@@ -97,7 +95,6 @@ public class VentaDao {
         ClienteDao clienteDao = new ClienteDao();
         VendedorDao vendedorDao = new VendedorDao();
         String sql = "select venta.id, venta.fecha_venta, venta.auto_id, venta.cliente_id, venta.vendedor_id, venta.monto_total,venta.impuesto,venta.cantidad from venta where to_date(venta.fecha_venta, 'DD/MM/YYYY') between to_date(?, 'DD/MM/YYYY') and to_date(?, 'DD/MM/YYYY')";
-        System.out.println(sql);
         try {
 
             con = conectar.getConection();
@@ -132,13 +129,11 @@ public class VentaDao {
         VendedorDao vendedorDao = new VendedorDao();
         String sql = "select venta.id, venta.fecha_venta, venta.auto_id, venta.cliente_id, venta.vendedor_id, venta.monto_total,venta.impuesto,venta.cantidad from venta where venta.monto_total between ? and ?";
         try {
-
             con = conectar.getConection();
             insert = con.prepareStatement(sql);
             insert.setFloat(1, precioDesde);
-            insert.setFloat(2, precioDesde);
+            insert.setFloat(2, precioHasta);
             rs = insert.executeQuery();
-
 
             while (rs.next()) {
                 Venta v = new Venta();

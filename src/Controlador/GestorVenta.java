@@ -182,7 +182,6 @@ public class GestorVenta implements ActionListener {
         v.setImpuesto(impuesto);
 
         if (this.vistaVenta.txtTotal.getText().isEmpty()) {
-            System.out.println("LLLEGOOOOO");
             JOptionPane.showMessageDialog(null, "No se puede agregar sin ingresar todos los datos");
         } else {
             try {

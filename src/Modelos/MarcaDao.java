@@ -45,7 +45,6 @@ public class MarcaDao {
             con = conectar.getConection();
             insert = con.prepareStatement(sql);
             rs = insert.executeQuery();
-            //System.out.println(rs.getInt(3));
             while (rs.next()) {
                 Marca m = new Marca();
                 m.setId(rs.getInt(1));
@@ -106,14 +105,12 @@ public class MarcaDao {
             insert = con.prepareStatement(sql);
             insert.setString(1, name);
             rs = insert.executeQuery();
-            System.out.println(insert);
             while (rs.next()) {
                 Marca m = new Marca();
                 m.setId(rs.getInt(1));
                 m.setName(rs.getString(2));
                 m.setPais(paisDao.getPaisById(rs.getInt(3)));
                 m.setObs(rs.getString(4));
-                System.out.println(m.getId() + " " + m.getName() + " " + m.getPais() + " " + m.getObs());
                 marcas.add(m);
             }
         } catch (Exception e) {
