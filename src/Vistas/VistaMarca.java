@@ -7,6 +7,8 @@ package Vistas;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import Controlador.GestorMarca;
 import java.awt.event.KeyAdapter;
@@ -68,7 +70,7 @@ public class VistaMarca extends javax.swing.JFrame {
         btnEliminar = new javax.swing.JButton();
         btnpais = new javax.swing.JLabel();
         btnAgregar = new javax.swing.JButton();
-        txtNombre = new javax.swing.JTextField();
+        txtname = new javax.swing.JTextField();
         btnListar = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -76,7 +78,7 @@ public class VistaMarca extends javax.swing.JFrame {
         cbxCombo = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tablaVendedor = new javax.swing.JTable();
+        tablaMarca = new javax.swing.JTable();
         txtFiltrar = new javax.swing.JTextField();
         btnFiltrar = new javax.swing.JButton();
 
@@ -152,7 +154,7 @@ public class VistaMarca extends javax.swing.JFrame {
                     .addComponent(jLabel1))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
+                    .addComponent(txtname, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
                     .addComponent(txtobs)
                     .addComponent(txtId)
                     .addComponent(cbxCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -177,7 +179,7 @@ public class VistaMarca extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnActualizar)
-                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(6, 6, 6))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
@@ -209,7 +211,7 @@ public class VistaMarca extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Listado marcas"));
 
-        tablaVendedor.setModel(new javax.swing.table.DefaultTableModel(
+        tablaMarca.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -218,19 +220,26 @@ public class VistaMarca extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
         });
-        tablaVendedor.addKeyListener(new java.awt.event.KeyAdapter() {
+        tablaMarca.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 tablaMarcaKeyTyped(evt);
             }
         });
-        jScrollPane1.setViewportView(tablaVendedor);
+        jScrollPane1.setViewportView(tablaMarca);
 
         txtFiltrar.setToolTipText("");
         txtFiltrar.addActionListener(new java.awt.event.ActionListener() {
@@ -376,10 +385,10 @@ public class VistaMarca extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    public javax.swing.JTable tablaVendedor;
+    public javax.swing.JTable tablaMarca;
     public javax.swing.JTextField txtFiltrar;
     public javax.swing.JTextField txtId;
-    public javax.swing.JTextField txtNombre;
+    public javax.swing.JTextField txtname;
     public javax.swing.JTextField txtobs;
     // End of variables declaration//GEN-END:variables
 

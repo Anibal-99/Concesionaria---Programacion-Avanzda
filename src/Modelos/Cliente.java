@@ -18,13 +18,13 @@ public class Cliente {
     String localidad;
     String direccion;
     String cuit;
-    String pais;
+    Pais pais;
 
     public Cliente() {
 
     }
 
-    public Cliente(int id, String nombre, String apellido, String razonSocial, String localidad, String direccion, String cuit, String tel, String pais) {
+    public Cliente(int id, String nombre, String apellido, String razonSocial, String localidad, String direccion, String cuit, String tel, Pais pais) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -36,11 +36,11 @@ public class Cliente {
         this.pais = pais;
     }
 
-    public String getPais() {
+    public Pais getPais() {
         return pais;
     }
 
-    public void setPais(String pais) {
+    public void setPais(Pais pais) {
         this.pais = pais;
     }
 
@@ -106,5 +106,10 @@ public class Cliente {
 
     public void setTel(String tel) {
         this.tel = tel;
+    }
+
+    @Override
+    public String toString() {
+        return this.nombre + " " + this.apellido;
     }
 }

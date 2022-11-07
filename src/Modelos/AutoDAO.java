@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 public class AutoDAO {
 
@@ -13,34 +14,24 @@ public class AutoDAO {
     static Connection sqlcon;
     static PreparedStatement ps;
     static ResultSet rs;
+    ColorDao colorDao = new ColorDao();
+    ModeloDAO modeloDao = new ModeloDAO();
 
-    public static List<Auto> listar() {
-        List<Auto> autos = new ArrayList<Auto>();
-        String tablaAuto = "auto";
-        String tablaModelo = "modelo";
-        String tablaMarca = "marca";
-        String pk = "auto.id";
-        String modelo = "CONCAT(marca.nombre, ' ', modelo.nombre, ' ', modelo.anio)";
-        String precio = "auto.precio";
-        String tablaColor = "color";
-        String color = "auto.color";
-        String observacion = "auto.observacion";
-        String sql = String.format(
-                "SELECT %s AS \"ID\", %s AS \"Modelo\", %s AS \"Precio\", %s AS \"Observacion\", color.nombre AS \"Color\" FROM %s INNER JOIN %s ON %s.%s_id = %s.id INNER JOIN %s ON %s.%s_id = %s.id INNER JOIN %s ON %s.%s_id=%s.id ORDER BY %s.id DESC",
-                pk, modelo, precio, observacion, tablaAuto, tablaModelo, tablaAuto, tablaModelo, tablaModelo, tablaMarca, tablaModelo, tablaMarca, tablaMarca, tablaColor, tablaAuto, tablaColor, tablaColor, tablaAuto);
+    public ArrayList<Auto> listar() throws SQLException {
+        ArrayList<Auto> autos = new ArrayList<Auto>();
+        String sql = "SELECT id, precio, costo, observacion, color_id, modelo_id FROM auto";
         try {
             sqlcon = con.getConection();
             ps = sqlcon.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
-                // Hay que agregar el color aca, (rs.getString(5)), pero tambien hay que hacerlo en la consulta.
-                Auto auto = new Auto(
-                        rs.getInt(1),
-                        rs.getString(2),
-                        rs.getFloat(3),
-                        rs.getString(4),
-                        rs.getString(5)
-                );
+                Auto auto = new Auto();
+                auto.setId(rs.getInt(1));
+                auto.setPrecio(rs.getFloat(2));
+                auto.setCosto(rs.getFloat(3));
+                auto.setObservacion(rs.getString(4));
+                auto.setColor(colorDao.getColorById(rs.getInt(5)));
+                auto.setModelo(modeloDao.getModeloById(rs.getInt(6)));
                 autos.add(auto);
             }
         } catch (Exception e) {
@@ -49,32 +40,17 @@ public class AutoDAO {
         return autos;
     }
 
-    public int agregar(Auto auto, int modelo_id) {
-        String sql = ("INSERT INTO auto(observacion,precio,modelo_id, color_id)values(?,?,?,?)");
-        String auxsql = ("SELECT sq.id FROM (select modelo.id as id, marca.nombre as marca from modelo inner join marca ON modelo.marca_id = marca.id order by marca.nombre asc, modelo.id desc limit ?) as sq order by sq.marca desc, sq.id asc limit 1;");
+    public int agregar(Auto auto) {
+        System.out.println(auto.getModelo().getId());
+        String sql = ("INSERT INTO auto(observacion,precio,costo,modelo_id, color_id)values(?,?,?,?,?)");
         try {
             sqlcon = con.getConection();
-            ps = sqlcon.prepareStatement(auxsql);
-            ps.setInt(1, modelo_id);
-            rs = ps.executeQuery();
-
-            while (rs.next()) {
-                modelo_id = rs.getInt(1);
-            }
-            ColorDao colores = new ColorDao();
-            ArrayList<Color> listarColores = colores.getColor();
-            int color_id = 0;
-            for (Color c : listarColores) {
-                if (auto.getColor().equals(c.getNombre())) {
-                    color_id = c.getId();
-                    System.out.println(color_id);
-                }
-            }
             ps = sqlcon.prepareStatement(sql);
             ps.setString(1, auto.getObservacion());
             ps.setFloat(2, auto.getPrecio());
-            ps.setInt(3, modelo_id);
-            ps.setInt(4, color_id);
+            ps.setFloat(3, auto.getCosto());
+            ps.setInt(4, auto.getModelo().getId());
+            ps.setInt(5, auto.getColor().getId());
             System.out.println(ps);
             ps.executeUpdate();
 
@@ -96,28 +72,12 @@ public class AutoDAO {
         return 1;
     }
 
-    public int actualizar(Auto auto, int modelo_id) {
+    public int actualizar(Auto auto) {
         int flag = 0;
-        String auxsql = ("SELECT sq.id FROM (select modelo.id as id, marca.nombre as marca from modelo inner join marca ON modelo.marca_id = marca.id order by marca.nombre asc, modelo.id desc limit ?) as sq order by sq.marca desc, sq.id asc limit 1;");
         try {
             sqlcon = con.getConection();
-            ps = sqlcon.prepareStatement(auxsql);
-            ps.setInt(1, modelo_id);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                modelo_id = rs.getInt(1);
-            }
-            ColorDao colores = new ColorDao();
-            ArrayList<Color> listarColores = colores.getColor();
-            int color_id = 0;
-            for (Color c : listarColores) {
-                if (auto.getColor().equals(c.getNombre())) {
-                    color_id = c.getId();
-                    System.out.println(color_id);
-                }
-            }
-            String sql = String.format("UPDATE auto SET observacion = '%s', precio = %s, modelo_id = %s, color_id = %s WHERE auto.id = %s",
-                    auto.observacion, auto.precio, modelo_id, color_id, auto.id);
+            String sql = String.format("UPDATE auto SET observacion = '%s', precio = %s, costo=%s, modelo_id = %s, color_id = %s WHERE auto.id = %s",
+                    auto.observacion, auto.precio, auto.costo, auto.getModelo().getId(), auto.getColor().getId(), auto.id);
             ps = sqlcon.prepareStatement(sql);
             flag = ps.executeUpdate();
         } catch (Exception e) {
@@ -128,36 +88,67 @@ public class AutoDAO {
 
     public ArrayList<Auto> buscarAutos(String name) throws SQLException {
         ArrayList<Auto> autos = new ArrayList<>();
-        String tablaAuto = "auto";
-        String tablaModelo = "modelo";
-        String tablaMarca = "marca";
-        String pk = "auto.id";
-        String modelo = "CONCAT(marca.nombre, ' ', modelo.nombre, ' ', modelo.anio)";
-        String precio = "auto.precio";
-        String tablaColor = "color";
-        String color = "auto.color";
-        String observacion = "auto.observacion";
-        String sql = String.format(
-                "SELECT %s AS \"ID\", %s AS \"Modelo\", %s AS \"Precio\", %s AS \"Observacion\", color.nombre AS \"Color\" FROM %s INNER JOIN %s ON %s.%s_id = %s.id INNER JOIN %s ON %s.%s_id = %s.id INNER JOIN %s ON %s.%s_id=%s.id WHERE marca.nombre="+"'"+name+"'" + " OR modelo.nombre ="+"'"+name+"'",
-                pk, modelo, precio, observacion, tablaAuto, tablaModelo, tablaAuto, tablaModelo, tablaModelo, tablaMarca, tablaModelo, tablaMarca, tablaMarca, tablaColor, tablaAuto, tablaColor, tablaColor);
+        String sql = "SELECT id, precio, observacion, color_id, modelo_id FROM auto";
         try {
             sqlcon = con.getConection();
             ps = sqlcon.prepareStatement(sql);
             rs = ps.executeQuery();
             System.out.println(ps);
             while (rs.next()) {
-                Auto auto = new Auto(
-                        rs.getInt(1),
-                        rs.getString(2),
-                        rs.getFloat(3),
-                        rs.getString(4),
-                        rs.getString(5)
-                );
+                Auto auto = new Auto();
+                auto.setId(rs.getInt(1));
+                auto.setPrecio(rs.getFloat(2));
+                auto.setObservacion(rs.getString(3));
+                auto.setColor(colorDao.getColorById(rs.getInt(4)));
+                auto.setModelo(modeloDao.getModeloById(rs.getInt(5)));
                 autos.add(auto);
             }
         } catch (Exception e) {
         }
         // System.out.println("");
         return autos;
+    }
+
+    public ArrayList<Auto> getAutos() throws SQLException {
+        ArrayList<Auto> autos = new ArrayList<>();
+        String sql = "SELECT id, precio, observacion, color_id, modelo_id FROM auto";
+        try {
+            sqlcon = con.getConection();
+            ps = sqlcon.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Auto auto = new Auto();
+                auto.setId(rs.getInt(1));
+                auto.setPrecio(rs.getFloat(2));
+                auto.setObservacion(rs.getString(3));
+                auto.setColor(colorDao.getColorById(rs.getInt(4)));
+                auto.setModelo(modeloDao.getModeloById(rs.getInt(5)));
+                autos.add(auto);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        return autos;
+    }
+
+    public Auto getAutoById(int id) throws SQLException {
+        Auto auto = new Auto();
+        String sql = " SELECT id, precio, observacion, color_id, modelo_id FROM auto where auto.id =? order by auto.id desc";
+        try {
+            sqlcon = con.getConection();
+            ps = sqlcon.prepareStatement(sql);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                auto.setId(rs.getInt(1));
+                auto.setPrecio(rs.getFloat(2));
+                auto.setObservacion(rs.getString(3));
+                auto.setColor(colorDao.getColorById(rs.getInt(4)));
+                auto.setModelo(modeloDao.getModeloById(rs.getInt(5)));
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        return auto;
     }
 }

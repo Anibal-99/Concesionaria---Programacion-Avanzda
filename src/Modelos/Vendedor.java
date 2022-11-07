@@ -1,54 +1,37 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Modelos;
 
 /**
  *
- * @author MATIAS
+ * @author Anibal-99
  */
 public class Vendedor {
-    int legajo;
-    String tel;
+    int id;
     String nombre;
     String apellido;
-    String localidad;
-    String direccion;
-    public Vendedor(int legajo, String tel, String nombre, String apellido, String localidad) {
-        this.legajo = legajo;
-        this.tel = tel;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.localidad = localidad;
-    }
-
-    public String getDireccion() {
-        return direccion;
-    }
-
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
+    String dni;
+    Pais pais;
 
     public Vendedor() {
     }
 
-    public int getLegajo() {
-        return legajo;
+    public Vendedor(int id, String nombre, String apellido, String dni, Pais pais) {
+        this.id = id;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.dni = dni;
+        this.pais = pais;
     }
 
-    public void setLegajo(int legajo) {
-        this.legajo = legajo;
+    public int getId() {
+        return id;
     }
 
-    public String getTel() {
-        return tel;
-    }
-
-    public void setTel(String tel) {
-        this.tel = tel;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNombre() {
@@ -67,15 +50,24 @@ public class Vendedor {
         this.apellido = apellido;
     }
 
-    public String getLocalidad() {
-        return localidad;
+    public String getDni() {
+        return dni;
     }
 
-    public void setLocalidad(String localidad) {
-        this.localidad = localidad;
+    public void setDni(String dni) {
+        this.dni = dni;
     }
-    
-    
-    
 
+    public Pais getPais() {
+        return pais;
+    }
+
+    public void setPais(Pais pais) {
+        this.pais = pais;
+    }
+
+    @Override
+    public String toString() {
+        return this.nombre + " " + this.apellido;
+    }
 }

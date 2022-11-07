@@ -5,10 +5,28 @@ CREATE DATABASE consdb;
 
 \c consdb
 
+CREATE TABLE region (
+	id INT PRIMARY KEY,
+	nombre VARCHAR(60) NOT NULL
+);
+
 CREATE TABLE pais (
 	id serial PRIMARY KEY,
 	nombre VARCHAR(60) NOT NULL,
-	codigo VARCHAR(6) NOT NULL
+	codigo VARCHAR(6) NOT NULL,
+	region_id INT,
+	CONSTRAINT FK_pais_region FOREIGN KEY (region_id)
+		REFERENCES region(id)
+);
+
+CREATE TABLE vendedor(
+	id serial PRIMARY KEY,
+	nombre VARCHAR(60),
+	apellido VARCHAR(60),
+	dni VARCHAR(60),
+	pais_id INT,
+	CONSTRAINT FK_vendedor_pais FOREIGN KEY (pais_id)
+		REFERENCES pais(id)
 );
 
 CREATE TABLE marca (
@@ -52,6 +70,7 @@ CREATE TABLE auto(
 	id serial PRIMARY KEY,
 	observacion TEXT,
 	precio NUMERIC(12, 2),
+	costo NUMERIC(12, 2),
 	modelo_id INT,
 	color_id INT,
 	CONSTRAINT FK_auto_modelo FOREIGN KEY(modelo_id)
@@ -62,11 +81,17 @@ CREATE TABLE auto(
 
 CREATE TABLE venta(
 	id serial PRIMARY KEY,
-	fecha_venta DATE,
+	fecha_venta VARCHAR(60),
 	auto_id INT,
 	cliente_id INT,
+	vendedor_id INT,
+	monto_total INT,
+	impuesto INT,
+	cantidad INT,
 	CONSTRAINT FK_venta_auto FOREIGN KEY(auto_id)
 		REFERENCES auto(id),
 	CONSTRAINT FK_venta_cliente FOREIGN KEY(cliente_id)
-		REFERENCES cliente(id)
+		REFERENCES cliente(id),
+	CONSTRAINT FK_venta_vendedor FOREIGN KEY(vendedor_id)
+		REFERENCES vendedor(id)
 );

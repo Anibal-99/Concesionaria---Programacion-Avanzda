@@ -1,10 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Modelos;
-
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,90 +13,48 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author MATIAS
+ * @author Anibal-99
  */
 public class VendedorDao {
-        
-    
-    static Conexion con = new Conexion();
-    static Connection sqlcon;
-    static PreparedStatement ps;
-    static ResultSet rs;
-    
-    
-    
-    
-    
-    
-    public boolean agregar(Vendedor ven) {
-        String sql = ("INSERT INTO vendedor(legajo,telefono,nombre,apellido,localidad,direccion)values(?,?,?,?,?,?)");
-        //String auxsql = ("SELECT sq.id FROM (select modelo.id as id, marca.nombre as marca from modelo inner join marca ON modelo.marca_id = marca.id order by marca.nombre asc, modelo.id desc limit ?) as sq order by sq.marca desc, sq.id asc limit 1;");
-        try {
-            sqlcon = con.getConection();
-            ps = sqlcon.prepareStatement(sql);
-            ps.setInt(1, ven.getLegajo());
-            ps.setString(2,ven.getTel());
-            ps.setString(3,ven.getNombre());
-            ps.setString(4,ven.getApellido());
-            ps.setString(5,ven.getLocalidad());
-            ps.setString(6,ven.getDireccion());
-            System.out.println(ven.apellido+ven.tel+ven.legajo+ven.localidad+ven.nombre);
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            return false;
-        }
-        return true;
-    }
 
-    public boolean eliminar(int legajo) throws SQLException {
-        String sql = ("DELETE FROM vendedor WHERE legajo=" + legajo);
+    PreparedStatement insert;
+    ResultSet rs;
+    Connection con;
+    Conexion conectar = new Conexion();
+    Vendedor vendedor = new Vendedor();
+    PaisDao paisDao = new PaisDao();
+
+    public int agregar(Vendedor vendedor) {
+        String sql = ("INSERT INTO vendedor(nombre,pais_id,apellido,dni)values(?,?,?,?)");
         try {
-            sqlcon = con.getConection();
-            ps = sqlcon.prepareStatement(sql);
-            System.out.println(ps);
-            ps.executeUpdate();
+            con = conectar.getConection();
+            insert = con.prepareStatement(sql);
+            insert.setString(1, vendedor.getNombre());
+
+            insert.setInt(2, vendedor.getPais().getId());
+            insert.setString(3, vendedor.getApellido());
+            insert.setString(4, vendedor.getDni());
+            insert.executeUpdate();
         } catch (Exception e) {
-            return false;
+
         }
-        return true;
+        return 1;
     }
 
-    public boolean actualizar(Vendedor ven) {
-        String sql = ("UPDATE vendedor SET telefono=?,nombre=?,apellido=?,localidad=?,direccion=? WHERE legajo=?");
-        try {
-            sqlcon = con.getConection();
-            ps = sqlcon.prepareStatement(sql);
-            ps.setString(1,ven.getTel());
-            ps.setString(2,ven.getNombre());
-            ps.setString(3,ven.getApellido());
-            ps.setString(4,ven.getLocalidad());
-            ps.setString(5,ven.getDireccion());
-            ps.setInt(6, ven.getLegajo());
-            System.out.println(ps);
-            ps.executeUpdate();
-            return true;
-        } catch (SQLException e) {
-            return false;
-        }
-    }
-    
-    
-    public ArrayList<Vendedor> listarVendedores() throws SQLException {
+    public ArrayList<Vendedor> listarVendedor() throws SQLException {
         ArrayList<Vendedor> data = new ArrayList<>();
-        String sql = "SELECT vendedor.legajo as \"legajo\", vendedor.nombre as \"Nombre\", vendedor.apellido as \"Apellido\", "
-                + "vendedor.telefono as \"Telefono\", vendedor.localidad as \"Localidad\", vendedor.direccion as \"Direccion\" FROM vendedor ORDER BY vendedor.legajo DESC";
+        String sql = "select vendedor.id, vendedor.nombre, vendedor.apellido, vendedor.dni, vendedor.pais_id from vendedor order by vendedor.id desc";
         try {
-            sqlcon = con.getConection();
-            ps = sqlcon.prepareStatement(sql);
-            rs = ps.executeQuery();
+            con = conectar.getConection();
+            insert = con.prepareStatement(sql);
+            rs = insert.executeQuery();
             while (rs.next()) {
                 Vendedor v = new Vendedor();
-                v.setLegajo(rs.getInt(1));
+                v.setId(rs.getInt(1));
                 v.setNombre(rs.getString(2));
                 v.setApellido(rs.getString(3));
-                v.setTel(rs.getString(4));
-                v.setLocalidad(rs.getString(5));
-                v.setDireccion(rs.getString(6));
+                v.setDni(rs.getString(4));
+                v.setPais(paisDao.getPaisById(rs.getInt(5)));
                 data.add(v);
             }
         } catch (Exception e) {
@@ -106,27 +62,107 @@ public class VendedorDao {
         }
         return data;
     }
-    
-    
-    public Vendedor obtenerVendedor(int legajo) throws SQLException {
-        Vendedor v = new Vendedor();
-        String sql = "SELECT vendedor.legajo as \"legajo\", vendedor.nombre as \"Nombre\", vendedor.apellido as \"Apellido\", "
-                + "vendedor.telefono as \"Telefono\", vendedor.localidad as \"Localidad\", vendedor.direccion as \"Direccion\" FROM vendedor ORDER BY vendedor.legajo DESC";
+
+    public int actualizar(Vendedor vendedor) {
+        int act = 0;
+        String sqlU = ("UPDATE vendedor SET nombre=?,apellido=?,dni=?,pais_id=? WHERE id=?");
+        System.out.println("llega");
         try {
-            sqlcon = con.getConection();
-            ps = sqlcon.prepareStatement(sql);
-            rs = ps.executeQuery();
+            con = conectar.getConection();
+            insert = con.prepareStatement(sqlU);
+            insert.setString(1, vendedor.getNombre());
+            insert.setString(2, vendedor.getApellido());
+            insert.setString(3, vendedor.getDni());
+            insert.setInt(4, vendedor.getPais().getId());
+            insert.setInt(5, vendedor.getId());
+            act = insert.executeUpdate();
+            if (act == 1) {
+                return 1;
+            } else {
+                return 0;
+            }
+        } catch (SQLException e) {
+
+        }
+        return act;
+    }
+
+    public int delete(int id) throws SQLException {
+        int del = 0;
+        String sqlD = ("DELETE FROM vendedor WHERE id=" + id);
+        try {
+            con = conectar.getConection();
+            insert = con.prepareStatement(sqlD);
+            del = insert.executeUpdate();
+        } catch (Exception e) {
+
+        }
+        return del;
+    }
+
+    public ArrayList<Vendedor> buscarVendedores(String name) throws SQLException {
+        ArrayList<Vendedor> vendedores = new ArrayList<>();
+        String sql = "select vendedor.id, vendedor.nombre, vendedor.apellido, vendedor.dni, vendedor.pais_id from vendedor where vendedor.nombre = " + "'" + name + "'" + "order by vendedor.id desc";
+        try {
+            con = conectar.getConection();
+            insert = con.prepareStatement(sql);
+            rs = insert.executeQuery();
             while (rs.next()) {
-                v.setLegajo(rs.getInt(1));
+                Vendedor v = new Vendedor();
+                v.setId(rs.getInt(1));
                 v.setNombre(rs.getString(2));
                 v.setApellido(rs.getString(3));
-                v.setTel(rs.getString(4));
-                v.setLocalidad(rs.getString(5));
-                v.setDireccion(rs.getString(6));
+                v.setDni(rs.getString(4));
+                v.setPais(paisDao.getPaisById(rs.getInt(5)));
+                vendedores.add(v);
+            }
+        } catch (Exception e) {
+        }
+        return vendedores;
+    }
+
+    public ArrayList<Vendedor> getVendedores() throws SQLException {
+        ArrayList<Vendedor> vendedores = new ArrayList<>();
+        String sql = "select vendedor.id, vendedor.nombre, vendedor.apellido, vendedor.dni, vendedor.pais_id from vendedor order by vendedor.id asc";
+        try {
+            con = conectar.getConection();
+            insert = con.prepareStatement(sql);
+            rs = insert.executeQuery();
+
+            while (rs.next()) {
+                Vendedor v = new Vendedor();
+                v.setId(rs.getInt(1));
+                v.setNombre(rs.getString(2));
+                v.setApellido(rs.getString(3));
+                v.setDni(rs.getString(4));
+                v.setPais(paisDao.getPaisById(rs.getInt(5)));
+
+                vendedores.add(v);
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
-        return v;
+        return vendedores;
+    }
+
+    public Vendedor getVendedorById(int id) throws SQLException {
+        Vendedor vendedor = new Vendedor();
+        String sql = " select vendedor.id, vendedor.nombre, vendedor.apellido, vendedor.dni, vendedor.pais_id from vendedor where vendedor.id = ? order by vendedor.id desc";
+        try {
+            con = conectar.getConection();
+            insert = con.prepareStatement(sql);
+            insert.setInt(1, id);
+            rs = insert.executeQuery();
+            while (rs.next()) {
+                vendedor.setId(rs.getInt(1));
+                vendedor.setNombre(rs.getString(2));
+                vendedor.setApellido(rs.getString(3));
+                vendedor.setDni(rs.getString(4));
+                vendedor.setPais(paisDao.getPaisById(rs.getInt(5)));
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        return vendedor;
     }
 }

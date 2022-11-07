@@ -11,57 +11,52 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
-
 /**
  *
  * @author Anibal-99
  */
-public class PaisDao {
+public class RegionDao {
 
     PreparedStatement insert;
     ResultSet rs;
     Connection con;
     Conexion conectar = new Conexion();
-    Pais p = new Pais();
+    Region region = new Region();
 
-    public ArrayList<Pais> getPais() throws SQLException{
-        ArrayList<Pais> paises = new ArrayList<>();
-        String sql = "select*from pais order by nombre asc";
+    public ArrayList<Region> getRegion() throws SQLException {
+        ArrayList<Region> regiones = new ArrayList<>();
+        String sql = "select region.id, region.nombre from region";
         try {
             con = conectar.getConection();
             insert = con.prepareStatement(sql);
             rs = insert.executeQuery();
             while (rs.next()) {
-                Pais p = new Pais();
-                p.setId(rs.getInt(1));
-                p.setName(rs.getString(2));
-                p.setCodigo(rs.getString(3));
-                paises.add(p);
+                Region r = new Region();
+                r.setId(rs.getInt(1));
+                r.setNombre(rs.getString(2));
+                regiones.add(r);
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
-        return paises;
+        return regiones;
     }
 
-    public Pais getPaisById(int id) throws SQLException{
-        Pais pais = new Pais();
-        RegionDao regionDao = new RegionDao();
-        String sql = "select pais.id, pais.nombre, pais.codigo, pais.region_id from pais where id = ?";
+    public Region getRegionById(int id) throws SQLException {
+        Region region = new Region();
+        String sql = "select region.id, region.nombre from region where id = ?";
         try {
             con = conectar.getConection();
             insert = con.prepareStatement(sql);
             insert.setInt(1, id);
             rs = insert.executeQuery();
             while (rs.next()) {
-                pais.setId(rs.getInt(1));
-                pais.setName(rs.getString(2));
-                pais.setCodigo(rs.getString(3));
-                pais.setRegion(regionDao.getRegionById(rs.getInt(4)));
+                region.setId(rs.getInt(1));
+                region.setNombre(rs.getString(2));
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
-        return pais;
+        return region;
     }
 }

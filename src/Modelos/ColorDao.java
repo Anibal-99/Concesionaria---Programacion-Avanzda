@@ -40,7 +40,25 @@ public class ColorDao {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
-        //System.out.println(colores);
         return colores;
+    }
+
+    public Color getColorById(int id) throws SQLException {
+        Color c = new Color();
+        String sql = "select color.id, color.nombre from color where id = ?";
+        try {
+            con = conectar.getConection();
+            insert = con.prepareStatement(sql);
+            insert.setInt(1, id);
+            rs = insert.executeQuery();
+            
+            while (rs.next()) {
+                c.setId(rs.getInt(1));
+                c.setNombre(rs.getString(2));
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        return c;
     }
 }
