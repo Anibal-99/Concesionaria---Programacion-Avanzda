@@ -66,7 +66,11 @@ public class GestorCliente implements ActionListener {
             }
         }
         if (e.getSource() == vista.btnActualizar) {
-            actualizar();
+            try {
+                actualizar();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+            }
             limpiarTabla();
             try {
                 listarClientes(vista.tablaCliente);
@@ -152,7 +156,7 @@ public class GestorCliente implements ActionListener {
         }
     }
 
-    public void actualizar() {
+    public void actualizar() throws SQLException {
 
         if (vista.txtId.getText().equals("")) {
             JOptionPane.showMessageDialog(vista, "No se Identifica el Id debe selecionar la opcion Editar");

@@ -40,6 +40,7 @@ public class ColorDao {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
+        con.close();
         return colores;
     }
 
@@ -51,7 +52,7 @@ public class ColorDao {
             insert = con.prepareStatement(sql);
             insert.setInt(1, id);
             rs = insert.executeQuery();
-            
+
             while (rs.next()) {
                 c.setId(rs.getInt(1));
                 c.setNombre(rs.getString(2));
@@ -59,6 +60,7 @@ public class ColorDao {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
+        con.close();
         return c;
     }
 }

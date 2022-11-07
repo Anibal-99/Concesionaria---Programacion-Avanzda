@@ -43,6 +43,7 @@ public class VentaDao {
         } catch (Exception e) {
 
         }
+        con.close();
         return 1;
     }
 
@@ -72,6 +73,7 @@ public class VentaDao {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
+        con.close();
         return data;
     }
 
@@ -85,6 +87,7 @@ public class VentaDao {
         } catch (Exception e) {
 
         }
+        con.close();
         return del;
     }
 
@@ -118,6 +121,7 @@ public class VentaDao {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
+        con.close();
         return data;
     }
 
@@ -134,7 +138,7 @@ public class VentaDao {
             insert.setFloat(1, precioDesde);
             insert.setFloat(2, precioDesde);
             rs = insert.executeQuery();
-            
+
 
             while (rs.next()) {
                 Venta v = new Venta();
@@ -151,6 +155,7 @@ public class VentaDao {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
+        con.close();
         return data;
     }
 }

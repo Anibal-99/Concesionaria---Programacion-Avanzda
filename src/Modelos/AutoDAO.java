@@ -58,6 +58,7 @@ public class AutoDAO {
         } catch (Exception e) {
             return 0;
         }
+        sqlcon.close();
         return 1;
     }
 
@@ -70,6 +71,7 @@ public class AutoDAO {
         } catch (Exception e) {
             return 0;
         }
+        sqlcon.close();
         return 1;
     }
 
@@ -84,6 +86,7 @@ public class AutoDAO {
         } catch (Exception e) {
             return 0;
         }
+        sqlcon.close();
         return flag;
     }
 
@@ -106,6 +109,7 @@ public class AutoDAO {
             }
         } catch (Exception e) {
         }
+        sqlcon.close();
         return autos;
     }
 
@@ -128,6 +132,7 @@ public class AutoDAO {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
+        sqlcon.close();
         return autos;
     }
 
@@ -149,6 +154,7 @@ public class AutoDAO {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
+        sqlcon.close();
         return auto;
     }
 }

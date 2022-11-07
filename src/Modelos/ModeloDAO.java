@@ -34,6 +34,7 @@ public class ModeloDAO {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
+        con.close();
         return modelos;
 
     }
@@ -50,6 +51,7 @@ public class ModeloDAO {
         } catch (Exception e) {
 
         }
+        con.close();
         return 1;
     }
 
@@ -71,6 +73,7 @@ public class ModeloDAO {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
+        con.close();
         return modelos;
     }
 
@@ -93,6 +96,7 @@ public class ModeloDAO {
         } catch (Exception e) {
 
         }
+        con.close();
         return act;
     }
 
@@ -106,6 +110,7 @@ public class ModeloDAO {
         } catch (Exception e) {
 
         }
+        sqlcon.close();
         return del;
     }
 
@@ -126,6 +131,7 @@ public class ModeloDAO {
             }
         } catch (Exception e) {
         }
+        sqlcon.close();
         return modelos;
     }
 
@@ -147,6 +153,7 @@ public class ModeloDAO {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
+        sqlcon.close();
         return modelos;
     }
 }

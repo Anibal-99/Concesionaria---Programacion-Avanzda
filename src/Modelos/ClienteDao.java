@@ -41,6 +41,7 @@ public class ClienteDao {
         } catch (Exception e) {
 
         }
+        con.close();
         return 1;
     }
 
@@ -70,6 +71,7 @@ public class ClienteDao {
         } catch (SQLException e) {
 
         }
+        con.close();
         return act;
     }
 
@@ -96,6 +98,7 @@ public class ClienteDao {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
+        con.close();
         return data;
     }
 
@@ -109,6 +112,7 @@ public class ClienteDao {
         } catch (Exception e) {
 
         }
+        con.close();
         return del;
     }
 
@@ -134,6 +138,7 @@ public class ClienteDao {
             }
         } catch (Exception e) {
         }
+        con.close();
         return clientes;
     }
 
@@ -160,6 +165,7 @@ public class ClienteDao {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
+        con.close();
         return clientes;
     }
 
@@ -185,6 +191,7 @@ public class ClienteDao {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
+        con.close();
         return cliente;
     }
 }

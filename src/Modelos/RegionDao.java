@@ -39,6 +39,7 @@ public class RegionDao {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
+        con.close();
         return regiones;
     }
 
@@ -57,6 +58,7 @@ public class RegionDao {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
+        con.close();
         return region;
     }
 }

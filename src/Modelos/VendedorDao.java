@@ -38,6 +38,7 @@ public class VendedorDao {
         } catch (Exception e) {
 
         }
+        con.close();
         return 1;
     }
 
@@ -60,6 +61,7 @@ public class VendedorDao {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
+        con.close();
         return data;
     }
 
@@ -84,6 +86,7 @@ public class VendedorDao {
         } catch (SQLException e) {
 
         }
+        con.close();
         return act;
     }
 
@@ -97,6 +100,7 @@ public class VendedorDao {
         } catch (Exception e) {
 
         }
+        con.close();
         return del;
     }
 
@@ -118,6 +122,7 @@ public class VendedorDao {
             }
         } catch (Exception e) {
         }
+        con.close();
         return vendedores;
     }
 
@@ -142,6 +147,7 @@ public class VendedorDao {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
+        con.close();
         return vendedores;
     }
 
@@ -163,6 +169,7 @@ public class VendedorDao {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
+        con.close();
         return vendedor;
     }
 }
