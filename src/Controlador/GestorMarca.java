@@ -52,6 +52,7 @@ public class GestorMarca implements ActionListener {
                 Logger.getLogger(GestorMarca.class.getName()).log(Level.SEVERE, null, ex);
             }
             nuevo();
+            this.vista.btnAgregar.setEnabled(true);
         }
 
         if (e.getSource() == vista.btnListar) {
@@ -111,6 +112,7 @@ public class GestorMarca implements ActionListener {
         }
         if (e.getSource() == vista.btnNuevo){
             nuevo();
+            this.vista.btnAgregar.setEnabled(true);
         }
     }
 
