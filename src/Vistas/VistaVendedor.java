@@ -38,7 +38,7 @@ public class VistaVendedor extends javax.swing.JFrame {
         this.btnModificar.setEnabled(modificar);
         this.btnCancelar.setEnabled(cancelar);
     }
-    
+
     public void limpiarCampos(){
         this.txtApellido.setText("");
         this.txtId.setText("");
@@ -46,7 +46,7 @@ public class VistaVendedor extends javax.swing.JFrame {
         this.txtNombre.setText("");
         this.cbxPais.setSelectedIndex(0);
     }
-    
+
     public void inicializar() throws SQLException {
         VistaVendedor v = new VistaVendedor();
         setLocationRelativeTo(null);
@@ -319,13 +319,13 @@ public class VistaVendedor extends javax.swing.JFrame {
 
     private void txtDniKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDniKeyPressed
 
-        
+
     }//GEN-LAST:event_txtDniKeyPressed
 
     private void txtDniKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDniKeyTyped
         try{
             int as = Integer.parseInt(String.valueOf(evt.getKeyChar()));
-            if(this.txtDni.getText().length()>8){
+            if(this.txtDni.getText().length()>7){
                 evt.consume();
             }
         }catch(NumberFormatException e){
@@ -334,7 +334,7 @@ public class VistaVendedor extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDniKeyTyped
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        
+
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void tableVendedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableVendedorMouseClicked
@@ -349,7 +349,7 @@ public class VistaVendedor extends javax.swing.JFrame {
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         this.limpiarCampos();
-        
+
         this.habilitarBotones(true,false,false,false,false);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
@@ -369,7 +369,7 @@ public class VistaVendedor extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
