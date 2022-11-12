@@ -15,7 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-
+import static Utils.StringUtils.capitalize;
 /**
  *
  * @author Anibal-99
@@ -38,6 +38,7 @@ public class GestorMarca implements ActionListener {
         this.vista.btnActualizar.addActionListener(this);
         this.vista.btnEliminar.addActionListener(this);
         this.vista.btnFiltrar.addActionListener(this);
+        this.vista.btnNuevo.addActionListener(this);
     }
 
     @Override
@@ -51,6 +52,7 @@ public class GestorMarca implements ActionListener {
                 Logger.getLogger(GestorMarca.class.getName()).log(Level.SEVERE, null, ex);
             }
             nuevo();
+            this.vista.btnAgregar.setEnabled(true);
         }
 
         if (e.getSource() == vista.btnListar) {
@@ -67,6 +69,7 @@ public class GestorMarca implements ActionListener {
             if (fila == -1) {
                 JOptionPane.showMessageDialog(vista, "Debe seleccionar una fila");
             } else {
+                this.vista.btnAgregar.setEnabled(false);
                 int id = Integer.parseInt((String) vista.tablaMarca.getValueAt(fila, 0).toString());
                 String name = (String) vista.tablaMarca.getValueAt(fila, 1);
                 Pais pais = ((Pais) vista.tablaMarca.getValueAt(fila, 2));
@@ -87,6 +90,7 @@ public class GestorMarca implements ActionListener {
                 Logger.getLogger(GestorMarca.class.getName()).log(Level.SEVERE, null, ex);
             }
             nuevo();
+            this.vista.btnAgregar.setEnabled(true);
         }
         if (e.getSource() == vista.btnEliminar) {
             try {
@@ -105,6 +109,10 @@ public class GestorMarca implements ActionListener {
             } catch (SQLException ex) {
                 Logger.getLogger(GestorMarca.class.getName()).log(Level.SEVERE, null, ex);
             }
+        }
+        if (e.getSource() == vista.btnNuevo){
+            nuevo();
+            this.vista.btnAgregar.setEnabled(true);
         }
     }
 
@@ -163,14 +171,12 @@ public class GestorMarca implements ActionListener {
 
         if (this.vista.txtname.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "No se puedo agregar sin ingresar los datos");
+        }
+        int flag = mDao.agregar(m);
+        if (flag == 1){
+            JOptionPane.showMessageDialog(null, "Marca se agrego con exito");
         } else {
-            try {
-                mDao.agregar(m);
-                JOptionPane.showMessageDialog(null, "Marca se agrego con exito");
-
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "No se agregaron los datos");
-            }
+            JOptionPane.showMessageDialog(null, "No se agregaron los datos");
         }
     }
 
@@ -194,9 +200,9 @@ public class GestorMarca implements ActionListener {
     public void filtrarMarca(JTable tablaMarca) throws SQLException {
         // Esto es para que se ejecute la tabla al momento de iniciar el programa
         modelo = (DefaultTableModel) tablaMarca.getModel();
-        String name = this.vista.txtFiltrar.getText();
-        List<Marca> lista = mDao.filtrarMarcas(name);
-        
+        String valor = capitalize(this.vista.txtFiltrar.getText());
+        List<Marca> lista = mDao.filtrarMarcas(valor);
+
         for (Marca mar : lista) {
             Object[] object = {mar.getId(), mar.getName(), mar.getPais(), mar.getObs()};
             modelo.addRow(object);
@@ -207,7 +213,7 @@ public class GestorMarca implements ActionListener {
     public void llenarCombo() throws SQLException {
         PaisDao paises = new PaisDao();
         ArrayList<Pais> listarPaises = paises.getPais();
-        
+
         DefaultComboBoxModel<Pais> cbxModel = ((DefaultComboBoxModel) vista.cbxCombo.getModel());
         vista.cbxCombo.removeAllItems();
 
