@@ -4,9 +4,11 @@
  */
 package Vistas;
 
+import Controlador.GestorReportes;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -40,6 +42,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         abmcModelos = new javax.swing.JMenuItem();
         menuVendedor = new javax.swing.JMenuItem();
         menuVenta = new javax.swing.JMenuItem();
+        reportes = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
 
@@ -112,6 +115,14 @@ public class VistaPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu1.add(menuVenta);
+
+        reportes.setText("Reportes");
+        reportes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reportesActionPerformed(evt);
+            }
+        });
+        jMenu1.add(reportes);
 
         jMenuBar1.add(jMenu1);
 
@@ -211,6 +222,17 @@ public class VistaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_menuVentaActionPerformed
 
+
+    private void reportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportesActionPerformed
+        // TODO add your handling code here:
+        VistaReporte reporte= new VistaReporte();
+        try {
+            reporte.inicializar();
+        } catch (SQLException ex) {
+            Logger.getLogger(VistaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_reportesActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -259,5 +281,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem menuVendedor;
     private javax.swing.JMenuItem menuVenta;
+    private javax.swing.JMenuItem reportes;
     // End of variables declaration//GEN-END:variables
 }
