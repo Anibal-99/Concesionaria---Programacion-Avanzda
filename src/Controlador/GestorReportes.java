@@ -39,10 +39,10 @@ public class GestorReportes implements ActionListener {
             }
         }
     }
-    
+
     public void generarReportes() throws SQLException{
         int num = Integer.parseInt(this.vista.txtNumero.getText());
-        
+
         switch(num){
             case 1:
                 VistaReporteAuto vistaAuto= new VistaReporteAuto();
@@ -50,11 +50,9 @@ public class GestorReportes implements ActionListener {
                 vistaAuto.setVisible(true);
             break;
             case 2:
-                System.out.println("hasta aca todo bien al 2");
             break;
-            
+
             case 3:
-                System.out.println("hasta aca todo bien al 3");
             break;
         }
         if(num>3){

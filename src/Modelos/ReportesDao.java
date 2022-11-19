@@ -28,14 +28,12 @@ public class ReportesDao {
         AutoDAO autoDao = new AutoDAO();
         ClienteDao clienteDao = new ClienteDao();
         VendedorDao vendedorDao = new VendedorDao();
-        String sql = "select venta.id, venta.fecha_venta, venta.auto_id, venta.cliente_id, venta.vendedor_id, venta.monto_total,venta.impuesto,venta.cantidad from venta where extract(year from to_date(venta.fecha_venta, 'DD/MM/YYYY'))=? order by ? desc";
-        
-        
+        String sql = "select venta.id, venta.fecha_venta, venta.auto_id, venta.cliente_id, venta.vendedor_id, venta.monto_total,venta.impuesto,venta.cantidad from venta where extract(year from to_date(venta.fecha_venta, 'DD/MM/YYYY'))=? order by " + valorOrden + " desc";
+
+
         con = conectar.getConection();
         insert = con.prepareStatement(sql);
         insert.setInt(1, valorAnio);
-        insert.setString(2, valorOrden);
-        System.out.println(insert);
         rs = insert.executeQuery();
 
         while (rs.next()) {
