@@ -10,15 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
-import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.util.JRLoader;
-import net.sf.jasperreports.view.JasperViewer;
+import java.util.ArrayList;
 
 /**
  *
@@ -31,27 +23,31 @@ public class ReportesDao {
     Connection con;
     Conexion conectar = new Conexion();
 
-    public void ReporteVendedor() throws SQLException, JRException {
-        System.out.println("Llega tambien");
-        try {
-            con = conectar.getConection();
-            JasperReport reporte = null;
-            String path = "src\\Reportes\\reportePrueba.jasper";
-            System.out.println("1");
+    public ArrayList<Venta> generarReporteAuto(String valorOrden, int valorAnio) throws SQLException {
+        ArrayList<Venta> data = new ArrayList<>();
+        AutoDAO autoDao = new AutoDAO();
+        ClienteDao clienteDao = new ClienteDao();
+        VendedorDao vendedorDao = new VendedorDao();
+        String sql = "select venta.id, venta.fecha_venta, venta.auto_id, venta.cliente_id, venta.vendedor_id, venta.monto_total,venta.impuesto,venta.cantidad from venta where extract(year from to_date(venta.fecha_venta, 'DD/MM/YYYY'))=? order by ? desc";
+        
+        con = conectar.getConection();
+        insert = con.prepareStatement(sql);
+        insert.setInt(1, valorAnio);
+        insert.setString(2, valorOrden);
+        rs = insert.executeQuery();
 
-            reporte = (JasperReport) JRLoader.loadObjectFromFile(path);
-            System.out.println("2");
-
-            JasperPrint jprint = JasperFillManager.fillReport(reporte, null, con);
-
-            JasperViewer view = new JasperViewer(jprint, false);
-
-            view.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-
-            view.setVisible(true);
-
-        } catch (JRException ex) {
+        while (rs.next()) {
+            Venta v = new Venta();
+            v.setId(rs.getInt(1));
+            v.setFecha(rs.getString(2));
+            v.setAuto(autoDao.getAutoById(rs.getInt(3)));
+            v.setCliente(clienteDao.getClienteById(rs.getInt(4)));
+            v.setVendedor(vendedorDao.getVendedorById(rs.getInt(5)));
+            v.setMontoTotal(rs.getInt(6));
+            v.setImpuesto(rs.getInt(7));
+            v.setCantidad(rs.getInt(8));
+            data.add(v);
         }
+        return data;
     }
-
 }

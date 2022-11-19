@@ -7,8 +7,11 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import Vistas.VistaReporte;
+import Vistas.VistaReporteAuto;
 
 import java.awt.event.ActionListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -29,17 +32,23 @@ public class GestorReportes implements ActionListener {
     }
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==this.vista.btnOk){
-            generarReportes();
+            try {
+                generarReportes();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorReportes.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
     
-    public void generarReportes(){
+    public void generarReportes() throws SQLException{
         int num = Integer.parseInt(this.vista.txtNumero.getText());
+        
         switch(num){
             case 1:
-                System.out.println("hasta aca todo bien al 1");
+                VistaReporteAuto vistaAuto= new VistaReporteAuto();
+                GestorReporteAuto  gestorAuto = new GestorReporteAuto(vistaAuto);
+                vistaAuto.setVisible(true);
             break;
-            
             case 2:
                 System.out.println("hasta aca todo bien al 2");
             break;
