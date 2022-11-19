@@ -54,6 +54,8 @@ public class VistaListaReporteAuto extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tableReporteVentaAuto);
 
+        txtPromedioVentas.setEditable(false);
+        txtPromedioVentas.setEnabled(false);
         txtPromedioVentas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPromedioVentasActionPerformed(evt);

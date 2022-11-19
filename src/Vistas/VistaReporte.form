@@ -119,7 +119,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Reporte autos vendidos en un determinado a&#xf1;o"/>
+            <Property name="text" type="java.lang.String" value="Autos vendido en un determinado a&#xf1;o"/>
             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[300, 16]"/>
             </Property>
@@ -134,7 +134,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel5">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Reporte de marcas vendidas por region"/>
+            <Property name="text" type="java.lang.String" value="Ventas por vendedor en un a&#xf1;o"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel6">
@@ -143,9 +143,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel7">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Reporte de ventas por vendedor"/>
-          </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtNumero">
           <Events>

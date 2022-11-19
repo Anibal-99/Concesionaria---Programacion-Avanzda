@@ -45,10 +45,10 @@ public class GestorReporteVendedores implements ActionListener {
         String order = (String) this.vista.cbxOrdenacion.getSelectedItem();
         int valorAnio = (int) this.vista.spinAnio.getValue();
 
-        if (order == "Monto") {
-            order = "venta.monto_total";
+        if (order == "Cantidad de ventas") {
+            order = "ventas";
         } else {
-            order = "venta.cantidad";
+            order = "ganancia";
         }
 
         VistaListaReporteVendedores vistaReporteVendedor = new VistaListaReporteVendedores();

@@ -55,16 +55,14 @@ public class VistaReporte extends javax.swing.JFrame {
 
         jLabel1.setText("1-");
 
-        jLabel2.setText("Reporte autos vendidos en un determinado año");
+        jLabel2.setText("Autos vendido en un determinado año");
         jLabel2.setMaximumSize(new java.awt.Dimension(300, 16));
 
         jLabel3.setText("2-");
 
-        jLabel5.setText("Reporte de marcas vendidas por region");
+        jLabel5.setText("Ventas por vendedor en un año");
 
         jLabel6.setText("3-");
-
-        jLabel7.setText("Reporte de ventas por vendedor");
 
         txtNumero.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
