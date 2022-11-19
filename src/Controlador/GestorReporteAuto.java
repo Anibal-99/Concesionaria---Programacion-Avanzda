@@ -50,11 +50,13 @@ public class GestorReporteAuto implements ActionListener {
     }
 
     public void generarReporteAuto() throws SQLException {
-        String order = this.vista.cbxOrdenacion.getItemAt(0);
+        String order = (String) this.vista.cbxOrdenacion.getSelectedItem();
         int valorAnio = (int) this.vista.spinAnio.getValue();
 
         if (order == "Monto") {
-            order = "monto_total";
+            order = "venta.monto_total";
+        }else{
+            order="venta.cantidad";
         }
 
         VistaListaReporteAuto vistaReporteAuto = new VistaListaReporteAuto();
