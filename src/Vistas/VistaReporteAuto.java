@@ -16,8 +16,8 @@ public class VistaReporteAuto extends javax.swing.JFrame {
     public VistaReporteAuto() {
         initComponents();
         setLocationRelativeTo(null);
-        cbxOrdenacion.addItem("Cantidad");
-        cbxOrdenacion.addItem("Monto");
+        cbxOrdenacion.addItem("Cantidad de ventas");
+        cbxOrdenacion.addItem("Ganancia");
         spinAnio.setValue(2022);
     }
 
@@ -46,6 +46,8 @@ public class VistaReporteAuto extends javax.swing.JFrame {
                 cbxOrdenacionActionPerformed(evt);
             }
         });
+
+        spinAnio.setModel(new javax.swing.SpinnerNumberModel());
 
         btnGenerar.setText("Generar");
 

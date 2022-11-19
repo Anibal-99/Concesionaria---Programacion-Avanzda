@@ -5,7 +5,7 @@
 package Controlador;
 
 import Modelos.ReportesDao;
-import Modelos.Venta;
+import Modelos.modelReporteRow;
 import Vistas.VistaListaReporteAuto;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -38,24 +38,17 @@ public class GestorListaReporteAuto implements ActionListener {
 
     public void listarReporte(String valorOrden, int valorAnio) throws SQLException {
         modelo = (DefaultTableModel) this.vista.tableReporteVentaAuto.getModel();
-        List<Venta> lista = reportesDao.generarReporteAuto(valorOrden, valorAnio);
-        int montoTotal = 0;
-        int cantidad = 0;
-        for (Venta v : lista) {
+        List<modelReporteRow> lista = reportesDao.generarReporteAuto(valorOrden, valorAnio);
+
+        for (modelReporteRow m : lista) {
             Object[] object = {
-                v.getId(),
-                v.getAuto(),
-                v.getCantidad(),
-                v.getAuto().getModelo().getMarca().getPais().getRegion().getNombre(),
-                v.getMontoTotal(),
-                v.getAuto().getPrecio() * v.getCantidad() - v.getAuto().getCosto() * v.getCantidad(),
-                v.getVendedor(),
-                v.getFecha()
+                m.getModelo(),
+                m.getCosto(),
+                m.getPrecio(),
+                m.getGanancia(),
+                m.getVentas()
             };
             modelo.addRow(object);
-            montoTotal = (int) ((int) montoTotal + v.getMontoTotal());
-            cantidad = cantidad + v.getCantidad();
         }
-        this.vista.txtPromedioVentas.setText((montoTotal/cantidad)+"");
     }
 }

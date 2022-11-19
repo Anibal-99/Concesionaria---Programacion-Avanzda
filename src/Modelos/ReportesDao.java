@@ -23,30 +23,47 @@ public class ReportesDao {
     Connection con;
     Conexion conectar = new Conexion();
 
-    public ArrayList<Venta> generarReporteAuto(String valorOrden, int valorAnio) throws SQLException {
-        ArrayList<Venta> data = new ArrayList<>();
-        AutoDAO autoDao = new AutoDAO();
-        ClienteDao clienteDao = new ClienteDao();
-        VendedorDao vendedorDao = new VendedorDao();
-        String sql = "select venta.id, venta.fecha_venta, venta.auto_id, venta.cliente_id, venta.vendedor_id, venta.monto_total,venta.impuesto,venta.cantidad from venta where extract(year from to_date(venta.fecha_venta, 'DD/MM/YYYY'))=? order by " + valorOrden + " desc";
-
+    public ArrayList<modelReporteRow> generarReporteAuto(String valorOrden, int valorAnio) throws SQLException {
+        ArrayList<modelReporteRow> data = new ArrayList<>();
+        String sql = """
+                    SELECT
+                         CONCAT(marca.nombre, ' ', modelo.nombre) as "MODELO",
+                         SUM(auto.costo * venta.cantidad) as "COSTO TOTAL",
+                         SUM(venta.monto_total) as "PRECIO TOTAL",
+                         SUM(venta.monto_total - (auto.costo * venta.cantidad)) as ganancia,
+                         SUM(venta.cantidad) as ventas
+                     FROM
+                         auto INNER JOIN modelo ON auto.modelo_id = modelo.id
+                         INNER JOIN marca ON modelo.marca_id = marca.id
+                         INNER JOIN venta ON venta.auto_id = auto.id
+                     WHERE
+                         extract(year from to_date(venta.fecha_venta, 'DD/MM/YYYY'))=?
+                     GROUP BY
+                         modelo.nombre,
+                         marca.nombre
+                     ORDER BY
+                         """
+                           +valorOrden+"""
+                      DESC
+                     ;
+                     """;
 
         con = conectar.getConection();
         insert = con.prepareStatement(sql);
         insert.setInt(1, valorAnio);
+        //insert.setString(2, valorOrden);
+        System.out.println(insert);
         rs = insert.executeQuery();
 
         while (rs.next()) {
-            Venta v = new Venta();
-            v.setId(rs.getInt(1));
-            v.setFecha(rs.getString(2));
-            v.setAuto(autoDao.getAutoById(rs.getInt(3)));
-            v.setCliente(clienteDao.getClienteById(rs.getInt(4)));
-            v.setVendedor(vendedorDao.getVendedorById(rs.getInt(5)));
-            v.setMontoTotal(rs.getInt(6));
-            v.setImpuesto(rs.getInt(7));
-            v.setCantidad(rs.getInt(8));
-            data.add(v);
+            modelReporteRow row = new modelReporteRow();
+            row.setModelo(rs.getString(1));
+            row.setCosto(rs.getFloat(2));
+            
+            row.setPrecio(rs.getFloat(3));
+            row.setGanancia(rs.getFloat(4));
+            row.setVentas(rs.getInt(5));
+            data.add(row);
         }
         return data;
     }

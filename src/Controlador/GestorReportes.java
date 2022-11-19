@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Controlador;
+
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
@@ -30,8 +31,9 @@ public class GestorReportes implements ActionListener {
         this.vista.btnOk.addActionListener(this);
 
     }
+
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource()==this.vista.btnOk){
+        if (e.getSource() == this.vista.btnOk) {
             try {
                 generarReportes();
             } catch (SQLException ex) {
@@ -40,22 +42,25 @@ public class GestorReportes implements ActionListener {
         }
     }
 
-    public void generarReportes() throws SQLException{
+    public void generarReportes() throws SQLException {
         int num = Integer.parseInt(this.vista.txtNumero.getText());
 
-        switch(num){
+        switch (num) {
             case 1:
-                VistaReporteAuto vistaAuto= new VistaReporteAuto();
-                GestorReporteAuto  gestorAuto = new GestorReporteAuto(vistaAuto);
+                VistaReporteAuto vistaAuto = new VistaReporteAuto();
+                GestorReporteAuto gestorAuto = new GestorReporteAuto(vistaAuto);
                 vistaAuto.setVisible(true);
-            break;
+                break;
             case 2:
-            break;
+                VistaReporteAuto vistaVendedor = new VistaReporteAuto();
+                GestorReporteVendedores gestorVendedor = new GestorReporteVendedores(vistaVendedor);
+                vistaVendedor.setVisible(true);
+                break;
 
             case 3:
-            break;
+                break;
         }
-        if(num>3){
+        if (num > 3) {
             JOptionPane.showMessageDialog(null, "Debe ingresar un numero comprendido entre 1 y 3");
             this.vista.txtNumero.setText("");
         }
