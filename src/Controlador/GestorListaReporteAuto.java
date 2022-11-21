@@ -6,12 +6,17 @@ package Controlador;
 
 import Modelos.ReportesDao;
 import Modelos.modelReporteRow;
+import Vistas.NumberRenderer;
 import Vistas.VistaListaReporteAuto;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.List;
+
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 
 /**
  *
@@ -39,6 +44,11 @@ public class GestorListaReporteAuto implements ActionListener {
     public void listarReporte(String valorOrden, int valorAnio) throws SQLException {
         modelo = (DefaultTableModel) this.vista.tableReporteVentaAuto.getModel();
         List<modelReporteRow> lista = reportesDao.generarReporteAuto(valorOrden, valorAnio);
+        this.vista.tableReporteVentaAuto.setModel(modelo);
+        TableColumnModel tcm = this.vista.tableReporteVentaAuto.getColumnModel();
+        tcm.getColumn(1).setCellRenderer(NumberRenderer.getCurrencyRenderer());
+        tcm.getColumn(2).setCellRenderer(NumberRenderer.getCurrencyRenderer());
+        tcm.getColumn(3).setCellRenderer(NumberRenderer.getCurrencyRenderer());
 
         for (modelReporteRow m : lista) {
             Object[] object = {

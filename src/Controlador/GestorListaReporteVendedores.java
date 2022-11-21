@@ -7,6 +7,7 @@ package Controlador;
 import Modelos.ReportesDao;
 import Modelos.modelReporteRow;
 import Modelos.vendedorReporteRow;
+import Vistas.NumberRenderer;
 import Vistas.VistaListaReporteVendedores;
 import Vistas.VistaReporteAuto;
 import java.awt.event.ActionEvent;
@@ -14,6 +15,7 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 
 /**
  *
@@ -41,6 +43,9 @@ public class GestorListaReporteVendedores implements ActionListener {
     public void listarReporte(String valorOrder, int valorAnio) throws SQLException {
         modelo = (DefaultTableModel) this.vista.tableVendedores.getModel();
         List<vendedorReporteRow> lista = reportesDao.generarReporteVendedores(valorOrder, valorAnio);
+        this.vista.tableVendedores.setModel(modelo);
+        TableColumnModel tcm = this.vista.tableVendedores.getColumnModel();
+        tcm.getColumn(1).setCellRenderer(NumberRenderer.getCurrencyRenderer());
         float ganancia=0;
         int cantidad= lista.size();
 
