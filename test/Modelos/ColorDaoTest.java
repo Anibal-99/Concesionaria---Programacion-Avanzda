@@ -18,29 +18,13 @@ public class ColorDaoTest {
     public ColorDaoTest() {
     }
 
-    /*
-    @Test
-    public void testGetColor() throws Exception {
-        System.out.println("getColor");
-        ColorDao instance = new ColorDao();
-        ArrayList<Color> expResult = null;
-        ArrayList<Color> result = instance.getColor();
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
-    }
-     */
     @Test
     public void testGetColorById() throws Exception {
-        System.out.println("getColorById");
         Color c = new Color(7, "Amarillo");
-        int id = 7;
-        
         ColorDao cDao = new ColorDao();
-        Color result = cDao.getColorById(id);
-        System.out.println(c.nombre);
-        System.out.println(result.nombre);
-        assertEquals(c.nombre, result.nombre);
-        //fail("The test case is a prototype.");
+        Color result = cDao.getColorById(7);
+        assertEquals(result.nombre, "Amarillo");
+        assertEquals(result.id, 7);
     }
 
 }
