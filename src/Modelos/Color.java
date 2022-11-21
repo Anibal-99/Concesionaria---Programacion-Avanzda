@@ -9,15 +9,16 @@ package Modelos;
  * @author Anibal-99
  */
 public class Color {
+
     int id;
     String nombre;
-    
-    public Color(){
-        
+
+    public Color() {
+
     }
 
     public Color(int id, String nombre) {
-        this.id=id;
+        this.id = id;
         this.nombre = nombre;
     }
 
@@ -40,5 +41,5 @@ public class Color {
     @Override
     public String toString() {
         return this.nombre;
-    }         
+    }
 }
