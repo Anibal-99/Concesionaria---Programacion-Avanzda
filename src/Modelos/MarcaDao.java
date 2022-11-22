@@ -22,9 +22,9 @@ public class MarcaDao {
     Marca m = new Marca();
     PaisDao paisDao = new PaisDao();
 
-    public int agregar(Marca m) {
-        int flag = 0;
+    public int agregar(Marca m) throws SQLException {
         String sql = ("INSERT INTO marca(nombre,pais_id,observacion)values(?,?,?)");
+        int flag = 0;
         try {
             con = conectar.getConection();
             insert = con.prepareStatement(sql);
@@ -32,6 +32,7 @@ public class MarcaDao {
             insert.setInt(2, m.getPais().getId());
             insert.setString(3, m.getObs());
             flag = insert.executeUpdate();
+            con.close();
         } catch (Exception e) {}
         return flag == 1 ? 1 : 0;
     }
@@ -43,7 +44,6 @@ public class MarcaDao {
             con = conectar.getConection();
             insert = con.prepareStatement(sql);
             rs = insert.executeQuery();
-            //System.out.println(rs.getInt(3));
             while (rs.next()) {
                 Marca m = new Marca();
                 m.setId(rs.getInt(1));
@@ -55,10 +55,11 @@ public class MarcaDao {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
+        con.close();
         return data;
     }
 
-    public int modificar(Marca mar) {
+    public int modificar(Marca mar) throws SQLException {
         int act = 0;
         String sqlU = ("UPDATE marca SET nombre=?,pais_id=?,observacion=? WHERE id=?");
         try {
@@ -77,6 +78,7 @@ public class MarcaDao {
         } catch (Exception e) {
 
         }
+        con.close();
         return act;
     }
 
@@ -90,6 +92,7 @@ public class MarcaDao {
         } catch (Exception e) {
 
         }
+        con.close();
         return del;
     }
 
@@ -102,18 +105,17 @@ public class MarcaDao {
             insert.setString(1, valor);
             insert.setString(2, valor);
             rs = insert.executeQuery();
-            System.out.println(insert);
             while (rs.next()) {
                 Marca m = new Marca();
                 m.setId(rs.getInt(1));
                 m.setName(rs.getString(2));
                 m.setPais(paisDao.getPaisById(rs.getInt(3)));
                 m.setObs(rs.getString(4));
-                System.out.println(m.getId() + " " + m.getName() + " " + m.getPais() + " " + m.getObs());
                 marcas.add(m);
             }
         } catch (Exception e) {
         }
+        con.close();
         return marcas;
     }
 
@@ -135,7 +137,7 @@ public class MarcaDao {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
-        System.out.println(marcas);
+        con.close();
         return marcas;
     }
 
@@ -156,6 +158,7 @@ public class MarcaDao {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
+        con.close();
         return marca;
     }
 }

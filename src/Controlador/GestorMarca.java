@@ -44,7 +44,9 @@ public class GestorMarca implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == vista.btnAgregar) {
-            this.agregar();
+            try {
+                this.agregar();
+            } catch (SQLException e1) {}
             limpiarTabla();
             try {
                 buscarMarcas(vista.tablaMarca);
@@ -82,7 +84,11 @@ public class GestorMarca implements ActionListener {
             }
         }
         if (e.getSource() == vista.btnActualizar) {
-            actualizar();
+            try {
+                actualizar();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorMarca.class.getName()).log(Level.SEVERE, null, ex);
+            }
             limpiarTabla();
             try {
                 buscarMarcas(vista.tablaMarca);
@@ -137,7 +143,7 @@ public class GestorMarca implements ActionListener {
         vista.txtobs.setText("");
     }
 
-    public void actualizar() {
+    public void actualizar() throws SQLException {
 
         if (vista.txtId.getText().equals("")) {
             JOptionPane.showMessageDialog(vista, "No se Identifica el Id debe selecionar la opcion Editar");
@@ -161,7 +167,7 @@ public class GestorMarca implements ActionListener {
     //Connection con;
     //PreparedStatement insert;
 
-    public void agregar() {
+    public void agregar() throws SQLException {
         String name = this.vista.txtname.getText();
         Pais pais = ((Pais) this.vista.cbxCombo.getSelectedItem());
         String obs = this.vista.txtobs.getText();
@@ -207,7 +213,6 @@ public class GestorMarca implements ActionListener {
             Object[] object = {mar.getId(), mar.getName(), mar.getPais(), mar.getObs()};
             modelo.addRow(object);
         }
-
     }
 
     public void llenarCombo() throws SQLException {

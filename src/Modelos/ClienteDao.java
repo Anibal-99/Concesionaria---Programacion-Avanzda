@@ -24,7 +24,7 @@ public class ClienteDao {
     Cliente c = new Cliente();
     PaisDao paisDao = new PaisDao();
 
-    public int agregar(Cliente c) {
+    public int agregar(Cliente c) throws SQLException {
         String sql = ("INSERT INTO cliente(nombre,pais_id,apellido,razon_social,cuit,telefono,direccion,localidad)values(?,?,?,?,?,?,?,?)");
         try {
             con = conectar.getConection();
@@ -41,10 +41,11 @@ public class ClienteDao {
         } catch (Exception e) {
 
         }
+        con.close();
         return 1;
     }
 
-    public int modificar(Cliente c) {
+    public int modificar(Cliente c) throws SQLException {
         int act = 0;
         String sqlU = ("UPDATE cliente SET nombre=?,apellido=?,razon_social=?,cuit=?,telefono=?,direccion=?,localidad=?,pais_id=? WHERE id=?");
 
@@ -70,6 +71,7 @@ public class ClienteDao {
         } catch (SQLException e) {
 
         }
+        con.close();
         return act;
     }
 
@@ -96,6 +98,7 @@ public class ClienteDao {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
+        con.close();
         return data;
     }
 
@@ -109,6 +112,7 @@ public class ClienteDao {
         } catch (Exception e) {
 
         }
+        con.close();
         return del;
     }
 
@@ -134,6 +138,7 @@ public class ClienteDao {
             }
         } catch (Exception e) {
         }
+        con.close();
         return clientes;
     }
 
@@ -160,6 +165,7 @@ public class ClienteDao {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
+        con.close();
         return clientes;
     }
 
@@ -185,6 +191,7 @@ public class ClienteDao {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
+        con.close();
         return cliente;
     }
 }

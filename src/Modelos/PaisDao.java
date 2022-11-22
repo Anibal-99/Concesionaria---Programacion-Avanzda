@@ -41,6 +41,7 @@ public class PaisDao {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
+        con.close();
         return paises;
     }
 
@@ -62,6 +63,7 @@ public class PaisDao {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
+        con.close();
         return pais;
     }
 }

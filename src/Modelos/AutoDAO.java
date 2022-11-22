@@ -34,14 +34,14 @@ public class AutoDAO {
                 auto.setModelo(modeloDao.getModeloById(rs.getInt(6)));
                 autos.add(auto);
             }
+            sqlcon.close();
         } catch (Exception e) {
 
         }
         return autos;
     }
 
-    public int agregar(Auto auto) {
-        System.out.println(auto.getModelo().getId());
+    public int agregar(Auto auto) throws SQLException {
         String sql = ("INSERT INTO auto(observacion,precio,costo,modelo_id, color_id)values(?,?,?,?,?)");
         try {
             sqlcon = con.getConection();
@@ -51,9 +51,8 @@ public class AutoDAO {
             ps.setFloat(3, auto.getCosto());
             ps.setInt(4, auto.getModelo().getId());
             ps.setInt(5, auto.getColor().getId());
-            System.out.println(ps);
             ps.executeUpdate();
-
+            sqlcon.close();
         } catch (Exception e) {
             return 0;
         }
@@ -66,13 +65,14 @@ public class AutoDAO {
             sqlcon = con.getConection();
             ps = sqlcon.prepareStatement(sql);
             ps.executeUpdate();
+            sqlcon.close();
         } catch (Exception e) {
             return 0;
         }
         return 1;
     }
 
-    public int actualizar(Auto auto) {
+    public int actualizar(Auto auto) throws SQLException {
         int flag = 0;
         try {
             sqlcon = con.getConection();
@@ -80,6 +80,7 @@ public class AutoDAO {
                     auto.observacion, auto.precio, auto.costo, auto.getModelo().getId(), auto.getColor().getId(), auto.id);
             ps = sqlcon.prepareStatement(sql);
             flag = ps.executeUpdate();
+            sqlcon.close();
         } catch (Exception e) {
             return 0;
         }
@@ -93,7 +94,6 @@ public class AutoDAO {
             sqlcon = con.getConection();
             ps = sqlcon.prepareStatement(sql);
             rs = ps.executeQuery();
-            System.out.println(ps);
             while (rs.next()) {
                 Auto auto = new Auto();
                 auto.setId(rs.getInt(1));
@@ -103,9 +103,9 @@ public class AutoDAO {
                 auto.setModelo(modeloDao.getModeloById(rs.getInt(5)));
                 autos.add(auto);
             }
+            sqlcon.close();
         } catch (Exception e) {
         }
-        // System.out.println("");
         return autos;
     }
 
@@ -128,6 +128,7 @@ public class AutoDAO {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
+        sqlcon.close();
         return autos;
     }
 
@@ -149,6 +150,7 @@ public class AutoDAO {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
+        sqlcon.close();
         return auto;
     }
 }
