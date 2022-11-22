@@ -44,7 +44,9 @@ public class GestorMarca implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == vista.btnAgregar) {
-            this.agregar();
+            try {
+                this.agregar();
+            } catch (SQLException e1) {}
             limpiarTabla();
             try {
                 buscarMarcas(vista.tablaMarca);
@@ -165,7 +167,7 @@ public class GestorMarca implements ActionListener {
     //Connection con;
     //PreparedStatement insert;
 
-    public void agregar() {
+    public void agregar() throws SQLException {
         String name = this.vista.txtname.getText();
         Pais pais = ((Pais) this.vista.cbxCombo.getSelectedItem());
         String obs = this.vista.txtobs.getText();

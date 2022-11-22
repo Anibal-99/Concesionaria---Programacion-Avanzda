@@ -65,6 +65,7 @@ public class ReportesDao {
             row.setVentas(rs.getInt(5));
             data.add(row);
         }
+        con.close();
         return data;
     }
 
@@ -105,6 +106,7 @@ public class ReportesDao {
             row.setVentas(rs.getInt(3));
             data.add(row);
         }
+        con.close();
         return data;
     }
 }

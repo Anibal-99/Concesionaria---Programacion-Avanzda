@@ -31,10 +31,10 @@ public class ModeloDAO {
                 modelo.setAnio(rs.getInt(4));
                 modelos.add(modelo);
             }
+            sqlcon.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
-        con.close();
         return modelos;
 
     }
@@ -48,10 +48,8 @@ public class ModeloDAO {
             ps.setInt(2, m.getAnio());
             ps.setInt(3, m.getMarca().getId());
             ps.executeUpdate();
-        } catch (Exception e) {
-
-        }
-        con.close();
+            sqlcon.close();
+        } catch (Exception e) {}
         return 1;
     }
 
@@ -70,10 +68,10 @@ public class ModeloDAO {
                 modelo.setAnio(rs.getInt(4));
                 modelos.add(modelo);
             }
+            sqlcon.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
-        con.close();
         return modelos;
     }
 
@@ -88,15 +86,13 @@ public class ModeloDAO {
             ps.setInt(3, m.getMarca().getId());
             ps.setInt(4, m.getId());
             act = ps.executeUpdate();
+            sqlcon.close();
             if (act == 1) {
                 return 1;
             } else {
                 return 0;
             }
-        } catch (Exception e) {
-
-        }
-        con.close();
+        } catch (Exception e) {}
         return act;
     }
 
@@ -107,10 +103,10 @@ public class ModeloDAO {
             sqlcon = con.getConection();
             ps = sqlcon.prepareStatement(sqlD);
             del = ps.executeUpdate();
+            sqlcon.close();
         } catch (Exception e) {
 
         }
-        sqlcon.close();
         return del;
     }
 
@@ -129,9 +125,9 @@ public class ModeloDAO {
                 m.setMarca(marcaDao.getMarcaById(rs.getInt(4)));
                 modelos.add(m);
             }
+            sqlcon.close();
         } catch (Exception e) {
         }
-        sqlcon.close();
         return modelos;
     }
 
@@ -150,10 +146,10 @@ public class ModeloDAO {
                 modelos.setAnio(rs.getInt(3));
                 modelos.setMarca(marcaDao.getMarcaById(rs.getInt(4)));
             }
+            sqlcon.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
-        sqlcon.close();
         return modelos;
     }
 }

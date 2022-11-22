@@ -34,7 +34,7 @@ public class AutoDAO {
                 auto.setModelo(modeloDao.getModeloById(rs.getInt(6)));
                 autos.add(auto);
             }
-            con.close();
+            sqlcon.close();
         } catch (Exception e) {
 
         }
@@ -52,11 +52,10 @@ public class AutoDAO {
             ps.setInt(4, auto.getModelo().getId());
             ps.setInt(5, auto.getColor().getId());
             ps.executeUpdate();
-
+            sqlcon.close();
         } catch (Exception e) {
             return 0;
         }
-        sqlcon.close();
         return 1;
     }
 
@@ -66,10 +65,10 @@ public class AutoDAO {
             sqlcon = con.getConection();
             ps = sqlcon.prepareStatement(sql);
             ps.executeUpdate();
+            sqlcon.close();
         } catch (Exception e) {
             return 0;
         }
-        sqlcon.close();
         return 1;
     }
 
@@ -81,10 +80,10 @@ public class AutoDAO {
                     auto.observacion, auto.precio, auto.costo, auto.getModelo().getId(), auto.getColor().getId(), auto.id);
             ps = sqlcon.prepareStatement(sql);
             flag = ps.executeUpdate();
+            sqlcon.close();
         } catch (Exception e) {
             return 0;
         }
-        sqlcon.close();
         return flag;
     }
 
@@ -104,9 +103,9 @@ public class AutoDAO {
                 auto.setModelo(modeloDao.getModeloById(rs.getInt(5)));
                 autos.add(auto);
             }
+            sqlcon.close();
         } catch (Exception e) {
         }
-        sqlcon.close();
         return autos;
     }
 
