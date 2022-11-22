@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Modelos;
+import static Utils.StringUtils.capitalize;
 
 /**
  *
@@ -37,7 +38,7 @@ public class Marca {
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name = capitalize(name);
     }
 
     public Pais getPais() {
@@ -54,7 +55,7 @@ public class Marca {
 
     public void setObs(String obs) {
         this.obs = obs;
-    } 
+    }
 
     @Override
     public String toString() {
