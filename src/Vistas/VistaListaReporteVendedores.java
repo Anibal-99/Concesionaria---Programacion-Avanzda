@@ -15,6 +15,7 @@ public class VistaListaReporteVendedores extends javax.swing.JFrame {
      */
     public VistaListaReporteVendedores() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
