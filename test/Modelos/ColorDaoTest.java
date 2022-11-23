@@ -18,13 +18,13 @@ public class ColorDaoTest {
     public ColorDaoTest() {
     }
 
-    @Test
-    public void testGetColorById() throws Exception {
-        Color c = new Color(7, "Amarillo");
-        ColorDao cDao = new ColorDao();
-        Color result = cDao.getColorById(7);
-        assertEquals(result.nombre, "Amarillo");
-        assertEquals(result.id, 7);
-    }
+    // @Test
+    // public void testGetColorById() throws Exception {
+    //     // Color c = new Color(7, "Amarillo");
+    //     ColorDao cDao = new ColorDao();
+    //     Color result = cDao.getColorById(7);
+    //     assertEquals(result.nombre, "Amarillo");
+    //     assertEquals(result.id, 7);
+    // }
 
 }
