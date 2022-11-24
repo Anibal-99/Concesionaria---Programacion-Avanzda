@@ -90,10 +90,12 @@ public class AutoDAO {
     public ArrayList<Auto> buscarAutos(String name) throws SQLException {
         ArrayList<Auto> autos = new ArrayList<>();
         //String sql = "SELECT auto.id, auto.precio, auto.costo, auto.observacion, auto.color_id, auto.modelo_id FROM auto";
-        String sql="SELECT auto.id, auto.precio, auto.costo, auto.observacion, auto.color_id, auto.modelo_id FROM auto inner join modelo on auto.modelo_id=modelo.id inner join marca on modelo.marca_id = marca.id where marca.nombre="+"'"+name+"'"+ " or "+"modelo.nombre="+"'"+name+"'";
-        try{    
+        String sql = "SELECT auto.id, auto.precio, auto.costo, auto.observacion, auto.color_id, auto.modelo_id FROM auto inner join modelo on auto.modelo_id=modelo.id inner join marca on modelo.marca_id = marca.id where marca.nombre ~ ? or modelo.nombre ~ ?";
+        try {
             sqlcon = con.getConection();
             ps = sqlcon.prepareStatement(sql);
+            ps.setString(1, name);
+            ps.setString(2, name);
             rs = ps.executeQuery();
             System.out.println(ps);
             while (rs.next()) {
@@ -107,9 +109,9 @@ public class AutoDAO {
                 autos.add(auto);
             }
             sqlcon.close();
-       
+
         } catch (Exception e) {
-    
+
         }
         return autos;
     }
