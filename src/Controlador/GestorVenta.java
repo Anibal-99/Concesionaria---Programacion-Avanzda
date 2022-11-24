@@ -43,6 +43,9 @@ public class GestorVenta implements ActionListener {
     Venta v = new Venta();
     VentaDao vDao = new VentaDao();
     DefaultTableModel modelo = new DefaultTableModel();
+    public GestorVenta(){
+        
+    }
 
     public GestorVenta(VistaVenta vistaVenta) {
         this.vistaVenta = vistaVenta;
@@ -125,11 +128,11 @@ public class GestorVenta implements ActionListener {
         vistaVenta.txtPrecio.setText(auto.getPrecio() + "");
     }
 
-    private float calcularMontoConCantidad(Auto auto, int cantidad) {
+    public float calcularMontoConCantidad(Auto auto, int cantidad) {
         return auto.getPrecio() * cantidad;
     }
 
-    private float calcularImpuesto(Auto auto, float monto){
+    public float calcularImpuesto(Auto auto, float monto){
         if (auto.getModelo().getMarca().getPais().getRegion().getNombre().equals("Extrangero")) {
             return (float) ((monto) * 0.2);
         } else if (auto.getModelo().getMarca().getPais().getRegion().getNombre().equals("Sudamerica")) {

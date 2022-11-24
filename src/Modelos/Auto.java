@@ -8,7 +8,10 @@ public class Auto {
     Color color;
     float costo;
 
-    public Auto(){}
+    public Auto() {
+    }
+
+
     public Auto(int id, Modelo modelo, float precio, float costo, String observacion, Color color) {
         this.id = id;
         this.modelo = modelo;
