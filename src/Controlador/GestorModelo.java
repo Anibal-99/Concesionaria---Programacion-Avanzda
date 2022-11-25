@@ -5,6 +5,7 @@
 package Controlador;
 
 import Modelos.*;
+import static Utils.StringUtils.capitalize;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -210,7 +211,7 @@ public class GestorModelo implements ActionListener {
     public void busrcarModelos(JTable tabla) throws SQLException {
         // Esto es para que se ejecute la tabla al momento de iniciar el programa
         modelo = (DefaultTableModel) tabla.getModel();
-        String name = this.vista.txtBuscar.getText();
+        String name = capitalize(this.vista.txtBuscar.getText());
 
         List<Modelo> lista = modeloDao.buscarModelos(name);
         for (Modelo mod : lista) {

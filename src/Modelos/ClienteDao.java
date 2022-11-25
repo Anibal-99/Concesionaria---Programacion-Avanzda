@@ -25,7 +25,7 @@ public class ClienteDao {
     PaisDao paisDao = new PaisDao();
 
     public int agregar(Cliente c) throws SQLException {
-        String sql = ("INSERT INTO cliente(nombre,pais_id,apellido,razon_social,cuit,telefono,direccion,localidad)values(?,?,?,?,?,?,?,?)");
+        String sql = ("INSERT INTO cliente(nombre,pais_id,apellido,razon_social,cuit,telefono,localidad,direccion)values(?,?,?,?,?,?,?,?)");
         try {
             con = conectar.getConection();
             insert = con.prepareStatement(sql);
@@ -35,8 +35,8 @@ public class ClienteDao {
             insert.setString(4, c.getRazonSocial());
             insert.setString(5, c.getCuit());
             insert.setString(6, c.getTel());
-            insert.setString(7, c.getDireccion());
-            insert.setString(8, c.getLocalidad());
+            insert.setString(7, c.getLocalidad());
+            insert.setString(8, c.getDireccion());
             insert.executeUpdate();
         } catch (Exception e) {
 
@@ -104,11 +104,16 @@ public class ClienteDao {
 
     public int delete(int id) throws SQLException {
         int del = 0;
-        String sqlD = ("DELETE FROM cliente WHERE id=" + id);
+        System.out.println(id);
+        String sqlD = ("DELETE FROM cliente WHERE id= ?");
         try {
+            
             con = conectar.getConection();
             insert = con.prepareStatement(sqlD);
+            insert.setInt(1, id);
+            System.out.println(insert);
             del = insert.executeUpdate();
+            System.out.println(insert);
         } catch (Exception e) {
 
         }

@@ -38,7 +38,6 @@ public class GestorMarca implements ActionListener {
         this.vista.btnActualizar.addActionListener(this);
         this.vista.btnEliminar.addActionListener(this);
         this.vista.btnFiltrar.addActionListener(this);
-        this.vista.btnNuevo.addActionListener(this);
     }
 
     @Override
@@ -115,10 +114,6 @@ public class GestorMarca implements ActionListener {
             } catch (SQLException ex) {
                 Logger.getLogger(GestorMarca.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
-        if (e.getSource() == vista.btnNuevo){
-            nuevo();
-            this.vista.btnAgregar.setEnabled(true);
         }
     }
 

@@ -8,6 +8,7 @@ import Modelos.Pais;
 import Modelos.PaisDao;
 import Modelos.Vendedor;
 import Modelos.VendedorDao;
+import static Utils.StringUtils.capitalize;
 import Vistas.VistaVendedor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -222,7 +223,7 @@ public class GestorVendedor implements ActionListener {
     public void buscarVendedores(JTable tablaVendedor) throws SQLException {
         // Esto es para que se ejecute la tabla al momento de iniciar el programa
         modelo = (DefaultTableModel) vista.tableVendedor.getModel();
-        String name = this.vista.txtBuscar.getText();
+        String name = capitalize(this.vista.txtBuscar.getText());
         List<Vendedor> vendedores = vDao.buscarVendedores(name);
 
         for (Vendedor v : vendedores) {

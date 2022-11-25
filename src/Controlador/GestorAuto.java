@@ -50,7 +50,7 @@ public class GestorAuto implements ActionListener {
         this.vistaAuto.EliminarjButton.addActionListener(this);
         this.vistaAuto.ModificarjButton.addActionListener(this);
         this.vistaAuto.ActualizarjButton.addActionListener(this);
-        this.vistaAuto.btnNuevo.addActionListener(this);
+        this.vistaAuto.btnCancelar.addActionListener(this);
         this.vistaAuto.btnBuscar.addActionListener(this);
     }
 
@@ -92,7 +92,7 @@ public class GestorAuto implements ActionListener {
             }
             nuevo();
         }
-        if (e.getSource() == vistaAuto.btnNuevo) {
+        if (e.getSource() == vistaAuto.btnCancelar) {
             nuevo();
         }
         if (e.getSource() == vistaAuto.btnBuscar) {

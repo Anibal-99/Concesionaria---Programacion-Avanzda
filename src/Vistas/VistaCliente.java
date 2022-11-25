@@ -23,6 +23,26 @@ public class VistaCliente extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         placeHolder();
+        this.habilitarBotones(true, false, false, false, false);
+    }
+
+    public void habilitarBotones(boolean agregar, boolean eliminar, boolean modificar, boolean actualizar, boolean cancelar) {
+        this.btnAgregar.setEnabled(agregar);
+        this.btnEliminar.setEnabled(eliminar);
+        this.btnActualizar.setEnabled(actualizar);
+        this.btnModificar.setEnabled(modificar);
+    }
+
+    public void limpiarCampos() {
+        this.txtId.setText("");
+        this.txtApellido.setText("");
+        this.txtNombre.setText("");
+        this.txtCuit.setText("");
+        this.txtDireccion.setText("");
+        this.txtLocalidad.setText("");
+        this.txtTelefono.setText("");
+        this.txtRazonSocial.setText("");
+        this.cbxPais.setSelectedIndex(0);
     }
 
     public void inicializar() throws SQLException {
@@ -87,9 +107,27 @@ public class VistaCliente extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos cliente"));
 
+        txtCuit.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCuitKeyTyped(evt);
+            }
+        });
+
+        txtApellido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtApellidoKeyTyped(evt);
+            }
+        });
+
         jLabel1.setText("ID");
 
         jLabel2.setText("Nombre");
+
+        txtRazonSocial.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtRazonSocialKeyTyped(evt);
+            }
+        });
 
         jLabel3.setText("Apellido");
 
@@ -97,13 +135,41 @@ public class VistaCliente extends javax.swing.JFrame {
 
         jLabel5.setText("Cuit");
 
-        jLabel6.setText("Direccion");
+        jLabel6.setText("Localidad");
 
-        jLabel7.setText("Localidad");
+        jLabel7.setText("Direccion");
+
+        txtNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNombreActionPerformed(evt);
+            }
+        });
+        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreKeyTyped(evt);
+            }
+        });
 
         txtId.setEnabled(false);
 
+        txtTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTelefonoKeyTyped(evt);
+            }
+        });
+
         jLabel8.setText("Telefono");
+
+        txtLocalidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtLocalidadActionPerformed(evt);
+            }
+        });
+        txtLocalidad.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtLocalidadKeyTyped(evt);
+            }
+        });
 
         btnAgregar.setText("Agregar");
         btnAgregar.addActionListener(new java.awt.event.ActionListener() {
@@ -161,10 +227,10 @@ public class VistaCliente extends javax.swing.JFrame {
                                     .addComponent(jLabel5)
                                     .addComponent(jLabel3)
                                     .addComponent(jLabel8))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtTelefono, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
-                                    .addComponent(txtApellido, javax.swing.GroupLayout.Alignment.TRAILING)))))
+                                .addGap(12, 12, 12)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtApellido)
+                                    .addComponent(txtTelefono)))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 15, Short.MAX_VALUE)
                         .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -232,6 +298,12 @@ public class VistaCliente extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Listado clientes"));
 
+        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyTyped(evt);
+            }
+        });
+
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -260,6 +332,11 @@ public class VistaCliente extends javax.swing.JFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        tablaCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaClienteMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(tablaCliente);
@@ -324,14 +401,19 @@ public class VistaCliente extends javax.swing.JFrame {
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         // TODO add your handling code here:
+        this.limpiarCampos();
+        this.habilitarBotones(true, false, false, false, false);
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         // TODO add your handling code here:
+        this.habilitarBotones(false, false, false, true, true);
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
+        limpiarCampos();
+        this.habilitarBotones(true, false, false, false, false);
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
@@ -340,6 +422,93 @@ public class VistaCliente extends javax.swing.JFrame {
 
     private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
     }//GEN-LAST:event_btnListarActionPerformed
+
+    private void txtLocalidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLocalidadActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtLocalidadActionPerformed
+
+    private void txtBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyTyped
+        // TODO add your handling code here:
+        char validar = evt.getKeyChar();
+        if (Character.isDigit(validar)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtBuscarKeyTyped
+
+    private void tablaClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaClienteMouseClicked
+        // TODO add your handling code here:
+        if (this.tablaCliente.getSelectedRows().length == 1) {
+            this.habilitarBotones(false, true, true, false, true);
+        }
+    }//GEN-LAST:event_tablaClienteMouseClicked
+
+    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreActionPerformed
+
+    private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
+        // TODO add your handling code here:
+        char validar = evt.getKeyChar();
+        if (Character.isDigit(validar)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtNombreKeyTyped
+
+    private void txtApellidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoKeyTyped
+        // TODO add your handling code here:
+        char validar = evt.getKeyChar();
+        if (Character.isDigit(validar)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtApellidoKeyTyped
+
+    private void txtRazonSocialKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRazonSocialKeyTyped
+        // TODO add your handling code here:
+        char validar = evt.getKeyChar();
+        if (Character.isDigit(validar)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtRazonSocialKeyTyped
+
+    private void txtLocalidadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLocalidadKeyTyped
+        // TODO add your handling code here:
+        char validar = evt.getKeyChar();
+        if (Character.isDigit(validar)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtLocalidadKeyTyped
+
+    private void txtCuitKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCuitKeyTyped
+        // TODO add your handling code here:
+        try {
+            int as = Integer.parseInt(String.valueOf(evt.getKeyChar()));
+            if (this.txtCuit.getText().length() > 10) {
+                evt.consume();
+            }
+        } catch (NumberFormatException e) {
+            evt.consume();
+        }
+        char validar = evt.getKeyChar();
+        if (Character.isLetter(validar)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtCuitKeyTyped
+
+    private void txtTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyTyped
+        // TODO add your handling code here:
+        try {
+            int as = Integer.parseInt(String.valueOf(evt.getKeyChar()));
+            if (this.txtTelefono.getText().length() > 9) {
+                evt.consume();
+            }
+        } catch (NumberFormatException e) {
+            evt.consume();
+        }
+        char validar = evt.getKeyChar();
+        if (Character.isLetter(validar)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtTelefonoKeyTyped
 
     /**
      * @param args the command line arguments

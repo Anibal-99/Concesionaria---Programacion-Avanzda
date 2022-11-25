@@ -49,12 +49,18 @@ public class GestorCliente implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == vista.btnAgregar) {
-            agregar();
-            limpiarTabla();
-            try {
-                listarClientes(vista.tablaCliente);
-            } catch (SQLException ex) {
-                Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+            if (this.vista.txtCuit.getText().length() < 11) {
+                JOptionPane.showMessageDialog(null, "Ingrese nuevamente el cuit");
+            } else if (this.vista.txtTelefono.getText().length() < 10) {
+                JOptionPane.showMessageDialog(null, "Ingrese nuevamente el telefono");
+            } else {
+                agregar();
+                limpiarTabla();
+                try {
+                    listarClientes(vista.tablaCliente);
+                } catch (SQLException ex) {
+                    Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
         if (e.getSource() == vista.btnListar) {
@@ -66,17 +72,20 @@ public class GestorCliente implements ActionListener {
             }
         }
         if (e.getSource() == vista.btnActualizar) {
-            try {
+            if (this.vista.txtCuit.getText().length() < 11) {
+                JOptionPane.showMessageDialog(null, "Ingrese nuevamente el cuit");
+            } else if (this.vista.txtTelefono.getText().length() < 10) {
+                JOptionPane.showMessageDialog(null, "Ingrese nuevamente el telefono");
+            } else {
                 actualizar();
-            } catch (SQLException ex) {
-                Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+                limpiarTabla();
+                try {
+                    listarClientes(vista.tablaCliente);
+                } catch (SQLException ex) {
+                    Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
-            limpiarTabla();
-            try {
-                listarClientes(vista.tablaCliente);
-            } catch (SQLException ex) {
-                Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
-            }
+
         }
         if (e.getSource() == vista.btnModificar) {
             vista.txtId.setEnabled(false);
@@ -108,11 +117,6 @@ public class GestorCliente implements ActionListener {
         if (e.getSource() == this.vista.btnEliminar) {
             delete();
             limpiarTabla();
-            try {
-                listarClientes(vista.tablaCliente);
-            } catch (SQLException ex) {
-                Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
-            }
         }
         if (e.getSource() == this.vista.btnBuscar) {
             limpiarTabla();
@@ -156,7 +160,7 @@ public class GestorCliente implements ActionListener {
         }
     }
 
-    public void actualizar() throws SQLException {
+    public void actualizar()  {
 
         if (vista.txtId.getText().equals("")) {
             JOptionPane.showMessageDialog(vista, "No se Identifica el Id debe selecionar la opcion Editar");
@@ -178,12 +182,17 @@ public class GestorCliente implements ActionListener {
             c.setCuit(cuit);
             c.setTel(telefono);
             c.setPais(pais);
-            c.setDireccion(direccion);
             c.setLocalidad(localidad);
+            c.setDireccion(direccion);
 
-            int modded = cDao.modificar(c);
+            int modded=0;
+            try {
+                modded = cDao.modificar(c);
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+            }
             if (modded == 1) {
-                JOptionPane.showMessageDialog(vista, "Cliente actualizada con exito");
+                JOptionPane.showMessageDialog(vista, "Cliente actualizado con exito");
             } else {
                 JOptionPane.showMessageDialog(vista, "Error, no se puede actualizar el cliente");
             }
@@ -195,9 +204,9 @@ public class GestorCliente implements ActionListener {
         modelo = (DefaultTableModel) tabla.getModel();
 
         List<Cliente> lista = cDao.listarClientes();
-        
+
         for (Cliente c : lista) {
-            Object[] object = {c.getId(), c.getNombre(), c.getApellido(), c.getCuit(), c.getRazonSocial(), c.getTel(), c.getPais(), c.getLocalidad(),  c.getDireccion()};
+            Object[] object = {c.getId(), c.getNombre(), c.getApellido(), c.getCuit(), c.getRazonSocial(), c.getTel(), c.getPais(), c.getLocalidad(), c.getDireccion()};
             modelo.addRow(object);
         }
     }
@@ -205,12 +214,12 @@ public class GestorCliente implements ActionListener {
     public void delete() {
         int fila = vista.tablaCliente.getSelectedRow();
         if (fila == -1) {// de esta manera el usuario solo podra eliminar si selecciona una marca sino no
-            JOptionPane.showMessageDialog(vista, "Debe seleccionar una marca");
+            JOptionPane.showMessageDialog(vista, "Debe seleccionar un cliente");
         } else {
             try {
                 int id = Integer.parseInt((String) vista.tablaCliente.getValueAt(fila, 0).toString());
                 cDao.delete(id);
-                JOptionPane.showMessageDialog(vista, "Marca eliminada");
+                JOptionPane.showMessageDialog(vista, "Cliente eliminado");
             } catch (SQLException ex) {
                 Logger.getLogger(GestorMarca.class.getName()).log(Level.SEVERE, null, ex);
             }

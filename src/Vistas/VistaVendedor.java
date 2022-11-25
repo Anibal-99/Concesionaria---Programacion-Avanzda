@@ -24,14 +24,14 @@ public class VistaVendedor extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         placeHolder();
-        this.habilitarBotones(true,false,false,false,false);
+        this.habilitarBotones(true, false, false, false, false);
     }
 
     public void placeHolder() {
         TextPrompt placeholder = new TextPrompt("Filtrar por nombre de vendedor", txtBuscar);
     }
 
-    public void habilitarBotones(boolean agregar, boolean eliminar, boolean modificar, boolean actualizar, boolean cancelar){
+    public void habilitarBotones(boolean agregar, boolean eliminar, boolean modificar, boolean actualizar, boolean cancelar) {
         this.btnAgregar.setEnabled(agregar);
         this.btnEliminar.setEnabled(eliminar);
         this.btnActualizar.setEnabled(actualizar);
@@ -39,7 +39,7 @@ public class VistaVendedor extends javax.swing.JFrame {
         this.btnCancelar.setEnabled(cancelar);
     }
 
-    public void limpiarCampos(){
+    public void limpiarCampos() {
         this.txtApellido.setText("");
         this.txtId.setText("");
         this.txtDni.setText("");
@@ -99,7 +99,24 @@ public class VistaVendedor extends javax.swing.JFrame {
 
         jLabel2.setText("Dni");
 
+        txtApellido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtApellidoKeyTyped(evt);
+            }
+        });
+
         jLabel3.setText("Nombre");
+
+        txtNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNombreActionPerformed(evt);
+            }
+        });
+        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreKeyTyped(evt);
+            }
+        });
 
         jLabel4.setText("Apellido");
 
@@ -184,8 +201,7 @@ public class VistaVendedor extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnModificar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnAgregar)
-                        .addGap(0, 0, 0)))
+                        .addComponent(btnAgregar)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -228,6 +244,12 @@ public class VistaVendedor extends javax.swing.JFrame {
         });
 
         btnBuscar.setText("Buscar");
+
+        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyTyped(evt);
+            }
+        });
 
         tableVendedor.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -323,34 +345,36 @@ public class VistaVendedor extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDniKeyPressed
 
     private void txtDniKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDniKeyTyped
-        try{
+        try {
             int as = Integer.parseInt(String.valueOf(evt.getKeyChar()));
-            if(this.txtDni.getText().length()>7){
+            if (this.txtDni.getText().length() > 7) {
                 evt.consume();
             }
-        }catch(NumberFormatException e){
+        } catch (NumberFormatException e) {
             evt.consume();
         }
     }//GEN-LAST:event_txtDniKeyTyped
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
 
+        limpiarCampos();
+        this.habilitarBotones(true, false, false, false, false);
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void tableVendedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableVendedorMouseClicked
-        if(this.tableVendedor.getSelectedRows().length==1){
-            this.habilitarBotones(true,true,true,false,false);
+        if (this.tableVendedor.getSelectedRows().length == 1) {
+            this.habilitarBotones(false, true, true, false, true);
         }
     }//GEN-LAST:event_tableVendedorMouseClicked
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        this.habilitarBotones(false,false,false,true,true);        // TODO add your handling code here:
+        this.habilitarBotones(false, false, false, true, true);        // TODO add your handling code here:
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         this.limpiarCampos();
 
-        this.habilitarBotones(true,false,false,false,false);
+        this.habilitarBotones(true, false, false, false, false);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
@@ -359,8 +383,37 @@ public class VistaVendedor extends javax.swing.JFrame {
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         this.limpiarCampos();
-        this.habilitarBotones(true,false,false,false,false);
+        this.habilitarBotones(true, false, false, false, false);
     }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_txtNombreActionPerformed
+
+    private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
+        // TODO add your handling code here:
+        char validar = evt.getKeyChar();
+        if (Character.isDigit(validar)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtNombreKeyTyped
+
+    private void txtApellidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoKeyTyped
+        // TODO add your handling code here:
+        char validar = evt.getKeyChar();
+        if (Character.isDigit(validar)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtApellidoKeyTyped
+
+    private void txtBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyTyped
+        // TODO add your handling code here:
+        char validar = evt.getKeyChar();
+        if (Character.isDigit(validar)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtBuscarKeyTyped
 
     /**
      * @param args the command line arguments

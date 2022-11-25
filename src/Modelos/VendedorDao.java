@@ -105,11 +105,13 @@ public class VendedorDao {
 
     public ArrayList<Vendedor> buscarVendedores(String name) throws SQLException {
         ArrayList<Vendedor> vendedores = new ArrayList<>();
-        String sql = "select vendedor.id, vendedor.nombre, vendedor.apellido, vendedor.dni, vendedor.pais_id from vendedor where vendedor.nombre = " + "'" + name + "'" + "order by vendedor.id desc";
+        String sql = "select vendedor.id, vendedor.nombre, vendedor.apellido, vendedor.dni, vendedor.pais_id from vendedor where vendedor.nombre ~ ? order by vendedor.id desc";
         try {
             con = conectar.getConection();
             insert = con.prepareStatement(sql);
+            insert.setString(1, name);
             rs = insert.executeQuery();
+            System.out.println(insert);
             while (rs.next()) {
                 Vendedor v = new Vendedor();
                 v.setId(rs.getInt(1));
