@@ -23,6 +23,21 @@ public class VistaModelo extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         placeHolder();
+        this.habilitarBotones(true, false, false, false);
+    }
+
+    public void habilitarBotones(boolean agregar, boolean eliminar, boolean modificar, boolean actualizar) {
+        this.btnAgregar.setEnabled(agregar);
+        this.btnEliminar.setEnabled(eliminar);
+        this.btnActualizar.setEnabled(actualizar);
+        this.btnModificar.setEnabled(modificar);
+    }
+
+    public void limpiarCampos() {
+        this.txtAnio.setText("");
+        this.txtId.setText("");
+        this.txtNombre.setText("");
+        this.cbxCombo.setSelectedIndex(0);
     }
 
     public void placeHolder() {
@@ -84,7 +99,24 @@ public class VistaModelo extends javax.swing.JFrame {
 
         jLabel2.setText("Nombre");
 
+        txtNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNombreActionPerformed(evt);
+            }
+        });
+        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreKeyTyped(evt);
+            }
+        });
+
         jLabel3.setText("Año");
+
+        txtAnio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtAnioKeyTyped(evt);
+            }
+        });
 
         btnActualizar.setText("Actualizar");
         btnActualizar.addActionListener(new java.awt.event.ActionListener() {
@@ -94,6 +126,11 @@ public class VistaModelo extends javax.swing.JFrame {
         });
 
         btnModificar.setText("Modificar");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
 
         btnEliminar.setText("Eliminar");
 
@@ -188,6 +225,11 @@ public class VistaModelo extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tablaModelo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaModeloMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tablaModelo);
 
         btnListar.setText("Listar");
@@ -247,11 +289,54 @@ public class VistaModelo extends javax.swing.JFrame {
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         // TODO add your handling code here:
+        this.limpiarCampos();
+        this.habilitarBotones(true, false, false, false);
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void txtAnioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAnioKeyTyped
+        // TODO add your handling code here:
+        char validar = evt.getKeyChar();
+        try {
+            int as = Integer.parseInt(String.valueOf(evt.getKeyChar()));
+            if (this.txtAnio.getText().length() > 3) {
+                evt.consume();
+            }
+            if (Character.isLetter(validar)) {
+                evt.consume();
+            }
+        } catch (NumberFormatException e) {
+            evt.consume();
+        }
+
+    }//GEN-LAST:event_txtAnioKeyTyped
+
+    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreActionPerformed
+
+    private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
+        // TODO add your handling code here:
+        char validar = evt.getKeyChar();
+        if (Character.isDigit(validar)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtNombreKeyTyped
+
+    private void tablaModeloMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaModeloMouseClicked
+        // TODO add your handling code here:
+        if (this.tablaModelo.getSelectedRows().length == 1) {
+            this.habilitarBotones(true, true, true, false);
+        }
+    }//GEN-LAST:event_tablaModeloMouseClicked
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        // TODO add your handling code here:
+        this.habilitarBotones(false,false,false,true); 
+    }//GEN-LAST:event_btnModificarActionPerformed
 
     /**
      * @param args the command line arguments

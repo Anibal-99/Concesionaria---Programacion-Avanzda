@@ -44,12 +44,16 @@ public class GestorModelo implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == vista.btnAgregar) {
-            this.agregar();
-            limpiarTabla();
-            try {
-                listarModelos(vista.tablaModelo);
-            } catch (SQLException ex) {
-                Logger.getLogger(GestorModelo.class.getName()).log(Level.SEVERE, null, ex);
+            if (this.vista.txtAnio.getText().length() < 4) {
+                JOptionPane.showMessageDialog(null, "Ingrese nuevamente el año");
+            } else {
+                this.agregar();
+                limpiarTabla();
+                try {
+                    listarModelos(vista.tablaModelo);
+                } catch (SQLException ex) {
+                    Logger.getLogger(GestorModelo.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
             nuevo();
         }
