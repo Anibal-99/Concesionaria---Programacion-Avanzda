@@ -43,6 +43,9 @@ public class GestorVenta implements ActionListener {
     Venta v = new Venta();
     VentaDao vDao = new VentaDao();
     DefaultTableModel modelo = new DefaultTableModel();
+    public GestorVenta(){
+        
+    }
 
     public GestorVenta(VistaVenta vistaVenta) {
         this.vistaVenta = vistaVenta;
@@ -54,7 +57,6 @@ public class GestorVenta implements ActionListener {
         this.vistaVenta.btnOkCliente.addActionListener(this);
         this.vistaVenta.btnOkAuto.addActionListener(this);
         this.vistaVenta.btnCalcular.addActionListener(this);
-        //this.vistaVenta.btnListaVentas.addActionListener(this);
     }
 
     @Override
@@ -66,16 +68,7 @@ public class GestorVenta implements ActionListener {
             this.obtenerAuto();
         }
         if (e.getSource() == vistaVenta.btnCalcular) {
-            float importe = 0;
-            try {
-                importe = this.calcularImpuesto();
-            } catch (SQLException ex) {
-                Logger.getLogger(GestorVenta.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            int cantidad = (int) this.vistaVenta.cantAutos.getValue();
-            float monto = Float.parseFloat(this.vistaVenta.txtPrecio.getText());
-            float montoTotal = (monto * cantidad) + importe;
-            vistaVenta.txtTotal.setText(montoTotal + "");
+            this.calcularDatosPagos();
         }
         if (e.getSource() == this.vistaVenta.btnAgregar) {
             this.agregar();
@@ -135,32 +128,30 @@ public class GestorVenta implements ActionListener {
         vistaVenta.txtPrecio.setText(auto.getPrecio() + "");
     }
 
-    public float calcularImpuesto() throws SQLException {
+    public float calcularMontoConCantidad(Auto auto, int cantidad) {
+        return auto.getPrecio() * cantidad;
+    }
+
+    public float calcularImpuesto(Auto auto, float monto){
+        if (auto.getModelo().getMarca().getPais().getRegion().getNombre().equals("Extrangero")) {
+            return (float) ((monto) * 0.2);
+        } else if (auto.getModelo().getMarca().getPais().getRegion().getNombre().equals("Sudamerica")) {
+            return (float) ((monto) * 0.1);
+        } else {
+            return 0;
+        }
+    }
+
+    public void calcularDatosPagos() {
         vistaVenta.txtImpuesto.setText("");
         Auto auto = ((Auto) this.vistaVenta.cbxAuto.getSelectedItem());
         int cantidad = (int) this.vistaVenta.cantAutos.getValue();
-        float monto = Float.parseFloat(this.vistaVenta.txtPrecio.getText());
+        float monto = this.calcularMontoConCantidad(auto, cantidad);
+        float impuesto = this.calcularImpuesto(auto, monto);
 
-        vistaVenta.txtMonto.setText(monto * cantidad + "");
-
-        RegionDao regionDao = new RegionDao();
-        ArrayList<Region> regiones = regionDao.getRegion();
-
-        float importe = 0;
-        for (Region r : regiones) {
-            if (auto.getModelo().getMarca().getPais().getRegion().getNombre().equals("Extrangero")) {
-                importe = (float) ((monto * cantidad) * 0.2);
-                vistaVenta.txtImpuesto.setText(importe + "");
-                break;
-            } else if (auto.getModelo().getMarca().getPais().getRegion().getNombre().equals("Sudamerica")) {
-                importe = (float) ((monto * cantidad) * 0.1);
-                vistaVenta.txtImpuesto.setText(importe + "");
-                break;
-            }else{
-                vistaVenta.txtImpuesto.setText(importe + "");
-            }
-        }
-        return importe;
+        vistaVenta.txtMonto.setText(monto + "");
+        vistaVenta.txtImpuesto.setText(impuesto + "");
+        vistaVenta.txtTotal.setText(monto + impuesto + "");
     }
 
     public void agregar() {
