@@ -14,6 +14,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import Modelos.Pais;
+import static Utils.StringUtils.capitalize;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -247,7 +248,7 @@ public class GestorCliente implements ActionListener {
     public void buscarClientes(JTable tablaCliente) throws SQLException {
         // Esto es para que se ejecute la tabla al momento de iniciar el programa
         modelo = (DefaultTableModel) vista.tablaCliente.getModel();
-        String name = this.vista.txtBuscar.getText();
+        String name = capitalize(this.vista.txtBuscar.getText());
         List<Cliente> listaClientes = cDao.buscarClientes(name);
 
         for (Cliente c : listaClientes) {

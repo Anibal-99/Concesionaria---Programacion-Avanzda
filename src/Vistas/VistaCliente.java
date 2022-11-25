@@ -57,7 +57,9 @@ public class VistaCliente extends javax.swing.JFrame {
     }
 
     public void placeHolder() {
-        TextPrompt placeholder = new TextPrompt("Filtrar por nombre de cliente", txtBuscar);
+        TextPrompt placeholderBuscar = new TextPrompt("Filtrar por nombre de cliente", txtBuscar);
+        TextPrompt placeholderDireccion = new TextPrompt("Nombre y numero de calle", txtDireccion);
+        TextPrompt placeholderLocalidad = new TextPrompt("Ciudad", txtLocalidad);
     }
 
     /**

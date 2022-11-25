@@ -89,18 +89,22 @@ public class AutoDAO {
 
     public ArrayList<Auto> buscarAutos(String name) throws SQLException {
         ArrayList<Auto> autos = new ArrayList<>();
-        String sql = "SELECT id, precio, observacion, color_id, modelo_id FROM auto";
+        String sql = "SELECT auto.id, auto.precio, auto.costo, auto.observacion, auto.color_id, auto.modelo_id FROM auto INNER JOIN modelo ON auto.modelo_id=modelo.id INNER JOIN marca ON modelo.marca_id=marca.id where modelo.nombre ~ ? OR marca.nombre ~ ?";
         try {
             sqlcon = con.getConection();
             ps = sqlcon.prepareStatement(sql);
+            ps.setString(1, name);
+            ps.setString(2, name);
+            
             rs = ps.executeQuery();
             while (rs.next()) {
                 Auto auto = new Auto();
                 auto.setId(rs.getInt(1));
                 auto.setPrecio(rs.getFloat(2));
-                auto.setObservacion(rs.getString(3));
-                auto.setColor(colorDao.getColorById(rs.getInt(4)));
-                auto.setModelo(modeloDao.getModeloById(rs.getInt(5)));
+                auto.setCosto(rs.getFloat(3));
+                auto.setObservacion(rs.getString(4));
+                auto.setColor(colorDao.getColorById(rs.getInt(5)));
+                auto.setModelo(modeloDao.getModeloById(rs.getInt(6)));
                 autos.add(auto);
             }
             sqlcon.close();

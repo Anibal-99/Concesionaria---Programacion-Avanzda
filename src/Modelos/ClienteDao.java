@@ -123,10 +123,11 @@ public class ClienteDao {
 
     public ArrayList<Cliente> buscarClientes(String name) throws SQLException {
         ArrayList<Cliente> clientes = new ArrayList<>();
-        String sql = "select cliente.id, cliente.nombre, cliente.apellido, cliente.razon_social, cliente.cuit, cliente.telefono, cliente.direccion, cliente.localidad, cliente.pais_id from cliente where cliente.nombre = " + "'" + name + "'" + "order by cliente.id desc";
+        String sql = "select cliente.id, cliente.nombre, cliente.apellido, cliente.razon_social, cliente.cuit, cliente.telefono, cliente.direccion, cliente.localidad, cliente.pais_id from cliente where cliente.nombre ~ ? order by cliente.id desc";
         try {
             con = conectar.getConection();
             insert = con.prepareStatement(sql);
+            insert.setString(1, name);
             rs = insert.executeQuery();
             while (rs.next()) {
                 Cliente c = new Cliente();
