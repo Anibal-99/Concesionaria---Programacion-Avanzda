@@ -47,12 +47,16 @@ public class GestorVendedor implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == this.vista.btnAgregar) {
-            this.agregar();
-            limpiarTabla();
-            try {
-                this.listarVendedor(vista.tableVendedor);
-            } catch (SQLException ex) {
-                Logger.getLogger(GestorVendedor.class.getName()).log(Level.SEVERE, null, ex);
+            if (this.vista.txtDni.getText().length() < 8) {
+                JOptionPane.showMessageDialog(null, "Ingrese correctamente el dni");
+            } else {
+                this.agregar();
+                limpiarTabla();
+                try {
+                    this.listarVendedor(vista.tableVendedor);
+                } catch (SQLException ex) {
+                    Logger.getLogger(GestorVendedor.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
         if (e.getSource() == this.vista.btnModificar) {
@@ -88,14 +92,14 @@ public class GestorVendedor implements ActionListener {
                 Logger.getLogger(GestorVendedor.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        if(e.getSource()==this.vista.btnBuscar){       
+        if (e.getSource() == this.vista.btnBuscar) {
             this.limpiarTabla();
             try {
                 this.buscarVendedores(this.vista.tableVendedor);
             } catch (SQLException ex) {
                 Logger.getLogger(GestorVendedor.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+
         }
     }
 
@@ -208,7 +212,7 @@ public class GestorVendedor implements ActionListener {
             try {
                 int id = Integer.parseInt((String) vista.tableVendedor.getValueAt(fila, 0).toString());
                 vDao.delete(id);
-                JOptionPane.showMessageDialog(vista, "Marca eliminada");
+                JOptionPane.showMessageDialog(vista, "Vendedor eliminado");
             } catch (SQLException ex) {
                 Logger.getLogger(GestorMarca.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -219,7 +223,7 @@ public class GestorVendedor implements ActionListener {
         // Esto es para que se ejecute la tabla al momento de iniciar el programa
         modelo = (DefaultTableModel) vista.tableVendedor.getModel();
         String name = this.vista.txtBuscar.getText();
-        List<Vendedor> vendedores= vDao.buscarVendedores(name);
+        List<Vendedor> vendedores = vDao.buscarVendedores(name);
 
         for (Vendedor v : vendedores) {
             Object[] object = {v.getId(), v.getNombre(), v.getApellido(), v.getDni(), v.getPais()};
