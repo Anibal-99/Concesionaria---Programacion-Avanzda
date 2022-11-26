@@ -63,6 +63,7 @@ public class GestorCliente implements ActionListener {
                     Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
+            //limpiarCampos();
         }
         if (e.getSource() == vista.btnListar) {
             limpiarTabla();
@@ -118,6 +119,11 @@ public class GestorCliente implements ActionListener {
         if (e.getSource() == this.vista.btnEliminar) {
             delete();
             limpiarTabla();
+            try {
+                listarClientes(vista.tablaCliente);
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorCliente.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         if (e.getSource() == this.vista.btnBuscar) {
             limpiarTabla();
@@ -159,9 +165,10 @@ public class GestorCliente implements ActionListener {
                 JOptionPane.showMessageDialog(null, "No se agregaron los datos");
             }
         }
+        this.limpiarCampos();
     }
 
-    public void actualizar()  {
+    public void actualizar() {
 
         if (vista.txtId.getText().equals("")) {
             JOptionPane.showMessageDialog(vista, "No se Identifica el Id debe selecionar la opcion Editar");
@@ -186,7 +193,7 @@ public class GestorCliente implements ActionListener {
             c.setLocalidad(localidad);
             c.setDireccion(direccion);
 
-            int modded=0;
+            int modded = 0;
             try {
                 modded = cDao.modificar(c);
             } catch (SQLException ex) {
@@ -255,5 +262,17 @@ public class GestorCliente implements ActionListener {
             Object[] object = {c.getId(), c.getNombre(), c.getApellido(), c.getCuit(), c.getRazonSocial(), c.getTel(), c.getPais(), c.getLocalidad(), c.getDireccion()};
             modelo.addRow(object);
         }
+    }
+
+    public void limpiarCampos() {
+        this.vista.txtId.setText("");
+        this.vista.txtApellido.setText("");
+        this.vista.txtNombre.setText("");
+        this.vista.txtCuit.setText("");
+        this.vista.txtDireccion.setText("");
+        this.vista.txtLocalidad.setText("");
+        this.vista.txtTelefono.setText("");
+        this.vista.txtRazonSocial.setText("");
+        this.vista.cbxPais.setSelectedIndex(0);
     }
 }
