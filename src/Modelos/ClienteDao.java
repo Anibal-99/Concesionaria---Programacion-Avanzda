@@ -104,16 +104,13 @@ public class ClienteDao {
 
     public int delete(int id) throws SQLException {
         int del = 0;
-        System.out.println(id);
         String sqlD = ("DELETE FROM cliente WHERE id= ?");
         try {
-            
+
             con = conectar.getConection();
             insert = con.prepareStatement(sqlD);
             insert.setInt(1, id);
-            System.out.println(insert);
             del = insert.executeUpdate();
-            System.out.println(insert);
         } catch (Exception e) {
 
         }

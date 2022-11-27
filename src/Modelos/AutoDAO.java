@@ -96,7 +96,6 @@ public class AutoDAO {
             ps.setString(1, name);
             ps.setString(2, name);
             rs = ps.executeQuery();
-            System.out.println(ps);
             while (rs.next()) {
                 Auto auto = new Auto();
                 auto.setId(rs.getInt(1));

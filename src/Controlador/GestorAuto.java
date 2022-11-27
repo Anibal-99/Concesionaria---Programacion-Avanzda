@@ -273,7 +273,6 @@ public class GestorAuto implements ActionListener {
         List<Auto> autos = autoDAO.buscarAutos(name);
 
         for (Auto a : autos) {
-            System.out.println(a.getCosto());
             Object[] object = {a.getId(), a.getModelo(), a.getPrecio(), a.getCosto(), a.getColor(), a.getObservacion()};
             defaultTableModel.addRow(object);
         }

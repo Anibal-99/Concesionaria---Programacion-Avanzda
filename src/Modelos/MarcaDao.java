@@ -105,7 +105,6 @@ public class MarcaDao {
             insert.setString(1, valor);
             insert.setString(2, valor);
             rs = insert.executeQuery();
-            System.out.println(insert);
             while (rs.next()) {
                 Marca m = new Marca();
                 m.setId(rs.getInt(1));

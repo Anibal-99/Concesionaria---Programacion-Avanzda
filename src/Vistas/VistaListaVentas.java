@@ -6,6 +6,8 @@ package Vistas;
 
 import Controlador.GestorListaVenta;
 import Controlador.GestorMarca;
+import Modelos.TextPrompt;
+
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,12 +24,13 @@ public class VistaListaVentas extends javax.swing.JFrame {
     public VistaListaVentas() {
         initComponents();
         setLocationRelativeTo(null);
-        this.habilitarBotones(true, false);
+        placeHolder();
+        this.habilitarBotones(false, false);
     }
 
     public void habilitarBotones(boolean listar, boolean eliminar) {
         this.btnEliminar.setEnabled(eliminar);
-        this.btnListar.setEnabled(listar);
+        this.btnLimpiarFiltros.setEnabled(listar);
     }
 
     public void inicializar() throws SQLException {
@@ -35,6 +38,14 @@ public class VistaListaVentas extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         GestorListaVenta con = new GestorListaVenta(v);
         v.setVisible(true);
+    }
+
+    public void placeHolder() {
+        TextPrompt placeholderFD = new TextPrompt("DD/MM/AAAA", txtFechaDesde);
+        TextPrompt placeholderFH = new TextPrompt("DD/MM/AAAA", txtFechaHasta);
+        TextPrompt placeholderMD = new TextPrompt("Monto desde", txtMontoDesde);
+        TextPrompt placeholderMH = new TextPrompt("Monto hasta", txtMontoHasta);
+
     }
 
     /**
@@ -51,11 +62,10 @@ public class VistaListaVentas extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tableVentas = new javax.swing.JTable();
         txtFechaDesde = new javax.swing.JTextField();
-        btnFiltrarPorFecha = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
         txtMontoDesde = new javax.swing.JTextField();
         txtMontoHasta = new javax.swing.JTextField();
-        btnFiltrarPorMonto = new javax.swing.JButton();
-        btnListar = new javax.swing.JButton();
+        btnLimpiarFiltros = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         txtFechaHasta = new javax.swing.JTextField();
 
@@ -94,7 +104,7 @@ public class VistaListaVentas extends javax.swing.JFrame {
             }
         });
 
-        btnFiltrarPorFecha.setText("Filtrar");
+        btnBuscar.setText("Buscar");
 
         txtMontoHasta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -102,14 +112,12 @@ public class VistaListaVentas extends javax.swing.JFrame {
             }
         });
 
-        btnFiltrarPorMonto.setText("Filtrar");
-        btnFiltrarPorMonto.addActionListener(new java.awt.event.ActionListener() {
+        btnLimpiarFiltros.setText("Limpiar filtros");
+        btnLimpiarFiltros.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnFiltrarPorMontoActionPerformed(evt);
+                btnLimpiarFiltrosActionPerformed(evt);
             }
         });
-
-        btnListar.setText("Listar");
 
         btnEliminar.setText("Eliminar");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -127,22 +135,22 @@ public class VistaListaVentas extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtFechaDesde, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtFechaHasta, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnFiltrarPorFecha)
-                        .addGap(24, 24, 24)
-                        .addComponent(txtMontoDesde, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtMontoHasta, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
-                        .addComponent(btnFiltrarPorMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnListar))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnEliminar)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(txtFechaDesde, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtFechaHasta, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtMontoDesde, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtMontoHasta, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                                .addComponent(btnLimpiarFiltros, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(btnEliminar)))
                         .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
@@ -151,11 +159,10 @@ public class VistaListaVentas extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtFechaDesde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnFiltrarPorFecha)
-                    .addComponent(btnFiltrarPorMonto)
+                    .addComponent(btnBuscar)
                     .addComponent(txtMontoHasta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtMontoDesde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnListar)
+                    .addComponent(btnLimpiarFiltros)
                     .addComponent(txtFechaHasta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -188,10 +195,6 @@ public class VistaListaVentas extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtMontoHastaActionPerformed
 
-    private void btnFiltrarPorMontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltrarPorMontoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnFiltrarPorMontoActionPerformed
-
     private void txtFechaDesdeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaDesdeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFechaDesdeActionPerformed
@@ -208,6 +211,10 @@ public class VistaListaVentas extends javax.swing.JFrame {
         this.habilitarBotones(true, false);
     }//GEN-LAST:event_btnEliminarActionPerformed
 
+    private void btnLimpiarFiltrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarFiltrosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnLimpiarFiltrosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -216,10 +223,9 @@ public class VistaListaVentas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JButton btnBuscar;
     public javax.swing.JButton btnEliminar;
-    public javax.swing.JButton btnFiltrarPorFecha;
-    public javax.swing.JButton btnFiltrarPorMonto;
-    public javax.swing.JButton btnListar;
+    public javax.swing.JButton btnLimpiarFiltros;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

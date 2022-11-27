@@ -51,8 +51,6 @@ public class ReportesDao {
         con = conectar.getConection();
         insert = con.prepareStatement(sql);
         insert.setInt(1, valorAnio);
-        //insert.setString(2, valorOrden);
-        System.out.println(insert);
         rs = insert.executeQuery();
 
         while (rs.next()) {
@@ -96,7 +94,6 @@ public class ReportesDao {
         con = conectar.getConection();
         insert = con.prepareStatement(sql);
         insert.setInt(1, valorAnio);
-        System.out.println(insert);
         rs = insert.executeQuery();
 
         while (rs.next()) {

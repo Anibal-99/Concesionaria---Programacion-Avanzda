@@ -31,74 +31,43 @@ public class GestorListaVenta implements ActionListener {
 
     public GestorListaVenta(VistaListaVentas vistaVenta) {
         this.vistaVenta = vistaVenta;
-        this.vistaVenta.btnFiltrarPorMonto.addActionListener(this);
-        this.vistaVenta.btnListar.addActionListener(this);
+        this.vistaVenta.btnLimpiarFiltros.addActionListener(this);
         this.vistaVenta.btnEliminar.addActionListener(this);
-        this.vistaVenta.btnFiltrarPorFecha.addActionListener(this);
-        this.vistaVenta.btnFiltrarPorMonto.addActionListener(this);
+        this.vistaVenta.btnBuscar.addActionListener(this);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == this.vistaVenta.btnListar) {
+        if (e.getSource() == this.vistaVenta.btnLimpiarFiltros) {
             limpiarTabla();
-            try {
-                listarVentas(vistaVenta.tableVentas);
-            } catch (SQLException ex) {
-                Logger.getLogger(GestorVenta.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            limpiarFiltros();
+            try {buscar(vistaVenta.tableVentas);}catch(SQLException exe){};
         }
         if (e.getSource() == this.vistaVenta.btnEliminar) {
             this.delete();
             limpiarTabla();
             try {
-                listarVentas(vistaVenta.tableVentas);
+                buscar(vistaVenta.tableVentas);
             } catch (SQLException ex) {
                 Logger.getLogger(GestorVenta.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        if (e.getSource() == this.vistaVenta.btnFiltrarPorFecha) {
+        if (e.getSource() == this.vistaVenta.btnBuscar) {
+            this.vistaVenta.btnLimpiarFiltros.setEnabled(true);
             limpiarTabla();
             try {
-                filtrarFecha(vistaVenta.tableVentas);
-            } catch (SQLException ex) {
-                Logger.getLogger(GestorListaVenta.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        if(e.getSource()== this.vistaVenta.btnFiltrarPorMonto){
-            limpiarTabla();
-            try {
-                filtrarMonto(vistaVenta.tableVentas);
+                buscar(vistaVenta.tableVentas);
             } catch (SQLException ex) {
                 Logger.getLogger(GestorListaVenta.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
 
-    public void listarVentas(JTable tableVenta) throws SQLException {
-        // Esto es para que se ejecute la tabla al momento de iniciar el programa
-        modelo = (DefaultTableModel) tableVenta.getModel();
-
-        List<Venta> lista = vDao.listarVentas();
-
-        for (Venta v : lista) {
-            Object[] object = {
-                v.getId(),
-                v.getCliente(),
-                v.getAuto(),
-                v.getCantidad(),
-                v.getAuto().getPrecio(),
-                v.getImpuesto(),
-                v.getMontoTotal(),
-                v.getFecha(),
-                v.getVendedor()
-            };
-            modelo.addRow(object);
-        }
-        TableColumnModel tcm = vistaVenta.tableVentas.getColumnModel();
-        tcm.getColumn(4).setCellRenderer(NumberRenderer.getCurrencyRenderer());
-        tcm.getColumn(5).setCellRenderer(NumberRenderer.getCurrencyRenderer());
-        tcm.getColumn(6).setCellRenderer(NumberRenderer.getCurrencyRenderer());
+    public void limpiarFiltros() {
+        this.vistaVenta.txtFechaDesde.setText("");
+        this.vistaVenta.txtFechaHasta.setText("");
+        this.vistaVenta.txtMontoDesde.setText("");
+        this.vistaVenta.txtMontoHasta.setText("");
     }
 
     void limpiarTabla() {
@@ -123,33 +92,21 @@ public class GestorListaVenta implements ActionListener {
         }
     }
 
-    public void filtrarFecha(JTable tablaVentas) throws SQLException {
+    public void buscar(JTable tablaVentas) throws SQLException {
         modelo = (DefaultTableModel) tablaVentas.getModel();
         String fechaDesde = this.vistaVenta.txtFechaDesde.getText();
         String fechaHasta = this.vistaVenta.txtFechaHasta.getText();
-        List<Venta> lista = vDao.filtrarVentasPorFecha(fechaDesde, fechaHasta);
-
-        for (Venta v : lista) {
-            Object[] object = {
-                v.getId(),
-                v.getCliente(),
-                v.getAuto(),
-                v.getCantidad(),
-                v.getAuto().getPrecio(),
-                v.getImpuesto(),
-                v.getMontoTotal(),
-                v.getFecha(),
-                v.getVendedor()
-            };
-            modelo.addRow(object);
+        Float montoDesde;
+        Float montoHasta;
+        try {
+            montoDesde = Float.parseFloat(this.vistaVenta.txtMontoDesde.getText());
+            montoHasta = Float.parseFloat(this.vistaVenta.txtMontoHasta.getText());
+        } catch(Exception e) {
+            montoDesde = Float.NaN;
+            montoHasta = Float.NaN;
         }
-    }
 
-    public void filtrarMonto(JTable tablaVentas) throws SQLException {
-        modelo = (DefaultTableModel) tablaVentas.getModel();
-        float montoDesde = Float.parseFloat(this.vistaVenta.txtMontoDesde.getText());
-        float montoHasta = Float.parseFloat(this.vistaVenta.txtMontoHasta.getText());
-        List<Venta> lista = vDao.filtrarVentasPorMonto(montoDesde, montoHasta);
+        List<Venta> lista = vDao.buscarVentas(fechaDesde, fechaHasta, montoDesde, montoHasta);
 
         for (Venta v : lista) {
             Object[] object = {
