@@ -95,8 +95,8 @@ public class AutoDAO {
             ps = sqlcon.prepareStatement(sql);
             ps.setString(1, name);
             ps.setString(2, name);
-            
             rs = ps.executeQuery();
+            System.out.println(ps);
             while (rs.next()) {
                 Auto auto = new Auto();
                 auto.setId(rs.getInt(1));
@@ -108,7 +108,9 @@ public class AutoDAO {
                 autos.add(auto);
             }
             sqlcon.close();
+
         } catch (Exception e) {
+
         }
         return autos;
     }
