@@ -22,6 +22,12 @@ public class VistaListaVentas extends javax.swing.JFrame {
     public VistaListaVentas() {
         initComponents();
         setLocationRelativeTo(null);
+        this.habilitarBotones(true, false);
+    }
+
+    public void habilitarBotones(boolean listar, boolean eliminar) {
+        this.btnEliminar.setEnabled(eliminar);
+        this.btnListar.setEnabled(listar);
     }
 
     public void inicializar() throws SQLException {
@@ -50,8 +56,6 @@ public class VistaListaVentas extends javax.swing.JFrame {
         txtMontoHasta = new javax.swing.JTextField();
         btnFiltrarPorMonto = new javax.swing.JButton();
         btnListar = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         txtFechaHasta = new javax.swing.JTextField();
 
@@ -75,6 +79,11 @@ public class VistaListaVentas extends javax.swing.JFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        tableVentas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableVentasMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(tableVentas);
@@ -102,11 +111,12 @@ public class VistaListaVentas extends javax.swing.JFrame {
 
         btnListar.setText("Listar");
 
-        jButton2.setText("Informe");
-
-        jButton3.setText("Grafico");
-
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -131,10 +141,7 @@ public class VistaListaVentas extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnListar))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnEliminar)
                         .addContainerGap())))
         );
@@ -153,10 +160,7 @@ public class VistaListaVentas extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3)
-                    .addComponent(btnEliminar))
+                .addComponent(btnEliminar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -192,11 +196,23 @@ public class VistaListaVentas extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFechaDesdeActionPerformed
 
+    private void tableVentasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableVentasMouseClicked
+        // TODO add your handling code here:
+        if (this.tableVentas.getSelectedRows().length == 1) {
+            this.habilitarBotones(false, true);
+        }
+    }//GEN-LAST:event_tableVentasMouseClicked
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        // TODO add your handling code here:
+        this.habilitarBotones(true, false);
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -204,8 +220,6 @@ public class VistaListaVentas extends javax.swing.JFrame {
     public javax.swing.JButton btnFiltrarPorFecha;
     public javax.swing.JButton btnFiltrarPorMonto;
     public javax.swing.JButton btnListar;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

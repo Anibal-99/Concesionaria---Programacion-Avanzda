@@ -28,10 +28,28 @@ public class VistaAuto extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         placeHolder();
+        this.habilitarBotones(true, false, false, false, false);
     }
 
     public void placeHolder() {
         TextPrompt placeholder = new TextPrompt("Filtrar por marca o modelo de auto", txtBuscar);
+    }
+
+    public void habilitarBotones(boolean agregar, boolean eliminar, boolean modificar, boolean actualizar, boolean cancelar) {
+        this.AgregarjButton.setEnabled(agregar);
+        this.EliminarjButton.setEnabled(eliminar);
+        this.ActualizarjButton.setEnabled(actualizar);
+        this.ModificarjButton.setEnabled(modificar);
+        this.btnCancelar.setEnabled(cancelar);
+    }
+
+    public void limpiarCampos() {
+        this.txtCosto.setText("");
+        this.txtBuscar.setText("");
+        this.IDjTextField.setText("");
+        this.ModelojComboBox.setSelectedIndex(0);
+        this.cbxColor.setSelectedIndex(0);
+        this.jTextArea1.setText("");
     }
 
     public void inicializar() throws SQLException {
@@ -75,7 +93,7 @@ public class VistaAuto extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         cbxColor = new javax.swing.JComboBox<>();
         ListarjButton1 = new javax.swing.JButton();
-        btnNuevo = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
         txtCosto = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         btnAbmc = new javax.swing.JButton();
@@ -106,6 +124,12 @@ public class VistaAuto extends javax.swing.JFrame {
             }
         });
 
+        PreciojTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                PreciojTextFieldKeyTyped(evt);
+            }
+        });
+
         ModelojComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ModelojComboBoxActionPerformed(evt);
@@ -117,18 +141,49 @@ public class VistaAuto extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTextArea1);
 
         ActualizarjButton.setText("Actualizar");
+        ActualizarjButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ActualizarjButtonActionPerformed(evt);
+            }
+        });
 
         ModificarjButton.setText("Modificar");
+        ModificarjButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ModificarjButtonActionPerformed(evt);
+            }
+        });
 
         AgregarjButton.setText("Agregar");
 
         EliminarjButton.setText("Eliminar");
+        EliminarjButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EliminarjButtonActionPerformed(evt);
+            }
+        });
 
         jLabel5.setText("Color");
 
         ListarjButton1.setText("Listar");
 
-        btnNuevo.setText("Nuevo");
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
+
+        txtCosto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCostoActionPerformed(evt);
+            }
+        });
+        txtCosto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCostoKeyTyped(evt);
+            }
+        });
 
         jLabel6.setText("Costo");
 
@@ -161,7 +216,7 @@ public class VistaAuto extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(ListarjButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 12, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -216,7 +271,7 @@ public class VistaAuto extends javax.swing.JFrame {
                     .addComponent(PreciojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel4)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -249,9 +304,25 @@ public class VistaAuto extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        AutosjTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                AutosjTableMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(AutosjTable);
 
         btnBuscar.setText("Buscar");
+
+        txtBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBuscarActionPerformed(evt);
+            }
+        });
+        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -316,6 +387,68 @@ public class VistaAuto extends javax.swing.JFrame {
         VistaAbmcMarcaModelo v = new VistaAbmcMarcaModelo();
         v.setVisible(true);
     }//GEN-LAST:event_btnAbmcActionPerformed
+
+    private void ActualizarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ActualizarjButtonActionPerformed
+        // TODO add your handling code here:
+        this.limpiarCampos();
+        this.habilitarBotones(true, false, false, false, false);
+    }//GEN-LAST:event_ActualizarjButtonActionPerformed
+
+    private void AutosjTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AutosjTableMouseClicked
+        // TODO add your handling code here:
+        if (this.AutosjTable.getSelectedRows().length == 1) {
+            this.habilitarBotones(false, true, true, false, true);
+        }
+    }//GEN-LAST:event_AutosjTableMouseClicked
+
+    private void ModificarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarjButtonActionPerformed
+        // TODO add your handling code here:
+        this.habilitarBotones(false, false, false, true, true);
+    }//GEN-LAST:event_ModificarjButtonActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        // TODO add your handling code here:
+        limpiarCampos();
+        this.habilitarBotones(true, false, false, false, false);
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void EliminarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarjButtonActionPerformed
+        // TODO add your handling code here:
+        limpiarCampos();
+        this.habilitarBotones(true, false, false, false, false);
+    }//GEN-LAST:event_EliminarjButtonActionPerformed
+
+    private void txtCostoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCostoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCostoActionPerformed
+
+    private void txtCostoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCostoKeyTyped
+        // TODO add your handling code here:
+        char validar = evt.getKeyChar();
+        if (Character.isLetter(validar)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtCostoKeyTyped
+
+    private void PreciojTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PreciojTextFieldKeyTyped
+        // TODO add your handling code here:
+        char validar = evt.getKeyChar();
+        if (Character.isLetter(validar)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_PreciojTextFieldKeyTyped
+
+    private void txtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtBuscarActionPerformed
+
+    private void txtBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyTyped
+        // TODO add your handling code here:
+        char validar = evt.getKeyChar();
+        if (Character.isDigit(validar)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtBuscarKeyTyped
     // TODO add your handling code here:
     // TODO add your handling code here:
     // TODO add your handling code here:
@@ -345,7 +478,7 @@ public class VistaAuto extends javax.swing.JFrame {
     public javax.swing.JTextField PreciojTextField;
     public javax.swing.JButton btnAbmc;
     public javax.swing.JButton btnBuscar;
-    public javax.swing.JButton btnNuevo;
+    public javax.swing.JButton btnCancelar;
     public javax.swing.JComboBox<String> cbxColor;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;

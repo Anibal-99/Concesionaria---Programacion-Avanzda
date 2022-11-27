@@ -187,7 +187,7 @@ public class GestorVenta implements ActionListener {
 
     void nuevo() {
         vistaVenta.txtNroVenta.setText("");
-        vistaVenta.txtFecha.setText("");
+        //vistaVenta.txtFecha.setText("");
         vistaVenta.txtPais.setText("");
         vistaVenta.txtCuit.setText("");
         vistaVenta.txtTelefono.setText("");

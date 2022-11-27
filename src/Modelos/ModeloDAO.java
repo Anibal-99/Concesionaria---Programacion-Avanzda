@@ -112,10 +112,12 @@ public class ModeloDAO {
 
     public ArrayList<Modelo> buscarModelos(String name) throws SQLException {
         ArrayList<Modelo> modelos = new ArrayList<>();
-        String sql = "select modelo.id, modelo.nombre, modelo.anio, modelo.marca_id from modelo where modelo.nombre=" + "'" + name + "'";
+        String sql = "select modelo.id, modelo.nombre, modelo.anio, modelo.marca_id from modelo inner join marca on modelo.marca_id = marca.id where modelo.nombre ~ ? or marca.nombre ~ ?";
         try {
             sqlcon = con.getConection();
             ps = sqlcon.prepareStatement(sql);
+            ps.setString(1, name);
+            ps.setString(2, name);
             rs = ps.executeQuery();
             while (rs.next()) {
                 Modelo m = new Modelo();
