@@ -183,7 +183,7 @@ public class GestorAuto implements ActionListener {
                 autoDAO.agregar(auto);
                 this.limpiarTabla();
                 this.listar(vistaAuto.AutosjTable);
-                JOptionPane.showMessageDialog(null, "Marca se agrego con exito");
+                JOptionPane.showMessageDialog(null, "Auto se agrego con exito");
 
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "No se agregaron los datos");
