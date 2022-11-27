@@ -6,6 +6,17 @@ public class Modelo {
     int anio;
     Marca marca;
 
+    public Modelo() {
+    }
+
+    public Modelo(int id, String nombre, int anio, Marca marca) {
+        this.id = id;
+        this.nombre = nombre;
+        this.anio = anio;
+        this.marca = marca;
+    }
+    
+
     public int getId() {
         return id;
     }

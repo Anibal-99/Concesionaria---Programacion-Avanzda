@@ -37,9 +37,9 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         abmcMarca = new javax.swing.JMenuItem();
+        abmcModelos = new javax.swing.JMenuItem();
         abmcCliente = new javax.swing.JMenuItem();
         abmcAuto = new javax.swing.JMenuItem();
-        abmcModelos = new javax.swing.JMenuItem();
         menuVendedor = new javax.swing.JMenuItem();
         menuVenta = new javax.swing.JMenuItem();
         reportes = new javax.swing.JMenuItem();
@@ -71,6 +71,15 @@ public class VistaPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(abmcMarca);
 
+        abmcModelos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/matricula.png"))); // NOI18N
+        abmcModelos.setText("Modelos");
+        abmcModelos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                abmcModelosActionPerformed(evt);
+            }
+        });
+        jMenu1.add(abmcModelos);
+
         abmcCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Cliente.png"))); // NOI18N
         abmcCliente.setText("Clientes");
         abmcCliente.addActionListener(new java.awt.event.ActionListener() {
@@ -88,15 +97,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu1.add(abmcAuto);
-
-        abmcModelos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/matricula.png"))); // NOI18N
-        abmcModelos.setText("Modelos");
-        abmcModelos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                abmcModelosActionPerformed(evt);
-            }
-        });
-        jMenu1.add(abmcModelos);
 
         menuVendedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/empleado-con-corbata (1).png"))); // NOI18N
         menuVendedor.setText("Vendedor");
@@ -116,6 +116,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(menuVenta);
 
+        reportes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/reporte-de-negocios.png"))); // NOI18N
         reportes.setText("Reportes");
         reportes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

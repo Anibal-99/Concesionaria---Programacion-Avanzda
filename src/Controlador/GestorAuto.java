@@ -30,6 +30,7 @@ import Modelos.ColorDao;
 import Vistas.VistaAuto;
 import Vistas.NumberRenderer;
 import Modelos.Color;
+import static Utils.StringUtils.capitalize;
 import javax.swing.DefaultComboBoxModel;
 
 /**
@@ -50,7 +51,7 @@ public class GestorAuto implements ActionListener {
         this.vistaAuto.EliminarjButton.addActionListener(this);
         this.vistaAuto.ModificarjButton.addActionListener(this);
         this.vistaAuto.ActualizarjButton.addActionListener(this);
-        this.vistaAuto.btnNuevo.addActionListener(this);
+        this.vistaAuto.btnCancelar.addActionListener(this);
         this.vistaAuto.btnBuscar.addActionListener(this);
     }
 
@@ -92,7 +93,7 @@ public class GestorAuto implements ActionListener {
             }
             nuevo();
         }
-        if (e.getSource() == vistaAuto.btnNuevo) {
+        if (e.getSource() == vistaAuto.btnCancelar) {
             nuevo();
         }
         if (e.getSource() == vistaAuto.btnBuscar) {
@@ -268,7 +269,7 @@ public class GestorAuto implements ActionListener {
     public void buscarAutos(JTable tablaAuto) throws SQLException {
         // Esto es para que se ejecute la tabla al momento de iniciar el programa
         defaultTableModel = (DefaultTableModel) tablaAuto.getModel();
-        String name = this.vistaAuto.txtBuscar.getText();
+        String name = capitalize(this.vistaAuto.txtBuscar.getText());
         List<Auto> autos = autoDAO.buscarAutos(name);
 
         for (Auto a : autos) {

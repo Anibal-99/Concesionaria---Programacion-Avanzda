@@ -49,6 +49,8 @@ public class GestorListaReporteAuto implements ActionListener {
         tcm.getColumn(1).setCellRenderer(NumberRenderer.getCurrencyRenderer());
         tcm.getColumn(2).setCellRenderer(NumberRenderer.getCurrencyRenderer());
         tcm.getColumn(3).setCellRenderer(NumberRenderer.getCurrencyRenderer());
+        float monto=0;
+        int cantidad=0;
 
         for (modelReporteRow m : lista) {
             Object[] object = {
@@ -59,6 +61,9 @@ public class GestorListaReporteAuto implements ActionListener {
                 m.getVentas()
             };
             modelo.addRow(object);
+            monto = (float) m.getPrecio()+monto;
+            cantidad=(int) m.getVentas()+cantidad;
         }
+        this.vista.txtPromedioVentas.setText(monto/cantidad+"");
     }
 }

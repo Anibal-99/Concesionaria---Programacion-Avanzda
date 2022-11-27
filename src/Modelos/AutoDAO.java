@@ -89,8 +89,7 @@ public class AutoDAO {
 
     public ArrayList<Auto> buscarAutos(String name) throws SQLException {
         ArrayList<Auto> autos = new ArrayList<>();
-        //String sql = "SELECT auto.id, auto.precio, auto.costo, auto.observacion, auto.color_id, auto.modelo_id FROM auto";
-        String sql = "SELECT auto.id, auto.precio, auto.costo, auto.observacion, auto.color_id, auto.modelo_id FROM auto inner join modelo on auto.modelo_id=modelo.id inner join marca on modelo.marca_id = marca.id where marca.nombre ~ ? or modelo.nombre ~ ?";
+        String sql = "SELECT auto.id, auto.precio, auto.costo, auto.observacion, auto.color_id, auto.modelo_id FROM auto INNER JOIN modelo ON auto.modelo_id=modelo.id INNER JOIN marca ON modelo.marca_id=marca.id where modelo.nombre ~ ? OR marca.nombre ~ ?";
         try {
             sqlcon = con.getConection();
             ps = sqlcon.prepareStatement(sql);

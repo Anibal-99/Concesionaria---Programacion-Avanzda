@@ -15,6 +15,7 @@ public class VistaListaReporteAuto extends javax.swing.JFrame {
      */
     public VistaListaReporteAuto() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
