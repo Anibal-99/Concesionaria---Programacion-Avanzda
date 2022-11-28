@@ -127,6 +127,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(reportes);
 
+        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/grafico-circular.png"))); // NOI18N
         jMenuItem2.setText("Grafico");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

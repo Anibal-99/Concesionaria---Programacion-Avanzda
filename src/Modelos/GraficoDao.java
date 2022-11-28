@@ -24,7 +24,8 @@ public class GraficoDao {
         int valorVentas = 0;
         String sql = """
                      SELECT
-                         SUM(venta.cantidad) as Ventas
+                         region.nombre as "Region",
+                         COUNT(*) as ventas
                      FROM
                          venta inner join auto on venta.auto_id=auto.id
                          inner join modelo on auto.modelo_id=modelo.id
@@ -32,7 +33,11 @@ public class GraficoDao {
                          inner join pais on marca.pais_id=pais.id
                          inner join region on pais.region_id=region.id
                      WHERE
-                         region.nombre='Local';
+                         region.nombre='Local'
+                     GROUP BY
+                         region.nombre
+                     ORDER BY
+                         region.nombre;
                      """;
         try {
             con = conectar.getConection();
@@ -40,7 +45,7 @@ public class GraficoDao {
             rs = insert.executeQuery();
 
             while (rs.next()) {
-                valorVentas = rs.getInt(1);
+                valorVentas = rs.getInt(2);
             }
         } catch (Exception e) {
 
@@ -52,7 +57,8 @@ public class GraficoDao {
         int valorVentas = 0;
         String sql = """
                      SELECT
-                         SUM(venta.cantidad) as Ventas
+                         region.nombre as "Region",
+                         COUNT(*) as ventas
                      FROM
                          venta inner join auto on venta.auto_id=auto.id
                          inner join modelo on auto.modelo_id=modelo.id
@@ -60,7 +66,11 @@ public class GraficoDao {
                          inner join pais on marca.pais_id=pais.id
                          inner join region on pais.region_id=region.id
                      WHERE
-                         region.nombre='Sudamerica';
+                         region.nombre='Sudamerica'
+                     GROUP BY
+                         region.nombre
+                     ORDER BY
+                         region.nombre;
                      """;
         try {
             con = conectar.getConection();
@@ -68,7 +78,7 @@ public class GraficoDao {
             rs = insert.executeQuery();
 
             while (rs.next()) {
-                valorVentas = rs.getInt(1);
+                valorVentas = rs.getInt(2);
             }
         } catch (Exception e) {
 
@@ -80,7 +90,8 @@ public class GraficoDao {
         int valorVentas = 0;
         String sql = """
                      SELECT
-                         SUM(venta.cantidad) as Ventas
+                         region.nombre as "Region",
+                         COUNT(*) as ventas
                      FROM
                          venta inner join auto on venta.auto_id=auto.id
                          inner join modelo on auto.modelo_id=modelo.id
@@ -88,7 +99,11 @@ public class GraficoDao {
                          inner join pais on marca.pais_id=pais.id
                          inner join region on pais.region_id=region.id
                      WHERE
-                         region.nombre='Extrangero';
+                         region.nombre='Extrangero'
+                     GROUP BY
+                         region.nombre
+                     ORDER BY
+                         region.nombre;
                      """;
         try {
             con = conectar.getConection();
@@ -96,7 +111,7 @@ public class GraficoDao {
             rs = insert.executeQuery();
 
             while (rs.next()) {
-                valorVentas = rs.getInt(1);
+                valorVentas = rs.getInt(2);
             }
         } catch (Exception e) {
 

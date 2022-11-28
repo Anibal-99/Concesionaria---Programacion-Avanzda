@@ -20,8 +20,8 @@ DESC
 */
 
 SELECT
-    region.nombre as region,
-    SUM(*) as Ventas
+    region.nombre as "Region",
+    COUNT(*) as ventas
 FROM
     venta inner join auto on venta.auto_id=auto.id
     inner join modelo on auto.modelo_id=modelo.id
@@ -29,8 +29,8 @@ FROM
     inner join pais on marca.pais_id=pais.id
     inner join region on pais.region_id=region.id
 WHERE
-    region.nombre='Extranjero'
+    region.nombre='Extrangero'
 GROUP BY
-    Ventas
+    region.nombre
 ORDER BY
     region.nombre;

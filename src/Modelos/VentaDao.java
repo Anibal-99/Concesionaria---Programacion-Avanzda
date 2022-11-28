@@ -119,7 +119,7 @@ public class VentaDao {
                 data.add(v);
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, "Ingrese correctamente la fecha, con numeros y barra(/)");
         }
         con.close();
         return data;

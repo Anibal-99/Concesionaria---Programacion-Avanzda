@@ -83,9 +83,16 @@ public class VistaListaVentas extends javax.swing.JFrame {
                 "Nro venta", "Cliente", "Auto", "Cantidad", "Monto", "Impuesto", "Total", "Fecha venta", "Vendedor"
             }
         ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Float.class, java.lang.Float.class, java.lang.Float.class, java.lang.String.class, java.lang.Object.class
+            };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, false, false, false, false
             };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -97,6 +104,20 @@ public class VistaListaVentas extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(tableVentas);
+        if (tableVentas.getColumnModel().getColumnCount() > 0) {
+            tableVentas.getColumnModel().getColumn(0).setResizable(false);
+            tableVentas.getColumnModel().getColumn(0).setPreferredWidth(1);
+            tableVentas.getColumnModel().getColumn(1).setResizable(false);
+            tableVentas.getColumnModel().getColumn(1).setPreferredWidth(6);
+            tableVentas.getColumnModel().getColumn(2).setMinWidth(10);
+            tableVentas.getColumnModel().getColumn(2).setPreferredWidth(10);
+            tableVentas.getColumnModel().getColumn(3).setPreferredWidth(2);
+            tableVentas.getColumnModel().getColumn(4).setPreferredWidth(3);
+            tableVentas.getColumnModel().getColumn(5).setPreferredWidth(3);
+            tableVentas.getColumnModel().getColumn(6).setPreferredWidth(5);
+            tableVentas.getColumnModel().getColumn(7).setPreferredWidth(4);
+            tableVentas.getColumnModel().getColumn(8).setPreferredWidth(4);
+        }
 
         txtFechaDesde.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
