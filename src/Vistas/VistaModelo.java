@@ -349,10 +349,6 @@ public class VistaModelo extends javax.swing.JFrame {
 
     private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
         // TODO add your handling code here:
-        char validar = evt.getKeyChar();
-        if (Character.isDigit(validar)) {
-            evt.consume();
-        }
     }//GEN-LAST:event_txtNombreKeyTyped
 
     private void tablaModeloMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaModeloMouseClicked

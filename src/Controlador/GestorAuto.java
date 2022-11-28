@@ -183,7 +183,7 @@ public class GestorAuto implements ActionListener {
                 autoDAO.agregar(auto);
                 this.limpiarTabla();
                 this.listar(vistaAuto.AutosjTable);
-                JOptionPane.showMessageDialog(null, "Marca se agrego con exito");
+                JOptionPane.showMessageDialog(null, "Auto se agrego con exito");
 
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "No se agregaron los datos");
@@ -273,7 +273,6 @@ public class GestorAuto implements ActionListener {
         List<Auto> autos = autoDAO.buscarAutos(name);
 
         for (Auto a : autos) {
-            System.out.println(a.getCosto());
             Object[] object = {a.getId(), a.getModelo(), a.getPrecio(), a.getCosto(), a.getColor(), a.getObservacion()};
             defaultTableModel.addRow(object);
         }

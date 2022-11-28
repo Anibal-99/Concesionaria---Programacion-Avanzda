@@ -111,7 +111,6 @@ public class VendedorDao {
             insert = con.prepareStatement(sql);
             insert.setString(1, name);
             rs = insert.executeQuery();
-            System.out.println(insert);
             while (rs.next()) {
                 Vendedor v = new Vendedor();
                 v.setId(rs.getInt(1));

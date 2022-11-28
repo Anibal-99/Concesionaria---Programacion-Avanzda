@@ -27,12 +27,17 @@ public class VistaVenta extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         txtFecha.setText(fecha());
+        this.habilitarBotones(false);
     }
 
     public String fecha() {
         Date fecha = new Date();
         SimpleDateFormat fechaAct = new SimpleDateFormat("dd/MM/YYYY");
         return fechaAct.format(fecha);
+    }
+
+    public void habilitarBotones(boolean agregar) {
+        this.btnAgregar.setEnabled(agregar);
     }
 
     public void inicializar() throws SQLException {
@@ -319,6 +324,11 @@ public class VistaVenta extends javax.swing.JFrame {
         jLabel9.setText("Cantidad");
 
         btnCalcular.setText("Calcular");
+        btnCalcular.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCalcularActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -430,6 +440,11 @@ public class VistaVenta extends javax.swing.JFrame {
             Logger.getLogger(VistaVenta.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnListaVentasActionPerformed
+
+    private void btnCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcularActionPerformed
+        // TODO add your handling code here:
+        this.habilitarBotones(true);
+    }//GEN-LAST:event_btnCalcularActionPerformed
 
     /**
      * @param args the command line arguments

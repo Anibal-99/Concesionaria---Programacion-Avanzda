@@ -1,4 +1,4 @@
-SELECT
+/*SELECT
     CONCAT(marca.nombre, ' ', modelo.nombre) as "MODELO",
     SUM(auto.costo * venta.cantidad) as "COSTO TOTAL",
     SUM(venta.monto_total) as "PRECIO TOTAL",
@@ -17,3 +17,20 @@ ORDER BY
     ganancia
 DESC
 ;
+*/
+
+SELECT
+    region.nombre as "Region",
+    COUNT(*) as ventas
+FROM
+    venta inner join auto on venta.auto_id=auto.id
+    inner join modelo on auto.modelo_id=modelo.id
+    inner join marca on modelo.marca_id=marca.id
+    inner join pais on marca.pais_id=pais.id
+    inner join region on pais.region_id=region.id
+WHERE
+    region.nombre='Extrangero'
+GROUP BY
+    region.nombre
+ORDER BY
+    region.nombre;
