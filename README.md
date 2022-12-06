@@ -3,10 +3,12 @@
 ### Utilidades necesarias previamente.
 
 - **WSL2**: Windows subsystem for linux
+  
+  - Para instalar wsl seguir el tutorial: [Instalación de WSL | Microsoft Learn](https://learn.microsoft.com/es-es/windows/wsl/install)
 
 - **Docker**: Dentro del WSL2 instalar docker
   
-  - *para instalar*: sudo apt install docker
+  - Para instalar docker seguir el tutorial de la pagina oficial: [Instalar Docker Engine en Ubuntu | Documentación de Docker](https://docs.docker.com/engine/install/ubuntu/)
 
 - **Docker-compose**: Dentro del WSL2 instalar docker-compose 
   
